@@ -29,7 +29,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
       POSTGRES_USER: ${POSTGRES_USER:-app_user}
     ports:
-      - "5432"
+      - "64067:5432"
     volumes:
       - database_data:/var/lib/postgresql/data:rw
 ###< doctrine/doctrine-bundle ###
