@@ -1,0 +1,27 @@
+version: "3.9"
+
+x-php-variables: &php-environment
+  environment:
+    - APP_ENV=${APP_ENV:-dev}
+    - ACCESS_TOKENS=${ACCESS_TOKENS:-token123}
+
+services:
+  composer-install:
+    container_name: motivator-composer-install
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: composer_install
+    volumes:
+      - ./app/:/app
+    <<: *php-environment
+
+  composer-update:
+    container_name: motivator-composer-update
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: composer_update
+    volumes:
+      - ./app/:/app
+    <<: *php-environment

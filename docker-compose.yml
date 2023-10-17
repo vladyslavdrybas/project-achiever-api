@@ -1,0 +1,40 @@
+version: "3.9"
+
+x-php-variables: &php-environment
+  environment:
+    - APP_ENV=${APP_ENV:-dev}
+    - ACCESS_TOKENS=${ACCESS_TOKENS:-token123}
+
+services:
+  app:
+    container_name: motivator-api
+    build:
+        context: .
+        dockerfile: ./Dockerfile
+        target: php_base
+    ports:
+       - 8000:8000
+    depends_on:
+      - database
+    command: ["symfony", "server:start"]
+    volumes:
+      - ./app:/app:rw
+    <<: *php-environment
+
+###> doctrine/doctrine-bundle ###
+  database:
+    image: postgres:${POSTGRES_VERSION:-15}-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app_db}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      POSTGRES_USER: ${POSTGRES_USER:-app_user}
+    ports:
+      - "5432"
+    volumes:
+      - database_data:/var/lib/postgresql/data:rw
+###< doctrine/doctrine-bundle ###
+
+volumes:
+###> doctrine/doctrine-bundle ###
+  database_data:
+###< doctrine/doctrine-bundle ###

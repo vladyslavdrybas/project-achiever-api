@@ -1,0 +1,14 @@
+parameters:
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    level: max
+    paths:
+        - src
+        - public
+        - config
+#    excludePaths:
+#        - src/Event/Subscriber/LocaleSubscriber.php
+    bootstrapFiles:
+        - tests/bootstrap.php
+includes:
+	- vendor/phpstan/phpstan-symfony/extension.neon
