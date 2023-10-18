@@ -96,10 +96,12 @@
             "@auto-scripts"
         ],
         "code-check": [
-            "./vendor/bin/phpmd src,public ansi phpmd.xml",
-            "./vendor/bin/psalm --config=psalm.xml --show-info=true",
-            "./vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=2G"
+            "@code-check-md",
+            "@code-check-phpstan"
         ],
+        "code-check-md": "./vendor/bin/phpmd src,public ansi phpmd.xml",
+        "code-check-psalm": "./vendor/bin/psalm --config=psalm.xml --show-info=true",
+        "code-check-phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=2G",
         "db-check": [
             "bin/console doctrine:schema:validate --skip-sync"
         ],

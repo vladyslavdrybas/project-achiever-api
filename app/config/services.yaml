@@ -4,12 +4,15 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    access_tokens: '%env(json:ACCESS_TOKENS)%'
+    table_prefix: 'smfn_'
 
 services:
-    # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true
+        autoconfigure: true
+        bind:
+            $projectDir: '%kernel.project_dir%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -19,6 +22,16 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/Tests/'
 
+    App\Event\Listener\TablePrefixListener:
+        arguments:
+            - '%table_prefix%'
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata, method: loadClassMetadata }
+            
+    App\ValueResolver\JsonTransferValueResolver:
+        tags:
+            - { name: controller.argument_value_resolver, priority: 50 }
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
