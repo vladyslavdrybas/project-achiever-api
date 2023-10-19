@@ -43,6 +43,6 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 
     protected function getLoginUrl(): string
     {
-        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+        return $this->urlGenerator->generate(self::LOGIN_ROUTE, [], UrlGeneratorInterface::ABSOLUTE_URL);
     }
 }

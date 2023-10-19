@@ -88,10 +88,18 @@ class JsonLoginAuthenticator extends AbstractAuthenticator
     {
         $targetPath = $this->urlGenerator->generate(static::HOMEPAGE_ROUTE, [], UrlGeneratorInterface::ABSOLUTE_URL);
         $logoutPath = $this->urlGenerator->generate(static::LOGOUT_ROUTE, [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        /** @var User $user */
+        $user = $token->getUser();
         $data = [
             'message' => 'success',
-            'targetPath' => $targetPath,
-            'logoutPath' => $logoutPath,
+            'user' => [
+                'id' => $user->getRawId(),
+            ],
+            'path' => [
+                'target' => $targetPath,
+                'logout' => $logoutPath,
+            ],
         ];
 
         return new JsonResponse($data, JsonResponse::HTTP_OK);
@@ -107,7 +115,9 @@ class JsonLoginAuthenticator extends AbstractAuthenticator
     {
         $data = [
             'message' => strtr($exception->getMessageKey(), $exception->getMessageData()),
-            'targetPath' => $this->getLoginUrl(),
+            'path' => [
+                'target' => $this->getLoginUrl(),
+            ],
         ];
 
         return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);

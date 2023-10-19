@@ -57,6 +57,9 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\Column(name: "is_deleted", type: Types::BOOLEAN, options: ["default" => false])]
     protected bool $isDeleted = false;
 
+    #[ORM\Column(name: "watch_public_achievements", type: Types::BOOLEAN, options: ["default" => false])]
+    protected bool $watchPublicAchievements = false;
+
     #[ORM\Column(name: "locale", type: Types::STRING, length: 5, options: ["default" => 'en'])]
     protected string $locale = 'en';
 
@@ -308,5 +311,21 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
         if (!$this->tokens->contains($token)) {
             $this->tokens[] = $token;
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWatchPublicAchievements(): bool
+    {
+        return $this->watchPublicAchievements;
+    }
+
+    /**
+     * @param bool $watchPublicAchievements
+     */
+    public function setWatchPublicAchievements(bool $watchPublicAchievements): void
+    {
+        $this->watchPublicAchievements = $watchPublicAchievements;
     }
 }

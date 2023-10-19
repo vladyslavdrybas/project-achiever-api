@@ -29,8 +29,10 @@ class LoginController extends AbstractController
 
         $data = [
             'message' => 'success',
-            'targetPath' => $this->getHomepageUrl(),
-            'loginPath' => $this->getLoginUrl(),
+            'path' => [
+                'target' => $this->getHomepageUrl(),
+                'login' => $this->getLoginUrl(),
+            ],
         ];
 
         return $this->json($data);

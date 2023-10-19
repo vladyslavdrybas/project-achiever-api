@@ -42,8 +42,14 @@ class RegisterController extends AbstractController
 
         return $this->json([
             'message' => 'success',
-            'email' => $user->getEmail(),
-            'id' => $user->getRawId(),
+            'user' => [
+                'id' => $user->getRawId(),
+                'email' => $user->getEmail(),
+            ],
+            'path' => [
+                'target' => $this->getHomepageUrl(),
+                'login' => $this->getLoginUrl(),
+            ],
         ], JsonResponse::HTTP_OK);
     }
 }

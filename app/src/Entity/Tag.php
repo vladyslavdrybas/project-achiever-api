@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Repository\TagRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use function str_replace;
 
 #[ORM\Entity(repositoryClass: TagRepository::class, readOnly: false)]
 #[ORM\Table(name: "tag")]
@@ -47,6 +48,34 @@ class Tag implements EntityInterface
      */
     public function setId(string $id): void
     {
-        $this->id = $id;
+        $this->id = $this->clear($id);
+    }
+
+    protected function clear(string $id): string
+    {
+        return str_replace(
+            [
+                '#',
+                ' ',
+                '"',
+                '\'',
+                ';',
+                '\\',
+                ']',
+                '[',
+                '}',
+                '{',
+                ')',
+                '(',
+                '*',
+                '+',
+                '%',
+                '.',
+                ',',
+                '$'
+            ],
+            '',
+            $id
+        );
     }
 }

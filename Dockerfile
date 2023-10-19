@@ -30,6 +30,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 COPY --from=composer:2.6.5 /usr/bin/composer /usr/bin/composer
+COPY docker/php/php.ini /usr/local/etc/php/php.ini
 
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | bash \
     && apk add symfony-cli

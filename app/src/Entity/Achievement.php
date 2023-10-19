@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\AchievementRepository;
-use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Exception;
-use function sprintf;
 
 #[ORM\Entity(repositoryClass: AchievementRepository::class, readOnly: false)]
 #[ORM\Table(name: "achievement")]
@@ -29,9 +27,9 @@ class Achievement extends AbstractEntity
     #[ORM\Column(
         name: "done_at",
         type: Types::DATETIME_IMMUTABLE,
-        nullable: false
+        nullable: true
     )]
-    protected DateTimeImmutable $doneAt;
+    protected ?DateTimeInterface $doneAt;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'achievements')]
     #[ORM\JoinColumn(name:'user_id', referencedColumnName: 'id', nullable: false)]
@@ -68,15 +66,12 @@ class Achievement extends AbstractEntity
     /**
      * @param \App\Entity\Tag $tag
      * @return void
-     * @throws \Exception
      */
     public function addTag(Tag $tag): void
     {
-        if ($this->tags->contains($tag)) {
-            throw new Exception(sprintf("%s with id % exists.", Tag::class, $tag->getId()));
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
         }
-
-        $this->tags->add($tag);
     }
 
     /**
@@ -128,17 +123,17 @@ class Achievement extends AbstractEntity
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return \DateTimeInterface|null
      */
-    public function getDoneAt(): DateTimeImmutable
+    public function getDoneAt(): ?DateTimeInterface
     {
         return $this->doneAt;
     }
 
     /**
-     * @param \DateTimeImmutable $doneAt
+     * @param \DateTimeInterface|null $doneAt
      */
-    public function setDoneAt(DateTimeImmutable $doneAt): void
+    public function setDoneAt(?DateTimeInterface $doneAt = null): void
     {
         $this->doneAt = $doneAt;
     }

@@ -7,12 +7,10 @@ namespace App\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as SymfonyAbstractController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 abstract class AbstractController extends SymfonyAbstractController
 {
     public const LOGIN_ROUTE = 'login_json';
-    public const LOGOUT_ROUTE = 'login_logout_json';
     public const HOMEPAGE_ROUTE = 'app_homepage';
 
     protected EntityManagerInterface $entityManager;
