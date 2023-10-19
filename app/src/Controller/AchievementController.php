@@ -9,15 +9,12 @@ use App\Entity\Tag;
 use App\Repository\AchievementRepository;
 use App\Repository\TagRepository;
 use App\Repository\UserRepository;
-use App\Serializer\AchievementNormalizer;
 use App\Transfer\AchievementCreateJsonTransfer;
-use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 use function array_map;
-use function var_dump;
 
 #[Route('/achievement', name: "achievement")]
 class AchievementController extends AbstractController
@@ -27,8 +24,7 @@ class AchievementController extends AbstractController
         AchievementCreateJsonTransfer $transfer,
         AchievementRepository $achievementRepository,
         UserRepository $userRepository,
-        TagRepository $tagRepository,
-        SerializerInterface $serializer
+        TagRepository $tagRepository
     ): JsonResponse {
         $achievement = new Achievement();
         $achievement->setTitle($transfer->getTitle());
@@ -66,7 +62,7 @@ class AchievementController extends AbstractController
         $achievementRepository->add($achievement);
         $achievementRepository->save();
 
-        $data = $serializer->normalize($achievement);
+        $data = $this->serializer->normalize($achievement);
 
         return $this->json($data);
     }
@@ -80,9 +76,26 @@ class AchievementController extends AbstractController
     }
 
     #[Route("/{id}", name: "_show", methods: ["GET"])]
-    public function show(): JsonResponse
-    {
-        $data = [];
+    public function show(
+        string $id,
+        AchievementRepository $achievementRepository
+    ): JsonResponse {
+        try {
+            $achievement = $achievementRepository->find($id);
+
+            if (!$achievement instanceof Achievement) {
+                throw new Exception('not found');
+            }
+        } catch (Exception $e) {
+            return $this->json(
+                [
+                    'message' => $e->getMessage(),
+                ],
+                JsonResponse::HTTP_NOT_FOUND
+            );
+        }
+
+        $data = $this->serializer->normalize($achievement);
 
         return $this->json($data);
     }
