@@ -32,7 +32,9 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
     {
         $data = [
             'message' => 'You have to login in order to access this page.',
-            'targetPath' => $this->getLoginUrl(),
+            'path' => [
+                'target' => $this->getLoginUrl(),
+            ],
         ];
 
         return new JsonResponse(
