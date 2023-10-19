@@ -1,0 +1,1187 @@
+{
+	"info": {
+		"_postman_id": "71c9b0dd-1681-4976-81b5-592a0b187315",
+		"name": "Motivator-Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "133025"
+	},
+	"item": [
+		{
+			"name": "Register Json",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/register/json",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"register",
+						"json"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/register/json",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"register",
+								"json"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:13:06 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:13:06 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "ec21e5"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/ec21e5"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "381"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"success\",\n    \"user\": {\n        \"email\": \"example4@dot.com\",\n        \"locale\": \"en\",\n        \"object\": \"User\",\n        \"id\": \"07e634d6-6872-4284-8a46-25988c379489\",\n        \"createdAt\": \"2023-10-19T20:13:05+00:00\",\n        \"updatedAt\": \"2023-10-19T20:13:05+00:00\",\n        \"isActive\": true,\n        \"isEmailVerified\": false,\n        \"isBanned\": false,\n        \"isDeleted\": false\n    },\n    \"path\": {\n        \"target\": \"https://localhost:8000/\",\n        \"login\": \"https://localhost:8000/login/json\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Login Json",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"if (pm.response.code == 200) {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    postman.setEnvironmentVariable(\"token\", jsonData.token);",
+							"    postman.setEnvironmentVariable(\"user_id\", jsonData.user.id);",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/login/json",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"login",
+						"json"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/login/json",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"login",
+								"json"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:06:28 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:06:28 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "76248a"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/76248a"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "178"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"success\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"path\": {\n        \"target\": \"https://localhost:8000/\",\n        \"logout\": \"https://localhost:8000/login/logout/json\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "User profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/profile",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:15:52 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:15:52 GMT"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "PHPSESSID=2b28b83c520753c939d76f1d2df56500; path=/; secure; httponly; samesite=lax"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "787e4b"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/787e4b"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "119"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"You have to login in order to access this page.\",\n    \"path\": {\n        \"target\": \"https://localhost:8000/login/json\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/login/logout/json",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"login",
+						"logout",
+						"json"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/login/logout/json",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"login",
+								"logout",
+								"json"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:17:00 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:17:00 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "5aac64"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/5aac64"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "116"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"success\",\n    \"path\": {\n        \"target\": \"https://localhost:8000/\",\n        \"login\": \"https://localhost:8000/login/json\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Achievement Create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"Date.prototype.toW3CString = function () {",
+							"\tvar year = this.getFullYear();",
+							"\tvar month = this.getMonth();",
+							"\tmonth ++;",
+							"\tif (month < 10) {",
+							"\t\tmonth = '0' + month;",
+							"\t}",
+							"\tvar day = this.getDate();",
+							"\tif (day < 10) {",
+							"\t\tday = '0' + day;",
+							"\t}",
+							"\tvar hours = this.getHours();",
+							"\tif (hours < 10) {",
+							"\t\thours = '0' + hours;",
+							"\t}",
+							"\tvar minutes = this.getMinutes();",
+							"\tif (minutes < 10) {",
+							"\t\tminutes = '0' + minutes;",
+							"\t}",
+							"\tvar seconds = this.getSeconds();",
+							"\tif (seconds < 10) {",
+							"\t\tseconds = '0' + seconds;",
+							"\t}",
+							"\tvar offset = -this.getTimezoneOffset();",
+							"\tvar offsetHours = Math.abs(Math.floor(offset / 60));",
+							"\tvar offsetMinutes = Math.abs(offset) - offsetHours * 60;",
+							"\tif (offsetHours < 10) {",
+							"\t\toffsetHours = '0' + offsetHours;",
+							"\t}",
+							"\tif (offsetMinutes < 10) {",
+							"\t\toffsetMinutes = '0' + offsetMinutes;",
+							"\t}",
+							"\tvar offsetSign = '+';",
+							"\tif (offset < 0) {",
+							"\t\toffsetSign = '-';",
+							"\t}",
+							"\treturn year + '-' + month + '-' + day +",
+							"\t\t'T' + hours + ':' + minutes + ':' + seconds +",
+							"\t\toffsetSign + offsetHours + ':' + offsetMinutes;",
+							"}",
+							"",
+							"const LOREM_IPSUM = String(postman.getGlobalVariable('LOREM_IPSUM'));",
+							"const LOREM_IPSUM_LENGTH = LOREM_IPSUM.length;",
+							"const TITLE_CHAR_START = Math.floor(Math.random() * (LOREM_IPSUM_LENGTH - 125));",
+							"const TITLE_CHAR_END = TITLE_CHAR_START + Math.floor(Math.random() * 115 + 10);",
+							"const DESCRIPTION_CHAR_START = Math.floor(Math.random() * (LOREM_IPSUM_LENGTH - 255));",
+							"const DESCRIPTION_CHAR_END = DESCRIPTION_CHAR_START + Math.floor(Math.random() * 245 + 10);",
+							"const TAG_CHAR_START = Math.floor(Math.random() * (LOREM_IPSUM_LENGTH - 10));",
+							"const TAG_CHAR_END = TAG_CHAR_START + Math.floor(Math.random() * 8 + 2);",
+							"const date = new Date(",
+							"    2023,",
+							"    Math.floor(Math.random() * 11 + 1),",
+							"    Math.floor(Math.random() * 27 + 1),",
+							"    Math.floor(Math.random() * 23),",
+							"    Math.floor(Math.random() * 59),",
+							");",
+							"",
+							"let body = JSON.parse(pm.request.body.raw);",
+							"",
+							"body.title = LOREM_IPSUM.substring(TITLE_CHAR_START,TITLE_CHAR_END).trim();",
+							"body.description = LOREM_IPSUM.substring(DESCRIPTION_CHAR_START,DESCRIPTION_CHAR_END",
+							").trim(); ",
+							"body.doneAt = Math.floor(Math.random() * 10) < 7 ? date.toW3CString() : null;",
+							"body.tags.push(LOREM_IPSUM.substring(TAG_CHAR_START,TAG_CHAR_END).trim());",
+							"",
+							"body.tags.push('restricted,.CharActers;+*()\\\\[]{} ;\"\\'$%#');",
+							"",
+							"pm.request.body.raw = body;"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"if (pm.response.code == 200) {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    postman.setEnvironmentVariable(\"achievement_last_created_id\", jsonData.id);",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"first achievement\",\n    \"description\": \"description of the first achievement\",\n    \"isPublic\": false,\n    \"doneAt\": \"2023-10-18T17:00:54+0300\",\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"pet-project\",\n        \"hustle\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/achievement/create",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"achievement",
+						"create"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"first achievement\",\n    \"description\": \"description of the first achievement\",\n    \"isPublic\": false,\n    \"doneAt\": \"2023-10-18T17:00:54+0300\",\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"pet-project\",\n        \"hustle\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/create",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:17:30 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:17:30 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "0dcdb0"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/0dcdb0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "485"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"pet-project\",\n        \"hustle\",\n        \"ytext\",\n        \"restrictedCharActers\"\n    ],\n    \"title\": \"PageMaker including versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is not simply random te\",\n    \"description\": \"pecimen book. It ha\",\n    \"doneAt\": \"2023-10-21T11:29:00+00:00\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"object\": \"Achievement\",\n    \"id\": \"6aa249b8-feba-439c-90ca-e2f141e420ea\",\n    \"createdAt\": \"2023-10-19T20:17:30+00:00\",\n    \"updatedAt\": \"2023-10-19T20:17:30+00:00\",\n    \"isPublic\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "Achievement",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/achievement/{{achievement_last_created_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"achievement",
+						"{{achievement_last_created_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/{{achievement_last_created_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"{{achievement_last_created_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:07:11 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:07:11 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "6ded2c"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/6ded2c"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "571"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tags\": [\n        \"pet-project\",\n        \"restrictedCharActers\",\n        \"page\"\n    ],\n    \"title\": \"Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classi\",\n    \"description\": \"ake a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remainin\",\n    \"doneAt\": \"2023-06-14T06:10:00+00:00\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"object\": \"Achievement\",\n    \"id\": \"715b8f01-5880-482a-80a1-ff1a8e571dde\",\n    \"createdAt\": \"2023-10-19T05:01:09+00:00\",\n    \"updatedAt\": \"2023-10-19T05:01:09+00:00\",\n    \"isPublic\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "Achievement List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/achievement/list/{{user_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"achievement",
+						"list",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/{{user_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"{{user_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:17:51 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:17:51 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "35e2af"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/35e2af"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1906"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"tags\": [\n            \"UA\",\n            \"hustle\",\n            \"work\",\n            \"pet-project\"\n        ],\n        \"title\": \"first achievement\",\n        \"description\": \"description of the first achievement\",\n        \"doneAt\": \"2023-10-18T14:00:54+00:00\",\n        \"user\": {\n            \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n        },\n        \"object\": \"Achievement\",\n        \"id\": \"fe2a1bef-7bd7-402e-b211-482da8adaa16\",\n        \"createdAt\": \"2023-10-18T15:24:06+00:00\",\n        \"updatedAt\": \"2023-10-18T15:24:06+00:00\",\n        \"isPublic\": false\n    },\n    {\n        \"tags\": [\n            \"UA\",\n            \"hustle\",\n            \"work\",\n            \"pet-project\"\n        ],\n        \"title\": \"first achievement\",\n        \"description\": \"description of the first achievement\",\n        \"doneAt\": \"2023-10-18T14:00:54+00:00\",\n        \"user\": {\n            \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n        },\n        \"object\": \"Achievement\",\n        \"id\": \"9569adb0-96ec-415d-8f7c-17e6125faf3c\",\n        \"createdAt\": \"2023-10-18T15:24:42+00:00\",\n        \"updatedAt\": \"2023-10-18T15:24:42+00:00\",\n        \"isPublic\": false\n    },\n    {\n        \"tags\": [\n            \"UA\",\n            \"hustle\",\n            \"work\",\n            \"pet-project\"\n        ],\n        \"title\": \"first achievement\",\n        \"description\": \"description of the first achievement\",\n        \"doneAt\": \"2023-10-18T14:00:54+00:00\",\n        \"user\": {\n            \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n        },\n        \"object\": \"Achievement\",\n        \"id\": \"dd391f9e-50c3-45f5-9303-fa99cfd3d8e7\",\n        \"createdAt\": \"2023-10-18T15:25:27+00:00\",\n        \"updatedAt\": \"2023-10-18T15:25:27+00:00\",\n        \"isPublic\": false\n    },\n    {\n        \"tags\": [\n            \"UA\",\n            \"hustle\",\n            \"work\",\n            \"pet-project\"\n        ],\n        \"title\": \"first achievement\",\n        \"description\": \"description of the first achievement\",\n        \"doneAt\": \"2023-10-18T14:00:54+00:00\",\n        \"user\": {\n            \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n        },\n        \"object\": \"Achievement\",\n        \"id\": \"cb970e48-2ca6-427a-bb30-4e4ea81bad35\",\n        \"createdAt\": \"2023-10-18T15:26:57+00:00\",\n        \"updatedAt\": \"2023-10-18T15:26:57+00:00\",\n        \"isPublic\": false\n    },\n    {\n        \"tags\": [\n            \"UA\",\n            \"hustle\",\n            \"work\",\n            \"pet-project\"\n        ],\n        \"title\": \"first achievement\",\n        \"description\": \"description of the first achievement\",\n        \"doneAt\": \"2023-10-18T14:00:54+00:00\",\n        \"user\": {\n            \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n        },\n        \"object\": \"Achievement\",\n        \"id\": \"683ddd30-c3a5-41b9-9bb9-e30ab2d75fdc\",\n        \"createdAt\": \"2023-10-18T15:31:07+00:00\",\n        \"updatedAt\": \"2023-10-18T15:31:07+00:00\",\n        \"isPublic\": false\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Achievement Edit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"isPublic\": true,\n    \"doneAt\": \"2023-11-18T17:00:54+0300\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/achievement/{{achievement_last_created_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"achievement",
+						"{{achievement_last_created_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"isPublic\": true,\n    \"doneAt\": \"2023-11-18T17:00:54+0300\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/{{achievement_last_created_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"{{achievement_last_created_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:18:06 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:18:06 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "dfcc8c"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/dfcc8c"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "412"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tags\": [\n        \"UA\",\n        \"hustle\",\n        \"work\",\n        \"pet-project\",\n        \"restrictedCharActers\",\n        \"ytext\"\n    ],\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"object\": \"Achievement\",\n    \"id\": \"6aa249b8-feba-439c-90ca-e2f141e420ea\",\n    \"createdAt\": \"2023-10-19T20:17:30+00:00\",\n    \"updatedAt\": \"2023-10-19T20:17:30+00:00\",\n    \"isPublic\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "Achievement Tag Attach",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const LOREM_IPSUM = String(postman.getGlobalVariable('LOREM_IPSUM'));",
+							"const LOREM_IPSUM_LENGTH = LOREM_IPSUM.length;",
+							"const TAG_CHAR_START = Math.floor(Math.random() * (LOREM_IPSUM_LENGTH - 100));",
+							"const TAG_CHAR_END = TAG_CHAR_START + Math.floor(Math.random() * 8 + 2);",
+							"",
+							"let body = JSON.parse(pm.request.body.raw);",
+							"",
+							"body.tags.push(LOREM_IPSUM.substring(TAG_CHAR_START,TAG_CHAR_END).trim());",
+							"body.tags.push(LOREM_IPSUM.substring(TAG_CHAR_START+10,TAG_CHAR_END+10).trim());",
+							"",
+							"pm.request.body.raw = body;"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tags\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/achievement/{{achievement_last_created_id}}/tag/attach",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"achievement",
+						"{{achievement_last_created_id}}",
+						"tag",
+						"attach"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tags\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/{{achievement_last_created_id}}/tag/attach",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"{{achievement_last_created_id}}",
+								"tag",
+								"attach"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:18:21 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:18:21 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "09542e"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/09542e"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "423"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tags\": [\n        \"UA\",\n        \"hustle\",\n        \"work\",\n        \"pet-project\",\n        \"restrictedCharActers\",\n        \"ytext\",\n        \"eme\",\n        \"od\"\n    ],\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"object\": \"Achievement\",\n    \"id\": \"6aa249b8-feba-439c-90ca-e2f141e420ea\",\n    \"createdAt\": \"2023-10-19T20:17:30+00:00\",\n    \"updatedAt\": \"2023-10-19T20:17:30+00:00\",\n    \"isPublic\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "Achievement Tag Detach",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"hustle\",\n        \"ceof\",\n        \"sina\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/achievement/{{achievement_last_created_id}}/tag/detach",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"achievement",
+						"{{achievement_last_created_id}}",
+						"tag",
+						"detach"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"hustle\",\n        \"ceof\",\n        \"sina\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/{{achievement_last_created_id}}/tag/detach",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"{{achievement_last_created_id}}",
+								"tag",
+								"detach"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:18:38 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:18:38 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "3b372b"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/3b372b"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "422"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tags\": {\n        \"3\": \"pet-project\",\n        \"4\": \"restrictedCharActers\",\n        \"5\": \"ytext\",\n        \"6\": \"eme\",\n        \"7\": \"od\"\n    },\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"object\": \"Achievement\",\n    \"id\": \"6aa249b8-feba-439c-90ca-e2f141e420ea\",\n    \"createdAt\": \"2023-10-19T20:17:30+00:00\",\n    \"updatedAt\": \"2023-10-19T20:17:30+00:00\",\n    \"isPublic\": true\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "X-AUTH-USER-TOKEN",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
