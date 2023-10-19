@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 use function array_unique;
-use function time;
 
 #[ORM\Entity(repositoryClass: UserRepository::class, readOnly: false)]
 #[ORM\Table(name: "user")]
@@ -57,14 +56,8 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\Column(name: "is_deleted", type: Types::BOOLEAN, options: ["default" => false])]
     protected bool $isDeleted = false;
 
-    #[ORM\Column(name: "watch_public_achievements", type: Types::BOOLEAN, options: ["default" => false])]
-    protected bool $watchPublicAchievements = false;
-
     #[ORM\Column(name: "locale", type: Types::STRING, length: 5, options: ["default" => 'en'])]
     protected string $locale = 'en';
-
-    #[ORM\Column(name: "timezone", type: Types::STRING, length: 30, options: ["default" => 'UTC'])]
-    protected string $timezone = 'UTC';
 
     #[ORM\OneToMany(mappedBy: 'user',targetEntity: Achievement::class)]
     protected Collection $achievements;
@@ -222,22 +215,6 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     }
 
     /**
-     * @return string
-     */
-    public function getTimezone(): string
-    {
-        return $this->timezone;
-    }
-
-    /**
-     * @param string $timezone
-     */
-    public function setTimezone(string $timezone): void
-    {
-        $this->timezone = $timezone;
-    }
-
-    /**
      * @return \Doctrine\Common\Collections\ArrayCollection|\Doctrine\Common\Collections\Collection
      */
     public function getAchievements(): ArrayCollection|Collection
@@ -251,33 +228,5 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     public function setAchievements(ArrayCollection|Collection $achievements): void
     {
         $this->achievements = $achievements;
-    }
-
-    /**
-     * @param \App\Entity\Achievement $achievement
-     * @return void
-     */
-    public function addAchievement(Achievement $achievement): void
-    {
-        $achievement->setUser($this);
-        if (!$this->achievements->contains($achievement)) {
-            $this->achievements[] = $achievement;
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function isWatchPublicAchievements(): bool
-    {
-        return $this->watchPublicAchievements;
-    }
-
-    /**
-     * @param bool $watchPublicAchievements
-     */
-    public function setWatchPublicAchievements(bool $watchPublicAchievements): void
-    {
-        $this->watchPublicAchievements = $watchPublicAchievements;
     }
 }

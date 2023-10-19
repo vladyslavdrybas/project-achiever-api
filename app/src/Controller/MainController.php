@@ -25,10 +25,11 @@ class MainController extends AbstractController
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
 
+        $data = $this->serializer->normalize($user);
+
         return $this->json([
             'message' => 'success',
-            'email' => $user->getEmail(),
-            'id' => $user->getRawId(),
+            'user' => $data,
         ]);
     }
 }

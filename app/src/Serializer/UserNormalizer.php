@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace App\Serializer;
 
-use App\Entity\Achievement;
-use App\Entity\Tag;
+use App\Entity\User;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class AchievementNormalizer implements NormalizerInterface
+class UserNormalizer implements NormalizerInterface
 {
     public function __construct(
         private readonly GetSetMethodNormalizer $normalizer,
     ) {
     }
+
     /**
-     * @param Achievement $object
+     * @param User $object
      * @param string|null $format
      * @param array $context
      * @return array
@@ -25,44 +25,37 @@ class AchievementNormalizer implements NormalizerInterface
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
-        $userCallable = function (
-            object $innerObject
-        ): string {
-            /** @var \App\Entity\User $innerObject */
-            return $innerObject->getRawId();
-        };
-
-        $tagsCallable = function (
-            object $innerObject
-        ): array {
-            /** @var \Doctrine\Common\Collections\ArrayCollection $innerObject */
-            return $innerObject->map(function (Tag $tag) {
-                return $tag->getRawId();
-            })->toArray();
-        };
-
         $data = $this->normalizer->normalize(
             $object,
             $format,
             [
                 AbstractNormalizer::CALLBACKS => [
-                    'user' => $userCallable,
-                    'tags' => $tagsCallable,
                 ],
                 AbstractNormalizer::IGNORED_ATTRIBUTES => [
                     'rawId',
-                    'public',
+                    'achievements',
+                    'roles',
+                    'username',
+                    'password',
+                    'userIdentifier',
+                    'emailVerified',
+                    'active',
+                    'banned',
+                    'deleted',
                 ],
             ]
         );
 
-        $data['isPublic'] = $object->isPublic();
+        $data['isActive'] = $object->isActive();
+        $data['isEmailVerified'] = $object->isEmailVerified();
+        $data['isBanned'] = $object->isBanned();
+        $data['isDeleted'] = $object->isDeleted();
 
         return $data;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Achievement;
+        return $data instanceof User;
     }
 }
