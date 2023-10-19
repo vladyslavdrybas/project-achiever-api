@@ -27,9 +27,11 @@ class AchievementNormalizer implements NormalizerInterface
     {
         $userCallable = function (
             object $innerObject
-        ): string {
+        ): array {
             /** @var \App\Entity\User $innerObject */
-            return $innerObject->getRawId();
+            return [
+                'id' => $innerObject->getRawId(),
+            ];
         };
 
         $tagsCallable = function (
