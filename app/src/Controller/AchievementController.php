@@ -11,11 +11,13 @@ use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use App\Transfer\AchievementCreateJsonTransfer;
 use App\Transfer\AchievementEditJsonTransfer;
+use App\Transfer\AchievementTagAddJsonTransfer;
 use DateTimeZone;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use function array_map;
+use function sprintf;
 
 #[Route('/achievement', name: "achievement")]
 class AchievementController extends AbstractController
@@ -123,22 +125,12 @@ class AchievementController extends AbstractController
         AchievementEditJsonTransfer $transfer,
         AchievementRepository $achievementRepository
     ): JsonResponse {
-        $achievement = $achievementRepository->find($id);
-        if (!$achievement instanceof Achievement) {
+        try {
+            $achievement = $this->getUserAchievementById($id, $achievementRepository);
+        } catch (Exception $e) {
             return $this->json(
                 [
-                    'message' => 'not found',
-                ],
-                JsonResponse::HTTP_NOT_FOUND
-            );
-        }
-
-        if ($achievement->getUser()->getUserIdentifier()
-            !== $this->getUser()->getUserIdentifier()
-        ) {
-            return $this->json(
-                [
-                    'message' => 'Access Denied',
+                    'message' => $e->getMessage(),
                 ],
                 JsonResponse::HTTP_FORBIDDEN
             );
@@ -161,7 +153,7 @@ class AchievementController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route("/{id}/{tagId}", name: "_remove_tag", methods: ["PUT"])]
+    #[Route("/{id}/tag/{tagId}/remove", name: "_remove_tag", methods: ["DELETE"])]
     public function removeTag(
         string $id,
         string $tagId,
@@ -170,5 +162,80 @@ class AchievementController extends AbstractController
         $data = [];
 
         return $this->json($data);
+    }
+
+    #[Route("/{id}/tag/add", name: "_add_tag", methods: ["PUT"])]
+    public function addTag(
+        string $id,
+        AchievementTagAddJsonTransfer $tagAddJsonTransfer,
+        AchievementRepository $achievementRepository,
+        TagRepository $tagRepository
+    ): JsonResponse {
+        try {
+            $achievement = $this->getUserAchievementById($id, $achievementRepository);
+        } catch (Exception $e) {
+            return $this->json(
+                [
+                    'message' => $e->getMessage(),
+                ],
+                JsonResponse::HTTP_FORBIDDEN
+            );
+        }
+
+        $addLength = count($tagAddJsonTransfer->getTags());
+        $hasLength = $achievement->getTags()->count();
+        $expectedLength = $hasLength + $addLength;
+        $maxLength = 10;
+        if ($expectedLength >= $maxLength) {
+            return $this->json(
+                [
+                    'message' => sprintf(
+                        'Max amount of tags is %s. You have %s. Restricted to add %s more.',
+                        $maxLength,
+                        $hasLength,
+                        $addLength
+                    ),
+                ],
+                JsonResponse::HTTP_FORBIDDEN
+            );
+        }
+
+        foreach ($tagAddJsonTransfer->getTags() as $tagId) {
+            $checkTag = new Tag();
+            $checkTag->setId($tagId);
+            $tag = $tagRepository->find($checkTag->getRawId());
+            if (!$tag instanceof Tag) {
+                $tag = $checkTag;
+                $tagRepository->add($tag);
+                $tagRepository->save();
+            }
+
+            $achievement->addTag($tag);
+        }
+
+        $achievementRepository->add($achievement);
+        $achievementRepository->save();
+
+        $data = $this->serializer->normalize($achievement);
+
+        return $this->json($data);
+    }
+
+    protected function getUserAchievementById(
+        string $id,
+        AchievementRepository $achievementRepository
+    ): ?Achievement {
+        $achievement = $achievementRepository->find($id);
+        if (!$achievement instanceof Achievement) {
+            throw new \Exception('achievement not found');
+        }
+
+        if ($achievement->getUser()->getUserIdentifier()
+            !== $this->getUser()->getUserIdentifier()
+        ) {
+            throw new \Exception('Access denied');
+        }
+
+        return $achievement;
     }
 }
