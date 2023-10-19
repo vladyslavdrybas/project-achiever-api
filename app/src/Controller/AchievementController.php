@@ -67,10 +67,26 @@ class AchievementController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route("/list/{userId}", name: "_list", methods: ["GET"])]
-    public function list(): JsonResponse
-    {
-        $data = [];
+    #[Route(
+        "/list/{userId}/{offset}/{length}",
+        name: "_list",
+        requirements: ['offset' => '\d+', 'length' => '5|10|20|50'],
+        defaults: ['offset' => 0, 'length' => 5],
+        methods: ["GET"]
+    )]
+    public function list(
+        string $userId,
+        int $offset,
+        int $length,
+        AchievementRepository $achievementRepository
+    ): JsonResponse {
+        $achievements = $achievementRepository->findBy([
+            'user' => $userId,
+        ]);
+
+        $achievements = array_slice($achievements, $offset, $length);
+
+        $data = $this->serializer->normalize($achievements);
 
         return $this->json($data);
     }
