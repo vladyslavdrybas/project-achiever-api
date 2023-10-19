@@ -10,6 +10,7 @@ use App\Repository\AchievementRepository;
 use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use App\Transfer\AchievementCreateJsonTransfer;
+use App\Transfer\AchievementEditJsonTransfer;
 use DateTimeZone;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -117,11 +118,57 @@ class AchievementController extends AbstractController
     }
 
     #[Route("/{id}", name: "_edit", methods: ["PUT"])]
-    public function edit(): JsonResponse
-    {
-        $data = [];
+    public function edit(
+        string $id,
+        AchievementEditJsonTransfer $transfer,
+        AchievementRepository $achievementRepository
+    ): JsonResponse {
+        $achievement = $achievementRepository->find($id);
+        if (!$achievement instanceof Achievement) {
+            return $this->json(
+                [
+                    'message' => 'not found',
+                ],
+                JsonResponse::HTTP_NOT_FOUND
+            );
+        }
+
+        if ($achievement->getUser()->getUserIdentifier()
+            !== $this->getUser()->getUserIdentifier()
+        ) {
+            return $this->json(
+                [
+                    'message' => 'Access Denied',
+                ],
+                JsonResponse::HTTP_FORBIDDEN
+            );
+        }
+
+        $achievement->setTitle($transfer->getTitle());
+        $achievement->setDescription($transfer->getDescription());
+        $achievement->setIsPublic($transfer->isPublic());
+        $doneAt = $transfer->getDoneAt()
+            ?->setTimezone(
+                new DateTimeZone('UTC')
+            );
+        $achievement->setDoneAt($doneAt);
+
+        $achievementRepository->add($achievement);
+        $achievementRepository->save();
+
+        $data = $this->serializer->normalize($achievement);
 
         return $this->json($data);
     }
 
+    #[Route("/{id}/{tagId}", name: "_remove_tag", methods: ["PUT"])]
+    public function removeTag(
+        string $id,
+        string $tagId,
+        AchievementRepository $achievementRepository
+    ): JsonResponse {
+        $data = [];
+
+        return $this->json($data);
+    }
 }
