@@ -11,7 +11,7 @@ use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use App\Transfer\AchievementCreateJsonTransfer;
 use App\Transfer\AchievementEditJsonTransfer;
-use App\Transfer\AchievementTagAddJsonTransfer;
+use App\Transfer\AchievementTagAttachJsonTransfer;
 use DateTimeZone;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -153,21 +153,10 @@ class AchievementController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route("/{id}/tag/{tagId}/remove", name: "_remove_tag", methods: ["DELETE"])]
+    #[Route("/{id}/tag/detach", name: "_detach_tag", methods: ["PUT"])]
     public function removeTag(
         string $id,
-        string $tagId,
-        AchievementRepository $achievementRepository
-    ): JsonResponse {
-        $data = [];
-
-        return $this->json($data);
-    }
-
-    #[Route("/{id}/tag/add", name: "_add_tag", methods: ["PUT"])]
-    public function addTag(
-        string $id,
-        AchievementTagAddJsonTransfer $tagAddJsonTransfer,
+        AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
         AchievementRepository $achievementRepository,
         TagRepository $tagRepository
     ): JsonResponse {
@@ -182,7 +171,44 @@ class AchievementController extends AbstractController
             );
         }
 
-        $addLength = count($tagAddJsonTransfer->getTags());
+        foreach ($tagAttachJsonTransfer->getTags() as $tagId) {
+            $checkTag = new Tag();
+            $checkTag->setId($tagId);
+            $tag = $tagRepository->find($checkTag->getRawId());
+            if ($tag instanceof Tag) {
+                $achievement->removeTag($tag);
+            }
+        }
+
+        $achievementRepository->add($achievement);
+        $achievementRepository->save();
+
+        $achievement = $achievementRepository->find($achievement->getId());
+
+        $data = $this->serializer->normalize($achievement);
+
+        return $this->json($data);
+    }
+
+    #[Route("/{id}/tag/attach", name: "_attach_tag", methods: ["PUT"])]
+    public function addTag(
+        string                           $id,
+        AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
+        AchievementRepository            $achievementRepository,
+        TagRepository                    $tagRepository
+    ): JsonResponse {
+        try {
+            $achievement = $this->getUserAchievementById($id, $achievementRepository);
+        } catch (Exception $e) {
+            return $this->json(
+                [
+                    'message' => $e->getMessage(),
+                ],
+                JsonResponse::HTTP_FORBIDDEN
+            );
+        }
+
+        $addLength = count($tagAttachJsonTransfer->getTags());
         $hasLength = $achievement->getTags()->count();
         $expectedLength = $hasLength + $addLength;
         $maxLength = 10;
@@ -200,7 +226,7 @@ class AchievementController extends AbstractController
             );
         }
 
-        foreach ($tagAddJsonTransfer->getTags() as $tagId) {
+        foreach ($tagAttachJsonTransfer->getTags() as $tagId) {
             $checkTag = new Tag();
             $checkTag->setId($tagId);
             $tag = $tagRepository->find($checkTag->getRawId());

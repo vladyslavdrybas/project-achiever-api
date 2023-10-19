@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Transfer;
 
-class AchievementTagAddJsonTransfer extends AbstractTransfer
+class AchievementTagAttachJsonTransfer extends AbstractTransfer
 {
     protected array $tags;
 

@@ -75,6 +75,17 @@ class Achievement extends AbstractEntity
     }
 
     /**
+     * @param \App\Entity\Tag $tag
+     * @return void
+     */
+    public function removeTag(Tag $tag): void
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+        }
+    }
+
+    /**
      * @return string
      */
     public function getTitle(): string
