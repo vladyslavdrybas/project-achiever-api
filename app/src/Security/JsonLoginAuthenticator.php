@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\User;
+use App\Repository\TokenRepository;
 use App\Repository\UserRepository;
 use App\Transfer\UserLoginJsonTransfer;
+use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -31,17 +33,20 @@ class JsonLoginAuthenticator extends AbstractAuthenticator
     protected UrlGeneratorInterface $urlGenerator;
     protected RequestStack $requestStack;
     protected UserRepository $userRepository;
+    protected TokenRepository $tokenRepository;
 
     public function __construct(
         SerializerInterface $serializer,
         UrlGeneratorInterface $urlGenerator,
         RequestStack $requestStack,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        TokenRepository $tokenRepository
     ) {
         $this->serializer = $serializer;
         $this->urlGenerator = $urlGenerator;
         $this->requestStack = $requestStack;
         $this->userRepository = $userRepository;
+        $this->tokenRepository = $tokenRepository;
     }
 
     public function supports(Request $request): ?bool
@@ -91,6 +96,13 @@ class JsonLoginAuthenticator extends AbstractAuthenticator
 
         /** @var User $user */
         $user = $token->getUser();
+
+        $token = $this->tokenRepository->generateForUser($user);
+        $this->tokenRepository->add($token);
+        $this->tokenRepository->save();
+
+        $tokenEncoded = $this->tokenRepository->encode($token);
+
         $data = [
             'message' => 'success',
             'user' => [
@@ -99,6 +111,10 @@ class JsonLoginAuthenticator extends AbstractAuthenticator
             'path' => [
                 'target' => $targetPath,
                 'logout' => $logoutPath,
+            ],
+            'accessToken' => [
+                'id' => $tokenEncoded,
+                'expiredAt' => $token->getExpireAt()->getTimestamp(),
             ],
         ];
 

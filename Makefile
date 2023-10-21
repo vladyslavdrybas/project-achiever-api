@@ -8,3 +8,5 @@ app-stop:
 	docker compose -f docker-compose.yml down
 app-code-check:
 	docker compose exec app composer code-check
+proxy-run:
+	ngrok http https://localhost:8000

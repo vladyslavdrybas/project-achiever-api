@@ -59,6 +59,9 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\Column(name: "locale", type: Types::STRING, length: 5, options: ["default" => 'en'])]
     protected string $locale = 'en';
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Token::class)]
+    protected Collection $tokens;
+
     #[ORM\OneToMany(mappedBy: 'user',targetEntity: Achievement::class)]
     protected Collection $achievements;
 
@@ -66,6 +69,51 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     {
         parent::__construct();
         $this->achievements = new ArrayCollection();
+        $this->tokens = new ArrayCollection();
+    }
+
+    public function getActiveToken(): ?Token
+    {
+        $tokens = $this->getTokens()->filter(function($token): bool {
+            /** @var Token $token */
+            return $token->getExpireAt()->getTimestamp() > time();
+        });
+
+        $token = $tokens->first();
+
+        if ($token instanceof Token) {
+            return $token;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection|\Doctrine\Common\Collections\Collection
+     */
+    public function getTokens(): ArrayCollection|Collection
+    {
+        return $this->tokens;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection|\Doctrine\Common\Collections\Collection $tokens
+     */
+    public function setTokens(ArrayCollection|Collection $tokens): void
+    {
+        $this->tokens = $tokens;
+    }
+
+    /**
+     * @param \App\Entity\Token $token
+     * @return void
+     */
+    public function addToken(Token $token): void
+    {
+        $token->setUser($this);
+        if (!$this->tokens->contains($token)) {
+            $this->tokens[] = $token;
+        }
     }
 
     public function isEqualTo(SecurityUserInterface $user): bool
