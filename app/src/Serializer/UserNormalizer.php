@@ -42,6 +42,8 @@ class UserNormalizer implements NormalizerInterface
                     'active',
                     'banned',
                     'deleted',
+                    'tokens',
+                    'activeToken',
                 ],
             ]
         );
