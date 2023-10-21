@@ -11,7 +11,7 @@ security:
                 property: email
                 
     role_hierarchy:
-        ROLE_USER: IS_AUTHENTICATED_FULLY
+        ROLE_USER: [IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_ANONYMOUSLY]
         ROLE_ADMIN: ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_ADMIN]
         
@@ -19,8 +19,19 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            lazy: true
+            pattern: ^/api
+            user_checker: App\Security\UserChecker
+            access_token:
+                token_handler: App\Security\AccessTokenHandler
+                token_extractors:
+                    - App\Security\Base64HeaderAccessTokenExtractor
+#             custom_authenticators:
+#                 - App\Security\ApiAccessTokenAuthenticator
         main:
             lazy: true
+            pattern: ^/
             user_checker: App\Security\UserChecker
             provider: app_user_provider
             custom_authenticators:
@@ -33,7 +44,8 @@ security:
     access_control:
         - { path: '^/login/json$', roles: PUBLIC_ACCESS}
         - { path: '^/register/json$', roles: PUBLIC_ACCESS}
-        - { path: '^/login/logout/json$', roles: PUBLIC_ACCESS}
+        - { path: '^/logout/json$', roles: PUBLIC_ACCESS}
+        - { path: '^/api', roles: ROLE_USER }
         - { path: '^/', roles: ROLE_USER }
 
 when@test:

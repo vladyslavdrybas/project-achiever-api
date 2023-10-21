@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use function array_map;
 use function sprintf;
 
-#[Route('/achievement', name: "achievement")]
+#[Route('/api/achievement', name: "api_achievement")]
 class AchievementController extends AbstractController
 {
     #[Route("/create", name: "_create", methods: ["POST"])]

@@ -5,25 +5,27 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\UserInterface;
+use App\Repository\TokenRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/login', name: "login")]
 class LoginController extends AbstractController
 {
 
-    #[Route('/json', name: '_json', methods: ["POST"])]
+    #[Route('/login/json', name: 'login_json', methods: ["POST"])]
     public function index(): void {
         // App\Security\JsonLoginAuthenticator
     }
 
-    #[Route('/logout/json', name: '_logout_json', methods: ['GET'])]
+    #[Route('/logout/json', name: 'logout_json', methods: ['GET'])]
     public function logout(
-        Security $security
+        Security $security,
+        TokenRepository $tokenRepository
     ): JsonResponse {
         $user = $this->getUser();
         if ($user instanceof UserInterface) {
+            $tokenRepository->removeAllByUser($user);
             $security->logout(false);
         }
 

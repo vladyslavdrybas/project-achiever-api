@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Repository\TokenRepository;
 use App\Repository\UserRepository;
 use App\Transfer\UserLoginJsonTransfer;
-use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -26,7 +25,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class JsonLoginAuthenticator extends AbstractAuthenticator
 {
     public const LOGIN_ROUTE = 'login_json';
-    public const LOGOUT_ROUTE = 'login_logout_json';
+    public const LOGOUT_ROUTE = 'logout_json';
     public const HOMEPAGE_ROUTE = 'app_homepage';
 
     protected SerializerInterface $serializer;

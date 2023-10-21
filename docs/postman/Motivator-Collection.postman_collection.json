@@ -129,7 +129,7 @@
 							"",
 							"if (pm.response.code == 200) {",
 							"    var jsonData = JSON.parse(responseBody);",
-							"    postman.setEnvironmentVariable(\"token\", jsonData.token);",
+							"    postman.setEnvironmentVariable(\"accessToken\", jsonData.accessToken.id);",
 							"    postman.setEnvironmentVariable(\"user_id\", jsonData.user.id);",
 							"}",
 							""
@@ -201,19 +201,23 @@
 						},
 						{
 							"key": "Date",
-							"value": "Thu, 19 Oct 2023 20:06:28 GMT"
+							"value": "Sat, 21 Oct 2023 11:59:25 GMT"
 						},
 						{
 							"key": "Expires",
-							"value": "Thu, 19 Oct 2023 20:06:28 GMT"
+							"value": "Sat, 21 Oct 2023 11:59:25 GMT"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "PHPSESSID=03fedc6a48d40537b88aec3df9f57c0a; path=/; secure; httponly; samesite=lax"
 						},
 						{
 							"key": "X-Debug-Token",
-							"value": "76248a"
+							"value": "0f4362"
 						},
 						{
 							"key": "X-Debug-Token-Link",
-							"value": "https://localhost:8000/_profiler/76248a"
+							"value": "https://localhost:8000/_profiler/0f4362"
 						},
 						{
 							"key": "X-Powered-By",
@@ -225,25 +229,27 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "178"
+							"value": "201"
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"message\": \"success\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"path\": {\n        \"target\": \"https://localhost:8000/\",\n        \"logout\": \"https://localhost:8000/login/logout/json\"\n    }\n}"
+					"body": "{\n    \"message\": \"success\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"path\": {\n        \"target\": \"https://localhost:8000/\",\n        \"logout\": \"https://localhost:8000/login/logout/json\"\n    },\n    \"accessToken\": \"abc123\"\n}"
 				}
 			]
 		},
 		{
-			"name": "User profile",
+			"name": "User api profile",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/profile",
+					"raw": "{{host}}/api/user/profile",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
+						"user",
 						"profile"
 					]
 				}
@@ -329,12 +335,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/login/logout/json",
+					"raw": "{{host}}/logout/json",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"login",
 						"logout",
 						"json"
 					]
@@ -514,11 +519,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/achievement/create",
+					"raw": "{{host}}/api/achievement/create",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"achievement",
 						"create"
 					]
@@ -615,11 +621,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/achievement/{{achievement_last_created_id}}",
+					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"achievement",
 						"{{achievement_last_created_id}}"
 					]
@@ -707,11 +714,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/achievement/list/{{user_id}}",
+					"raw": "{{host}}/api/achievement/list/{{user_id}}",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"achievement",
 						"list",
 						"{{user_id}}"
@@ -810,11 +818,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/achievement/{{achievement_last_created_id}}",
+					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"achievement",
 						"{{achievement_last_created_id}}"
 					]
@@ -939,11 +948,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/achievement/{{achievement_last_created_id}}/tag/attach",
+					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}/tag/attach",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"achievement",
 						"{{achievement_last_created_id}}",
 						"tag",
@@ -1062,11 +1072,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/achievement/{{achievement_last_created_id}}/tag/detach",
+					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}/tag/detach",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"achievement",
 						"{{achievement_last_created_id}}",
 						"tag",
@@ -1150,16 +1161,11 @@
 		}
 	],
 	"auth": {
-		"type": "apikey",
-		"apikey": [
+		"type": "bearer",
+		"bearer": [
 			{
-				"key": "key",
-				"value": "X-AUTH-USER-TOKEN",
-				"type": "string"
-			},
-			{
-				"key": "value",
-				"value": "{{token}}",
+				"key": "token",
+				"value": "{{accessToken}}",
 				"type": "string"
 			}
 		]

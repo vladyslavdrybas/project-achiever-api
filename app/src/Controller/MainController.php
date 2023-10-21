@@ -18,18 +18,4 @@ class MainController extends AbstractController
 
         return $this->json($repo);
     }
-
-    #[Route("/profile", name: "_profile", methods: ["GET", "OPTIONS", "HEAD"])]
-    public function profile(): JsonResponse
-    {
-        /** @var \App\Entity\User $user */
-        $user = $this->getUser();
-
-        $data = $this->serializer->normalize($user);
-
-        return $this->json([
-            'message' => 'success',
-            'user' => $data,
-        ]);
-    }
 }

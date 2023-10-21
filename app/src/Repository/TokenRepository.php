@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Token;
 use App\Entity\User;
+use App\Entity\UserInterface;
 use DateTimeImmutable;
 
 /**
@@ -55,5 +56,30 @@ class TokenRepository extends AbstractRepository
         }
 
         return null;
+    }
+
+    /**
+     * @param \App\Entity\UserInterface $user
+     * @return \App\Entity\Token[]
+     */
+    public function findAllByUser(UserInterface $user): array
+    {
+        return $this->findBy(['user' => $user]);
+    }
+
+    /**
+     * @param \App\Entity\UserInterface $user
+     * @return void
+     */
+    public function removeAllByUser(UserInterface $user): void
+    {
+        $tokens = $this->findAllByUser($user);
+        if (count($tokens) > 0) {
+            foreach ($tokens as $token) {
+                $this->remove($token);
+            }
+
+            $this->save();
+        }
     }
 }
