@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use function array_map;
 use function sprintf;
+use function var_dump;
 
 #[Route('/api/achievement', name: "api_achievement")]
 class AchievementController extends AbstractController
@@ -83,9 +84,14 @@ class AchievementController extends AbstractController
         int $length,
         AchievementRepository $achievementRepository
     ): JsonResponse {
-        $achievements = $achievementRepository->findBy([
-            'user' => $userId,
-        ]);
+        $achievements = $achievementRepository->findBy(
+            [
+                'user' => $userId,
+            ],
+            [
+                'updatedAt' => 'DESC'
+            ]
+        );
 
         $achievements = array_slice($achievements, $offset, $length);
 
@@ -237,6 +243,80 @@ class AchievementController extends AbstractController
             }
 
             $achievement->addTag($tag);
+        }
+
+        $achievementRepository->add($achievement);
+        $achievementRepository->save();
+
+        $data = $this->serializer->normalize($achievement);
+
+        return $this->json($data);
+    }
+
+    #[Route("/{id}/tag/replace", name: "_replace_tag", methods: ["PUT"])]
+    public function replaceTag(
+        string                           $id,
+        AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
+        AchievementRepository            $achievementRepository,
+        TagRepository                    $tagRepository
+    ): JsonResponse {
+        try {
+            $achievement = $this->getUserAchievementById($id, $achievementRepository);
+        } catch (Exception $e) {
+            return $this->json(
+                [
+                    'message' => $e->getMessage(),
+                ],
+                JsonResponse::HTTP_FORBIDDEN
+            );
+        }
+
+        $replaceLength = count($tagAttachJsonTransfer->getTags());
+        $maxLength = 10;
+        if ($replaceLength >= $maxLength) {
+            return $this->json(
+                [
+                    'message' => sprintf(
+                        'Max amount of tags is %s. Restricted to replace it by %s.',
+                        $maxLength,
+                        $replaceLength
+                    ),
+                ],
+                JsonResponse::HTTP_FORBIDDEN
+            );
+        }
+
+        $tagsToSave = [];
+
+        foreach ($tagAttachJsonTransfer->getTags() as $tagName) {
+            $tag = new Tag();
+            $tag->setId($tagName);
+            $tagsToSave[] = $tag;
+        }
+
+        foreach ($achievement->getTags() as $achievementTag) {
+            $keep = false;
+            foreach ($tagsToSave as $key => $tag) {
+                if ($tag->getRawId() === $achievementTag->getRawId()) {
+                    $keep = true;
+                    unset($tagsToSave[$key]);
+                    break;
+                }
+            }
+            if (!$keep) {
+                $achievement->removeTag($achievementTag);
+            }
+        }
+
+        foreach ($tagsToSave as $tag) {
+            $checkTag = $tagRepository->find($tag->getRawId());
+            if (!$checkTag instanceof Tag) {
+                $tagRepository->add($tag);
+                $tagRepository->save();
+                $achievement->addTag($tag);
+            } else {
+                $achievement->addTag($checkTag);
+            }
         }
 
         $achievementRepository->add($achievement);
