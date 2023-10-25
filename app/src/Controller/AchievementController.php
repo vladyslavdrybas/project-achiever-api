@@ -34,6 +34,17 @@ class AchievementController extends AbstractController
         $achievement->setTitle($transfer->getTitle());
         $achievement->setDescription($transfer->getDescription());
 
+        if (count($transfer->getTags()) === 0) {
+            return $this->json(
+                [
+                    'message' => sprintf(
+                        'You should add at least one tag to achievement.',
+                    ),
+                ],
+                JsonResponse::HTTP_FORBIDDEN
+            );
+        }
+
         $tags = array_map(function (string $tagId) use ($tagRepository) {
             $tag = new Tag();
             $tag->setId($tagId);
@@ -280,6 +291,17 @@ class AchievementController extends AbstractController
                         'Max amount of tags is %s. Restricted to replace it by %s.',
                         $maxLength,
                         $replaceLength
+                    ),
+                ],
+                JsonResponse::HTTP_FORBIDDEN
+            );
+        }
+
+        if ($replaceLength === 0) {
+            return $this->json(
+                [
+                    'message' => sprintf(
+                        'You should add at least one tag to achievement.',
                     ),
                 ],
                 JsonResponse::HTTP_FORBIDDEN
