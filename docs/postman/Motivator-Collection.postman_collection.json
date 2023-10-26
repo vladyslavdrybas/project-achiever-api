@@ -511,7 +511,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"first achievement\",\n    \"description\": \"description of the first achievement\",\n    \"isPublic\": false,\n    \"doneAt\": \"2023-10-18T17:00:54+0300\",\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"pet-project\",\n        \"hustle\"\n    ]\n}",
+					"raw": "{\n    \"title\": \"first achievement\",\n    \"description\": \"description of the first achievement\",\n    \"isPublic\": false,\n    \"doneAt\": null,\n    \"tags\": [\n        \"en\"\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -696,6 +696,100 @@
 			]
 		},
 		{
+			"name": "Achievement Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievement",
+						"{{achievement_last_created_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"achievement",
+								"{{achievement_last_created_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 26 Oct 2023 13:12:58 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 26 Oct 2023 13:12:58 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "6ea646"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/6ea646"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "21"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"success\"\n}"
+				}
+			]
+		},
+		{
 			"name": "Achievement List",
 			"event": [
 				{
@@ -714,7 +808,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/achievement/list/{{user_id}}",
+					"raw": "{{host}}/api/achievement/list/{{user_id}}/0/5",
 					"host": [
 						"{{host}}"
 					],
@@ -722,7 +816,9 @@
 						"api",
 						"achievement",
 						"list",
-						"{{user_id}}"
+						"{{user_id}}",
+						"0",
+						"5"
 					]
 				}
 			},
@@ -1156,6 +1252,131 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"tags\": {\n        \"3\": \"pet-project\",\n        \"4\": \"restrictedCharActers\",\n        \"5\": \"ytext\",\n        \"6\": \"eme\",\n        \"7\": \"od\"\n    },\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"object\": \"Achievement\",\n    \"id\": \"6aa249b8-feba-439c-90ca-e2f141e420ea\",\n    \"createdAt\": \"2023-10-19T20:17:30+00:00\",\n    \"updatedAt\": \"2023-10-19T20:17:30+00:00\",\n    \"isPublic\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "Achievement Tag Replace",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"hustle\",\n        \"blabla\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}/tag/replace",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievement",
+						"{{achievement_last_created_id}}",
+						"tag",
+						"replace"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"hustle\",\n        \"blabla\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}/tag/replace",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"achievement",
+								"{{achievement_last_created_id}}",
+								"tag",
+								"replace"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 25 Oct 2023 18:30:00 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Wed, 25 Oct 2023 18:30:00 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "7b9bf5"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/7b9bf5"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "376"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tags\": [\n        \"UA\",\n        \"hustle\",\n        \"work\",\n        \"blabla\"\n    ],\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"object\": \"Achievement\",\n    \"id\": \"6aa249b8-feba-439c-90ca-e2f141e420ea\",\n    \"createdAt\": \"2023-10-19T20:17:30+00:00\",\n    \"updatedAt\": \"2023-10-19T20:17:30+00:00\",\n    \"isPublic\": true\n}"
 				}
 			]
 		}

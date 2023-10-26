@@ -100,7 +100,8 @@ class AchievementController extends AbstractController
                 'user' => $userId,
             ],
             [
-                'updatedAt' => 'DESC'
+                'doneAt' => 'DESC',
+                'createdAt' => 'DESC'
             ]
         );
 
