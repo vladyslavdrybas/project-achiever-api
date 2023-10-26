@@ -18,8 +18,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use function array_map;
 use function sprintf;
-use function var_dump;
 
+//TODO add author restrictions for author
 #[Route('/api/achievement', name: "api_achievement")]
 class AchievementController extends AbstractController
 {
@@ -134,6 +134,34 @@ class AchievementController extends AbstractController
         $data = $this->serializer->normalize($achievement);
 
         return $this->json($data);
+    }
+
+    #[Route("/{id}", name: "_delete", methods: ["DELETE"])]
+    public function delete(
+        string $id,
+        AchievementRepository $achievementRepository
+    ): JsonResponse {
+        try {
+            $achievement = $achievementRepository->find($id);
+
+            if (!$achievement instanceof Achievement) {
+                throw new Exception('not found');
+            }
+        } catch (Exception $e) {
+            return $this->json(
+                [
+                    'message' => $e->getMessage(),
+                ],
+                JsonResponse::HTTP_NOT_FOUND
+            );
+        }
+
+        $achievementRepository->remove($achievement);
+        $achievementRepository->save();
+
+        return $this->json([
+            "message" => "success",
+        ]);
     }
 
     #[Route("/{id}", name: "_edit", methods: ["PUT"])]
