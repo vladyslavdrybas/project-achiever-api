@@ -3,20 +3,20 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-
+use App\Entity\User;
 use App\Entity\UserInterface;
+use App\Repository\RefreshTokenRepository;
 use App\Repository\UserRepository;
 use App\Transfer\UserRegisterJsonTransfer;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/register', name: "register")]
-class RegisterController extends AbstractController
+#[Route('/api/auth', name: "api_auth")]
+class AuthController extends AbstractController
 {
-    #[Route('/json', name: '_json', methods: ["POST"])]
+    #[Route('/register', name: '_register', methods: ["POST"])]
     public function index(
         UserPasswordHasherInterface $passwordHasher,
         UserRegisterJsonTransfer $userRegisterJsonTransfer,
@@ -28,7 +28,7 @@ class RegisterController extends AbstractController
         if ($exist instanceof User) {
             return $this->json([
                 'message' => 'such a user already exists.'
-            ], JsonResponse::HTTP_PRECONDITION_FAILED);
+            ], JsonResponse::HTTP_FORBIDDEN);
         }
 
         $user = $this->getUser();
@@ -42,21 +42,31 @@ class RegisterController extends AbstractController
 
         $hashedPassword = $passwordHasher->hashPassword(
             $user,
-            $user->getPassword() . $user->getRawId()
+            $user->getPassword()
         );
         $user->setPassword($hashedPassword);
 
         $repo->upgradePassword($user, $hashedPassword);
 
-        $data = $this->serializer->normalize($user);
+        return $this->json([
+            'message' => 'success',
+        ], JsonResponse::HTTP_OK);
+    }
+
+    #[Route('/logout', name: '_logout', methods: ['GET'])]
+    public function logout(
+        Security $security,
+        RefreshTokenRepository $refreshTokenRepository
+    ): JsonResponse {
+        $user = $this->getUser();
+        if ($user instanceof UserInterface) {
+            $refreshTokenRepository->removeAllByUser($user);
+
+            $security->logout(false);
+        }
 
         return $this->json([
             'message' => 'success',
-            'user' => $data,
-            'path' => [
-                'target' => $this->getHomepageUrl(),
-                'login' => $this->getLoginUrl(),
-            ],
-        ], JsonResponse::HTTP_OK);
+        ]);
     }
 }

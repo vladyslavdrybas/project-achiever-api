@@ -3,9 +3,9 @@ security:
 
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'bcrypt'
-    
+        
     providers:
-        app_user_provider:
+        entity_provider:
             entity:
                 class: App\Entity\User
                 property: email
@@ -19,34 +19,43 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api_refresh_token:
+            pattern: ^/api/auth/token/refresh
+            security: false
+        api_register:
+            pattern: ^/api/auth/register
+            security: false
+        api_logout:
+            pattern: ^/api/auth/logout
+            security: false
+        api_login:
+              pattern: ^/api/auth/login
+              stateless: true
+              json_login:
+                  provider: entity_provider
+                  username_path: email
+                  password_path: password
+                  check_path: /api/auth/login #same as the route configured in config/routes.yaml
+                  success_handler: lexik_jwt_authentication.handler.authentication_success
+                  failure_handler: lexik_jwt_authentication.handler.authentication_failure
         api:
             lazy: true
-            pattern: ^/api
-            user_checker: App\Security\UserChecker
-            access_token:
-                token_handler: App\Security\AccessTokenHandler
-                token_extractors:
-                    - App\Security\Base64HeaderAccessTokenExtractor
-#             custom_authenticators:
-#                 - App\Security\ApiAccessTokenAuthenticator
+            pattern:   ^/api
+            stateless: true
+            entry_point: jwt
+            jwt: ~
+            refresh_jwt:
+                check_path: /api/auth/token/refresh
         main:
             lazy: true
             pattern: ^/
-            user_checker: App\Security\UserChecker
-            provider: app_user_provider
-            custom_authenticators:
-                - App\Security\JsonLoginAuthenticator
-            entry_point: App\Security\AuthenticationEntryPoint
-            access_denied_handler: App\Security\AccessDeniedHandler
+            security: false
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: '^/login/json$', roles: PUBLIC_ACCESS}
-        - { path: '^/register/json$', roles: PUBLIC_ACCESS}
-        - { path: '^/logout/json$', roles: PUBLIC_ACCESS}
-        - { path: '^/api', roles: ROLE_USER }
-        - { path: '^/', roles: ROLE_USER }
+        - { path: '^/api/auth/(login|register|logout|token/refresh)', roles: PUBLIC_ACCESS}
+        - { path: '^/api', roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:

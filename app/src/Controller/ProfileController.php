@@ -7,10 +7,10 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/api', name: "api")]
-class ApiUserController extends AbstractController
+#[Route('/api/profile', name: "api_profile")]
+class ProfileController extends AbstractController
 {
-    #[Route("/user/profile", name: "_user_profile", methods: ["GET", "OPTIONS", "HEAD"])]
+    #[Route("/", name: "", methods: ["GET", "OPTIONS", "HEAD"])]
     public function profile(): JsonResponse
     {
         /** @var \App\Entity\User $user */
@@ -18,9 +18,6 @@ class ApiUserController extends AbstractController
 
         $data = $this->serializer->normalize($user);
 
-        return $this->json([
-            'message' => 'success',
-            'user' => $data,
-        ]);
+        return $this->json($data);
     }
 }

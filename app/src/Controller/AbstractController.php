@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Constants\RouteConstants;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as SymfonyAbstractController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -11,8 +12,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 abstract class AbstractController extends SymfonyAbstractController
 {
-    public const LOGIN_ROUTE = 'login_json';
-    public const HOMEPAGE_ROUTE = 'app_homepage';
+    public const LOGIN_ROUTE = RouteConstants::LOGIN_ROUTE;
+    public const HOMEPAGE_ROUTE = RouteConstants::HOMEPAGE_ROUTE;
 
     protected EntityManagerInterface $entityManager;
     protected UrlGeneratorInterface $urlGenerator;

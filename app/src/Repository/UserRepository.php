@@ -5,8 +5,10 @@ namespace App\Repository;
 use App\Entity\EntityInterface;
 use App\Entity\User;
 use Exception;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,7 +16,7 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends AbstractRepository implements PasswordUpgraderInterface
+class UserRepository extends AbstractRepository implements PasswordUpgraderInterface, UserLoaderInterface
 {
     public function findByEmail(string $identifier): ?User
     {
@@ -40,5 +42,15 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
             $this->add($user);
             $this->save();
         }
+    }
+
+    public function loadUserByIdentifier(string $identifier): ?UserInterface
+    {
+        return $this->findByEmail($identifier);
+    }
+
+    public function loadUserByUsername(string $identifier): ?UserInterface
+    {
+        return $this->loadUserByIdentifier($identifier);
     }
 }
