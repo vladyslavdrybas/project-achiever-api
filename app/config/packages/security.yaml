@@ -9,6 +9,10 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+        refresh_provider:
+            entity:
+                class: App\Entity\User
+                property: id
                 
     role_hierarchy:
         ROLE_USER: [IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_ANONYMOUSLY, PUBLIC_ACCESS]
@@ -28,7 +32,7 @@ security:
         api_token_refresh:
             pattern: ^/api/auth/token/refresh
             stateless: true
-            provider: entity_provider
+            provider: refresh_provider
             refresh_jwt: ~
         api_login:
               pattern: ^/api/auth/login
@@ -43,6 +47,7 @@ security:
         api:
             pattern:   ^/api
             stateless: true
+            provider: entity_provider
             entry_point: jwt
             jwt: ~
             refresh_jwt:
