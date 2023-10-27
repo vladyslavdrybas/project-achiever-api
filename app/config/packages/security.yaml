@@ -11,7 +11,7 @@ security:
                 property: email
                 
     role_hierarchy:
-        ROLE_USER: [IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_ANONYMOUSLY]
+        ROLE_USER: [IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_ANONYMOUSLY, PUBLIC_ACCESS]
         ROLE_ADMIN: ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_ADMIN]
         
@@ -19,15 +19,17 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        api_refresh_token:
-            pattern: ^/api/auth/token/refresh
-            security: false
         api_register:
             pattern: ^/api/auth/register
             security: false
         api_logout:
             pattern: ^/api/auth/logout
             security: false
+        api_token_refresh:
+            pattern: ^/api/auth/token/refresh
+            stateless: true
+            provider: entity_provider
+            refresh_jwt: ~
         api_login:
               pattern: ^/api/auth/login
               stateless: true
@@ -39,22 +41,17 @@ security:
                   success_handler: lexik_jwt_authentication.handler.authentication_success
                   failure_handler: lexik_jwt_authentication.handler.authentication_failure
         api:
-            lazy: true
             pattern:   ^/api
             stateless: true
             entry_point: jwt
             jwt: ~
             refresh_jwt:
                 check_path: /api/auth/token/refresh
-        main:
-            lazy: true
-            pattern: ^/
-            security: false
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: '^/api/auth/(login|register|logout|token/refresh)', roles: PUBLIC_ACCESS}
+        - { path: '^/api/auth/(login|register|logout|token/refresh)', roles: PUBLIC_ACCESS }
         - { path: '^/api', roles: IS_AUTHENTICATED_FULLY }
 
 when@test:

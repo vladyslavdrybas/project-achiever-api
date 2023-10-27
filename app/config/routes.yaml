@@ -6,6 +6,4 @@ controllers:
 
 api_auth_login:
     path: /api/auth/login
-    
-gesdinet_jwt_refresh_token:
-  path: /api/auth/token/refresh
+    methods: ["POST"]
