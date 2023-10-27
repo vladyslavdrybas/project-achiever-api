@@ -6,7 +6,6 @@ namespace App\Repository;
 
 use App\Entity\RefreshToken;
 use App\Entity\UserInterface;
-use DateTimeInterface;
 use Gesdinet\JWTRefreshTokenBundle\Doctrine\RefreshTokenRepositoryInterface;
 
 /**
@@ -19,7 +18,7 @@ class RefreshTokenRepository extends AbstractRepository implements RefreshTokenR
 {
     /**
      * @param \App\Entity\UserInterface $user
-     * @return \App\Entity\Token[]
+     * @return \App\Entity\RefreshToken[]
      */
     public function findAllByUser(UserInterface $user): array
     {
