@@ -30,6 +30,9 @@ class Achievement extends AbstractEntity
     #[ORM\Column(name: "is_public", type: Types::BOOLEAN, options: ["default" => false])]
     protected bool $isPublic = false;
 
+    #[ORM\Column(name: "is_notified", type: Types::BOOLEAN, options: ["default" => false])]
+    protected bool $isNotified = false;
+
     #[ORM\Column(
         name: "done_at",
         type: Types::DATETIME_IMMUTABLE,
@@ -169,5 +172,21 @@ class Achievement extends AbstractEntity
     public function setUser(User $user): void
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNotified(): bool
+    {
+        return $this->isNotified;
+    }
+
+    /**
+     * @param bool $isNotified
+     */
+    public function setIsNotified(bool $isNotified): void
+    {
+        $this->isNotified = $isNotified;
     }
 }

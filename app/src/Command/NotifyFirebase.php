@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Entity\Achievement;
 use App\Entity\FcmTokenDeviceType;
 use App\Entity\FirebaseCloudMessaging as FcmToken;
 use App\Repository\AchievementRepository;
@@ -18,14 +19,18 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use function array_filter;
+use function array_map;
 use function bin2hex;
+use function rand;
 use function random_bytes;
 use function time;
+use function var_dump;
 use const PHP_EOL;
 
 #[AsCommand(
     name: 'api:notifier:firebase',
-    description: 'create user with key for api',
+    description: 'generate and send notifications to fcm',
 )]
 class NotifyFirebase extends Command
 {
@@ -43,7 +48,6 @@ class NotifyFirebase extends Command
     // TODO shorten title -> make it same for all. move achievement title to body
     // TODO add link on achievement into message
     // TODO shorten message body
-    // TODO Do Not Repeat Yourself -> do not repeat already sent achievements
     // TODO add query for sending messages
     // TODO send a bulk (batch) of messages in one request to firebase
     // TODO fix multiple users from same device
@@ -75,17 +79,50 @@ class NotifyFirebase extends Command
                 continue;
             }
 
-            $index = rand(0, $len - 1);
+            $achievementsToNotify = array_values(array_filter(
+                $achievements,
+                function (Achievement $a) {
 
-            $achievement = $achievements[$index];
+                    return !$a->isNotified();
+                }
+            ));
 
-            $message = [
-                'title' => $achievement->getTitle(),
-                'body' => $achievement->getDescription(),
-                'doneAt' => (string) $achievement->getDoneAt()?->getTimestamp(),
-            ];
+            $notifyLen = count($achievementsToNotify);
 
-            $messages[$token] = $message;
+            $io->info(sprintf(
+                'User %s has %s achievements. in notification list are %s',
+                $userId,
+                $len,
+                $notifyLen,
+            ));
+
+            if (0 !== $notifyLen) {
+                $index = rand(0, $notifyLen - 1);
+
+                $achievement = $achievementsToNotify[$index];
+
+                $achievement->setIsNotified(true);
+                $this->achievementRepository->add($achievement);
+
+                $message = [
+                    'title' => $achievement->getTitle(),
+                    'body' => $achievement->getDescription(),
+                    'doneAt' => (string) $achievement->getDoneAt()?->getTimestamp(),
+                ];
+
+                $messages[$token] = $message;
+            } else {
+                array_map(
+                    function (Achievement $a) {
+                        $a->setIsNotified(false);
+                        $this->achievementRepository->add($a);
+
+                        return $a;
+                    },
+                    $achievements
+                );
+            }
+            $this->achievementRepository->save();
         }
 
         if (!count($messages)) {
