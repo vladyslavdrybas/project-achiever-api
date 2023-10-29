@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api/profile', name: "api_profile")]
 class ProfileController extends AbstractController
 {
-    #[Route("/", name: "", methods: ["GET", "OPTIONS", "HEAD"])]
+    #[Route("/", name: "", methods: ["GET"])]
     public function profile(): JsonResponse
     {
         /** @var \App\Entity\User $user */

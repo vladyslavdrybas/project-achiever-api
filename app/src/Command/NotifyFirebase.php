@@ -11,19 +11,15 @@ use Google\Service\FirebaseCloudMessaging;
 use Google_Client;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use function array_filter;
 use function bin2hex;
 use function random_bytes;
-use function sprintf;
 use function time;
-use function var_dump;
 use const PHP_EOL;
 
 #[AsCommand(
