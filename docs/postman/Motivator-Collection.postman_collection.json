@@ -7,6 +7,94 @@
 	},
 	"item": [
 		{
+			"name": "Firebase",
+			"item": [
+				{
+					"name": "Register Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/firebase/store/token/ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcA==/postman",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"firebase",
+								"store",
+								"token",
+								"ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcA==",
+								"postman"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/firebase/store/token/ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcA==/postman",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"firebase",
+										"store",
+										"token",
+										"ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcA==",
+										"postman"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 29 Oct 2023 04:50:35 GMT"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "ad3748"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://localhost:8000/_profiler/ad3748"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.24"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Content-Length",
+									"value": "21"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Register Json",
 			"event": [
 				{
@@ -1524,6 +1612,9 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
