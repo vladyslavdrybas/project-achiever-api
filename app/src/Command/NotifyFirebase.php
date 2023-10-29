@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Entity\FcmTokenDeviceType;
 use App\Entity\FirebaseCloudMessaging as FcmToken;
 use App\Repository\AchievementRepository;
 use App\Repository\FirebaseCloudMessagingRepository;
@@ -51,7 +52,7 @@ class NotifyFirebase extends Command
         $io = new SymfonyStyle($input, $output);
 
         /** @var FcmToken[] $tokens */
-        $tokens = $this->messagingRepository->findBy(['deviceType' => 'web']);
+        $tokens = $this->messagingRepository->findBy(['deviceType' => FcmTokenDeviceType::WEB]);
 
         $tokenUserHash = [];
         foreach ($tokens as $token) {
