@@ -12,45 +12,50 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: "firebase_cloud_messaging")]
 class FirebaseCloudMessaging extends AbstractEntity
 {
-    #[ORM\Column(name: "token", type: Types::STRING, length: 512, unique: false, nullable: true)]
-    protected ?string $token = null;
+    #[ORM\Column(name: "token", type: Types::STRING, length: 512, unique: false, nullable: false)]
+    protected string $token;
 
-    #[ORM\Column(name: "device_type", type: Types::STRING, length: 512, unique: false, nullable: false)]
-    protected string $deviceType;
+    #[ORM\Column(name: "device_type", type: Types::STRING, length: 10, unique: false, nullable: false, enumType: FcmTokenDeviceType::class)]
+    protected FcmTokenDeviceType $deviceType = FcmTokenDeviceType::UNKNOWN;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'firebaseCloudMessagingTokens')]
     #[ORM\JoinColumn(name:'user_id', referencedColumnName: 'id', nullable: false)]
     protected User $user;
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getToken(): ?string
+    public function getToken(): string
     {
         return $this->token;
     }
 
     /**
-     * @param string|null $token
+     * @param string $token
      */
-    public function setToken(?string $token): void
+    public function setToken(string $token): void
     {
         $this->token = $token;
     }
 
     /**
-     * @return string
+     * @return FcmTokenDeviceType
      */
-    public function getDeviceType(): string
+    public function getDeviceType(): FcmTokenDeviceType
     {
         return $this->deviceType;
     }
 
     /**
-     * @param string $deviceType
+     * @param FcmTokenDeviceType|string $deviceType
      */
-    public function setDeviceType(string $deviceType): void
+    public function setDeviceType(FcmTokenDeviceType|string $deviceType): void
     {
+        $deviceType = FcmTokenDeviceType::tryFrom($deviceType);
+        if (null === $deviceType) {
+            $deviceType = FcmTokenDeviceType::UNKNOWN;
+        }
+
         $this->deviceType = $deviceType;
     }
 

@@ -9,6 +9,6 @@ app-stop:
 app-code-check:
 	docker compose exec app composer code-check
 proxy-run:
-	ngrok http https://localhost:8000
+	ngrok http https://localhost:8000 --host-header=rewrite
 generate-jwt-keys:
 	docker compose exec app composer generate-jwt-keys
