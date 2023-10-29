@@ -62,10 +62,14 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\OneToMany(mappedBy: 'user',targetEntity: Achievement::class)]
     protected Collection $achievements;
 
+    #[ORM\OneToMany(mappedBy: 'user',targetEntity: FirebaseCloudMessaging::class)]
+    protected Collection $firebaseCloudMessagingTokens;
+
     public function __construct()
     {
         parent::__construct();
         $this->achievements = new ArrayCollection();
+        $this->firebaseCloudMessagingTokens = new ArrayCollection();
     }
 
     public function isEqualTo(SecurityUserInterface $user): bool
@@ -228,5 +232,21 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     public function setAchievements(ArrayCollection|Collection $achievements): void
     {
         $this->achievements = $achievements;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFirebaseCloudMessagingTokens(): Collection
+    {
+        return $this->firebaseCloudMessagingTokens;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $firebaseCloudMessagingTokens
+     */
+    public function setFirebaseCloudMessagingTokens(Collection $firebaseCloudMessagingTokens): void
+    {
+        $this->firebaseCloudMessagingTokens = $firebaseCloudMessagingTokens;
     }
 }

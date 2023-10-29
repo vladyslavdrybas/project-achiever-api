@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Entity\FirebaseCloudMessaging as FcmToken;
+use App\Repository\AchievementRepository;
+use App\Repository\FirebaseCloudMessagingRepository;
 use Google\Service\FirebaseCloudMessaging;
 use Google_Client;
-use Google_Service_FirebaseCloudMessaging;
-use Google_Service_FirebaseCloudMessaging_FcmOptions;
-use Google_Service_FirebaseCloudMessaging_Message;
-use Google_Service_FirebaseCloudMessaging_Notification;
-use Google_Service_FirebaseCloudMessaging_SendMessageRequest;
-use Google_Service_FirebaseCloudMessaging_WebpushConfig;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,10 +16,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\Notifier\ChatterInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use function array_filter;
+use function bin2hex;
+use function random_bytes;
 use function sprintf;
+use function time;
 use function var_dump;
 use const PHP_EOL;
 
@@ -35,52 +35,99 @@ class NotifyFirebase extends Command
     public function __construct(
         protected readonly HttpClientInterface $client,
         protected readonly ParameterBagInterface $bag,
-        protected readonly SerializerInterface $serializer
+        protected readonly SerializerInterface $serializer,
+        protected readonly FirebaseCloudMessagingRepository $messagingRepository,
+        protected readonly AchievementRepository $achievementRepository
     ) {
         parent::__construct();
     }
 
-    protected function configure(): void
-    {
-        $this
-            ->addArgument('deviceToken', InputArgument::OPTIONAL, 'device token to send message')
-            ->addArgument('message', InputArgument::OPTIONAL, 'message');
-    }
-
+    // TODO store sent messages
+    // TODO shorten title -> make it same for all. move achievement title to body
+    // TODO add link on achievement into message
+    // TODO shorten message body
+    // TODO Do Not Repeat Yourself -> do not repeat already sent achievements
+    // TODO add query for sending messages
+    // TODO send a bulk (batch) of messages in one request to firebase
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
-        $deviceToken = $input->getArgument('deviceToken') ?? 'eSO_y8iGwoVBgZ4A-sPSzf:APA91bFa4f3dprl4Qnr_XK4OikZV1wYxQCoUmgF_0F1EgY9NHThVmV9cSoc8pB_uOwbpunebr-rnYbUpEcaC2g5mDk0gxRFIlpcIlBtmKzqAXycvWLH8i3FsGmTXBS7hlg3GXy35H2Ep';
-        $message = $input->getArgument('message') ?? 'test message for device: ' . $deviceToken;
+        /** @var FcmToken[] $tokens */
+        $tokens = $this->messagingRepository->findBy(['deviceType' => 'web']);
 
-        $io->info(sprintf('I will send "%s" to device "%s"', $message, $deviceToken));
+        $tokenUserHash = [];
+        foreach ($tokens as $token) {
+            if ( !isset($tokenUserHash[$token->getToken()])) {
+                $tokenUserHash[$token->getToken()] = $token->getUser()->getRawId();
+            }
+        }
 
+        $messages = [];
+        foreach ($tokenUserHash as $token => $userId)
+        {
+            $achievements = $this->achievementRepository->findBy(
+                [
+                    'user' => $userId
+                ]
+            );
+
+            $len = count($achievements);
+            if (!$len) {
+                continue;
+            }
+
+            $index = rand(0, $len - 1);
+
+            $achievement = $achievements[$index];
+
+            $message = [
+                'title' => $achievement->getTitle(),
+                'body' => $achievement->getDescription(),
+                'doneAt' => (string) $achievement->getDoneAt()?->getTimestamp(),
+            ];
+
+            $messages[$token] = $message;
+        }
+
+        if (!count($messages)) {
+            $io->success('Nothing to send.');
+
+            return Command::SUCCESS;
+        }
+
+        $project = 'motivator-dcb76';
         $client = new Google_Client();
         $client->setAuthConfig($this->bag->get('google_application_credentials'));
         $client->addScope(FirebaseCloudMessaging::FIREBASE_MESSAGING);
         $http_client = $client->authorize();
 
-        $project = 'motivator-dcb76';
-        $message = [
-            'message' => [
-                'token' => $deviceToken,
-                'notification' => [
-                    'body' => $message,
-                    'title' => 'FCM Message',
+        foreach ($messages as $token => $msg)
+        {
+            $message = [
+                'message' => [
+                    'token' => $token,
+                    'data' => [
+                        'requireInteraction' => 'true',
+                        'title' => $msg['title'],
+                        'body' => $msg['body'],
+                        'doneAt' => $msg['doneAt'],
+                        'messageId' => time() . ':' . bin2hex(random_bytes(10)),
+                        'duration' => (string)(30 * 1000), // 30sec
+                    ],
                 ],
-            ],
-        ];
+            ];
 
-        $response = $http_client->post(
-            "https://fcm.googleapis.com/v1/projects/{$project}/messages:send",
-            [
-                'json' => $message
-            ]
-        );
+            $response = $http_client->post(
+                "https://fcm.googleapis.com/v1/projects/{$project}/messages:send",
+                [
+                    'json' => $message
+                ]
+            );
 
-        $io->info($response->getStatusCode() . PHP_EOL);
-        $io->info($response->getBody() . PHP_EOL);
+            $io->info($response->getStatusCode() . PHP_EOL);
+            $io->info($response->getBody() . PHP_EOL);
+        }
 
         $io->success('Message sent.');
 
