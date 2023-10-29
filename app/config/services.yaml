@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    google_application_credentials: '%env(resolve:GOOGLE_APPLICATION_CREDENTIALS)%'
     table_prefix: 'smfn_'
 
 services:

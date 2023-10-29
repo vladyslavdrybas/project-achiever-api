@@ -37,10 +37,12 @@
         "symfony/doctrine-bridge": "^6.3",
         "symfony/dotenv": "^6.3",
         "symfony/expression-language": "^6.3",
+        "symfony/firebase-notifier": "^6.3",
         "symfony/flex": "^2.0",
         "symfony/framework-bundle": "^6.3",
         "symfony/http-client": "^6.3",
         "symfony/monolog-bundle": "^3.0",
+        "symfony/notifier": "^6.3",
         "symfony/property-access": "^6.3",
         "symfony/property-info": "^6.3",
         "symfony/routing": "^6.3",
@@ -50,7 +52,8 @@
         "symfony/translation": "^6.3",
         "symfony/uid": "^6.3",
         "symfony/validator": "^6.3",
-        "symfony/yaml": "^6.3"
+        "symfony/yaml": "^6.3",
+        "google/apiclient": "^2.15.0"
     },
     "require-dev": {
         "jetbrains/phpstorm-attributes": "^1.0",
@@ -112,7 +115,8 @@
         ],
         "generate-jwt-keys": [
             "php bin/console lexik:jwt:generate-keypair"
-        ]
+        ],
+        "pre-autoload-dump": "Google\\Task\\Composer::cleanup"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -121,6 +125,9 @@
         "symfony": {
             "allow-contrib": false,
             "require": "^6.3"
-        }
+        },
+        "google/apiclient-services": [
+            "FirebaseCloudMessaging"
+        ]
     }
 }
