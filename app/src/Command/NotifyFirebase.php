@@ -45,6 +45,7 @@ class NotifyFirebase extends Command
     // TODO Do Not Repeat Yourself -> do not repeat already sent achievements
     // TODO add query for sending messages
     // TODO send a bulk (batch) of messages in one request to firebase
+    // TODO fix multiple users from same device
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

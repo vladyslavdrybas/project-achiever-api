@@ -15,6 +15,7 @@ use function base64_decode;
 #[Route('/api/firebase', name: "api_firebase")]
 class FirebaseCloudMessagingController extends AbstractController
 {
+    // TODO remove credentials on frontend -> use server token to register fcm token
     #[Route("/store/token/{token}/{deviceType}", name: "_store_token", methods: ["GET", "OPTIONS", "HEAD"])]
     public function index(
         string $token,
