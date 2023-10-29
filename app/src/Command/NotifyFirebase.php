@@ -50,7 +50,6 @@ class NotifyFirebase extends Command
     // TODO shorten message body
     // TODO add query for sending messages
     // TODO send a bulk (batch) of messages in one request to firebase
-    // TODO fix multiple users from same device
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -60,17 +59,22 @@ class NotifyFirebase extends Command
 
         $tokenUserHash = [];
         foreach ($tokens as $token) {
-            if ( !isset($tokenUserHash[$token->getToken()])) {
-                $tokenUserHash[$token->getToken()] = $token->getUser()->getRawId();
+            $hash = $token->getToken() . ':' . $token->getUser()->getRawId();
+            if ( !isset($tokenUserHash[$hash])) {
+                $tokenUserHash[$hash] = [
+                    'token' => $token->getToken(),
+                    'userId' => $token->getUser()->getRawId(),
+                ];
             }
         }
 
         $messages = [];
-        foreach ($tokenUserHash as $token => $userId)
+        foreach ($tokenUserHash as $hash => $data)
         {
+            $userId = $data['userId'];
             $achievements = $this->achievementRepository->findBy(
                 [
-                    'user' => $userId
+                    'user' => $userId,
                 ]
             );
 
@@ -105,12 +109,13 @@ class NotifyFirebase extends Command
                 $this->achievementRepository->add($achievement);
 
                 $message = [
+                    'token' => $data['token'],
                     'title' => $achievement->getTitle(),
                     'body' => $achievement->getDescription(),
                     'doneAt' => (string) $achievement->getDoneAt()?->getTimestamp(),
                 ];
 
-                $messages[$token] = $message;
+                $messages[$hash] = $message;
             } else {
                 array_map(
                     function (Achievement $a) {
@@ -137,11 +142,11 @@ class NotifyFirebase extends Command
         $client->addScope(FirebaseCloudMessaging::FIREBASE_MESSAGING);
         $http_client = $client->authorize();
 
-        foreach ($messages as $token => $msg)
+        foreach ($messages as $hash => $msg)
         {
             $message = [
                 'message' => [
-                    'token' => $token,
+                    'token' => $msg['token'],
                     'data' => [
                         'requireInteraction' => 'true',
                         'title' => $msg['title'],
