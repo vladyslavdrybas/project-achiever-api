@@ -30,8 +30,16 @@ class FirebaseCloudMessagingController extends AbstractController
             $entity->setDeviceType($deviceType);
             $entity->setUser($user);
 
-            $repository->add($entity);
-            $repository->save();
+            $tokens = $repository->findBy([
+                'token' => $entity->getToken(),
+                'deviceType' => $entity->getDeviceType(),
+                'user' => $entity->getUser(),
+            ]);
+
+            if (!count($tokens)) {
+                $repository->add($entity);
+                $repository->save();
+            }
         } catch (Exception $e) {
             return $this->json(
                 [
