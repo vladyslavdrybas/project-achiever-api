@@ -11,6 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+// TODO add startdate
+// TODO add calculate spent time
+// TODO add avatar
+// TODO add link on achievement results
+// TODO add scheduler
+// TODO add sent marker to remove duplicates on short time range
 #[ORM\Entity(repositoryClass: AchievementRepository::class, readOnly: false)]
 #[ORM\Table(name: "achievement")]
 class Achievement extends AbstractEntity
