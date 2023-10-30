@@ -22,6 +22,9 @@ class FirebaseCloudMessaging extends AbstractEntity
     #[ORM\JoinColumn(name:'user_id', referencedColumnName: 'id', nullable: false)]
     protected User $user;
 
+    #[ORM\Column(name: "is_active", type: Types::BOOLEAN, options: ["default" => true])]
+    protected bool $isActive = true;
+
     /**
      * @return string
      */
@@ -73,5 +76,21 @@ class FirebaseCloudMessaging extends AbstractEntity
     public function setUser(User $user): void
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool $isActive
+     */
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
     }
 }

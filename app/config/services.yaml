@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     google_application_credentials: '%env(resolve:GOOGLE_AUTH_CONFIG)%'
+    web_host: '%env(WEB_HOST)%'
     table_prefix: 'smfn_'
 
 services:

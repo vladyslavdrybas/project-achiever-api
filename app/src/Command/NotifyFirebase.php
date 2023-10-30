@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Constants\RouteConstants;
 use App\Entity\Achievement;
 use App\Entity\FcmTokenDeviceType;
 use App\Entity\FirebaseCloudMessaging as FcmToken;
@@ -13,10 +14,12 @@ use Google\Service\FirebaseCloudMessaging;
 use Google_Client;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use function array_filter;
@@ -25,7 +28,6 @@ use function bin2hex;
 use function rand;
 use function random_bytes;
 use function time;
-use function var_dump;
 use const PHP_EOL;
 
 #[AsCommand(
@@ -39,23 +41,42 @@ class NotifyFirebase extends Command
         protected readonly ParameterBagInterface $bag,
         protected readonly SerializerInterface $serializer,
         protected readonly FirebaseCloudMessagingRepository $messagingRepository,
-        protected readonly AchievementRepository $achievementRepository
+        protected readonly AchievementRepository $achievementRepository,
+        protected readonly UrlGeneratorInterface $urlGenerator
     ) {
         parent::__construct();
     }
 
+    protected function configure(): void
+    {
+        $this
+            ->addArgument('deviceType', InputArgument::OPTIONAL, 'device type');
+    }
+
+    // TODO SECURITY ISSUE: multiple users on same device has same fcm token. (For transactional purposes)
+    // solution:
+    // * user identifier inside data object.
+    // * detect user identifier on frontend.
+    // * monitoring user activity.
+
+    // TODO SECURITY ISSUE: deactivate token on logout. activate token on login
+
+    // TODO ANNOYING ISSUE: user will receive a bunch of messages when he will return. can be fixed via EXPIRATION date.
     // TODO store sent messages
-    // TODO shorten title -> make it same for all. move achievement title to body
-    // TODO add link on achievement into message
     // TODO shorten message body
+    // TODO add link on achievement into message
     // TODO add query for sending messages
     // TODO send a bulk (batch) of messages in one request to firebase
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+        $deviceType = FcmTokenDeviceType::from($input->getArgument('deviceType')) ?? FcmTokenDeviceType::WEB;
 
         /** @var FcmToken[] $tokens */
-        $tokens = $this->messagingRepository->findBy(['deviceType' => FcmTokenDeviceType::WEB]);
+        $tokens = $this->messagingRepository->findBy([
+            'deviceType' => $deviceType,
+            'isActive' => true,
+        ]);
 
         $tokenUserHash = [];
         foreach ($tokens as $token) {
@@ -103,16 +124,24 @@ class NotifyFirebase extends Command
             if (0 !== $notifyLen) {
                 $index = rand(0, $notifyLen - 1);
 
+                /** @var Achievement $achievement */
                 $achievement = $achievementsToNotify[$index];
 
                 $achievement->setIsNotified(true);
                 $this->achievementRepository->add($achievement);
 
+                $link = sprintf(
+                    '%s/achievements/show/%s',
+                    $this->bag->get('web_host') ?? '',
+                    $achievement->getRawId()
+                );
+
                 $message = [
                     'token' => $data['token'],
-                    'title' => $achievement->getTitle(),
-                    'body' => $achievement->getDescription(),
+                    'title' => $achievement->getDoneAt() ? 'Achieved' : 'Achievement in progress',
+                    'body' => sprintf('[%s] %s', $achievement->getTitle(), $achievement->getDescription()),
                     'doneAt' => (string) $achievement->getDoneAt()?->getTimestamp(),
+                    'link' => $link,
                 ];
 
                 $messages[$hash] = $message;
@@ -148,13 +177,20 @@ class NotifyFirebase extends Command
                 'message' => [
                     'token' => $msg['token'],
                     'data' => [
-                        'requireInteraction' => 'true',
                         'title' => $msg['title'],
                         'body' => $msg['body'],
+                        'requireInteraction' => 'true',
                         'doneAt' => $msg['doneAt'],
-                        'messageId' => time() . ':' . bin2hex(random_bytes(10)),
                         'duration' => (string)(30 * 1000), // 30sec
+                        'messageId' => time() . ':' . bin2hex(random_bytes(10)),
+                        'link' => $msg['link'],
+                        'icon' => 'http://localhost:3000/logo.svg'
                     ],
+                    'webpush' => [
+                        'fcm_options' => [
+                            'link' => $msg['link'],
+                        ]
+                    ]
                 ],
             ];
 

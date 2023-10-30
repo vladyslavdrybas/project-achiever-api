@@ -23,6 +23,9 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api_firebase_fake:
+            pattern: ^/api/firebase/fake
+            security: false
         api_register:
             pattern: ^/api/auth/register
             security: false

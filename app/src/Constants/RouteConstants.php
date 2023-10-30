@@ -9,4 +9,5 @@ interface RouteConstants
     public const LOGIN_ROUTE = 'api_auth_login';
     public const LOGOUT_ROUTE = 'logout_json';
     public const HOMEPAGE_ROUTE = 'app_homepage';
+    public const ACHIEVEMENT_SHOW = 'api_achievement_show';
 }

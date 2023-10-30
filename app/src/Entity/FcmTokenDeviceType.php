@@ -6,6 +6,7 @@ enum FcmTokenDeviceType: string
 {
     case UNKNOWN = 'unknown';
     case WEB = 'web';
+    case WEB_EXTENSION = 'web_ext';
     case POSTMAN = 'postman';
 //    case telegram;
 //    case android;

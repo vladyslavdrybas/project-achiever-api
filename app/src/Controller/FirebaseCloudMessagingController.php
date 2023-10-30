@@ -51,4 +51,41 @@ class FirebaseCloudMessagingController extends AbstractController
 
         return $this->json(["message" => "success"]);
     }
+
+    #[Route("/fake/store/token/{token}/{deviceType}/{userId}", name: "_fake_store_token", methods: ["GET", "OPTIONS", "HEAD"])]
+    public function fakeTokenStore(
+        string $token,
+        string $deviceType,
+        string $userId,
+        FirebaseCloudMessagingRepository $repository,
+        UserRepository $userRepository
+    ): JsonResponse {
+        try {
+            $user = $userRepository->find($userId);
+            $entity = new FirebaseCloudMessaging();
+            $entity->setToken(base64_decode($token));
+            $entity->setDeviceType($deviceType);
+            $entity->setUser($user);
+
+            $tokens = $repository->findBy([
+                'token' => $entity->getToken(),
+                'deviceType' => $entity->getDeviceType(),
+                'user' => $entity->getUser(),
+            ]);
+
+            if (!count($tokens)) {
+                $repository->add($entity);
+                $repository->save();
+            }
+        } catch (Exception $e) {
+            return $this->json(
+                [
+                    'message' => $e->getMessage(),
+                ],
+                JsonResponse::HTTP_BAD_REQUEST
+            );
+        }
+
+        return $this->json(["message" => "success"]);
+    }
 }
