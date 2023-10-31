@@ -10,6 +10,7 @@ use App\Entity\FcmTokenDeviceType;
 use App\Entity\FirebaseCloudMessaging as FcmToken;
 use App\Repository\AchievementRepository;
 use App\Repository\FirebaseCloudMessagingRepository;
+use Doctrine\Common\Collections\Criteria;
 use Google\Service\FirebaseCloudMessaging;
 use Google_Client;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -73,11 +74,11 @@ class NotifyFirebase extends Command
         $io = new SymfonyStyle($input, $output);
         $deviceType = FcmTokenDeviceType::from($input->getArgument('deviceType')) ?? FcmTokenDeviceType::WEB;
 
-        /** @var FcmToken[] $tokens */
-        $tokens = $this->messagingRepository->findBy([
-            'deviceType' => $deviceType,
-            'isActive' => true,
-        ]);
+        $deviceCriteria = new Criteria();
+        $deviceCriteria->where(Criteria::expr()->eq('deviceType', $deviceType))
+            ->andWhere(Criteria::expr()->eq('isActive', true));
+
+        $tokens = $this->messagingRepository->matching($deviceCriteria);
 
         $tokensHash = [];
         $tokenUserHash = [];

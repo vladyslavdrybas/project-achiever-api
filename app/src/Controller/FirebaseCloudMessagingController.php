@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\FirebaseCloudMessaging;
 use App\Repository\FirebaseCloudMessagingRepository;
 use App\Repository\UserRepository;
+use DateTime;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,6 +31,7 @@ class FirebaseCloudMessagingController extends AbstractController
             $entity->setToken(base64_decode($token));
             $entity->setDeviceType($deviceType);
             $entity->setUser($user);
+            $entity->setExpireAt((new DateTime('+5 minutes')));
 
             $tokens = $repository->findBy([
                 'token' => $entity->getToken(),

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\FirebaseCloudMessagingRepository;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,6 +25,13 @@ class FirebaseCloudMessaging extends AbstractEntity
 
     #[ORM\Column(name: "is_active", type: Types::BOOLEAN, options: ["default" => true])]
     protected bool $isActive = true;
+
+    #[ORM\Column(
+        name: "expire_at",
+        type: Types::DATETIME_IMMUTABLE,
+        nullable: true
+    )]
+    protected ?DateTimeInterface $expireAt;
 
     /**
      * @return string
@@ -92,5 +100,21 @@ class FirebaseCloudMessaging extends AbstractEntity
     public function setIsActive(bool $isActive): void
     {
         $this->isActive = $isActive;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getExpireAt(): ?DateTimeInterface
+    {
+        return $this->expireAt;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $expireAt
+     */
+    public function setExpireAt(?DateTimeInterface $expireAt): void
+    {
+        $this->expireAt = $expireAt;
     }
 }

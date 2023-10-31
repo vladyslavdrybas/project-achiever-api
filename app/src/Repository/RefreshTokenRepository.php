@@ -13,6 +13,8 @@ use Gesdinet\JWTRefreshTokenBundle\Doctrine\RefreshTokenRepositoryInterface;
  * @method RefreshToken|null findOneBy(array $criteria, array $orderBy = null)
  * @method RefreshToken[]    findAll()
  * @method RefreshToken[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method \Doctrine\Common\Collections\Collection<RefreshToken>    matching(\Doctrine\Common\Collections\Criteria $criteria)
+ * @method RefreshToken|null    matchingOneOrNull(\Doctrine\Common\Collections\Criteria $criteria)
  */
 class RefreshTokenRepository extends AbstractRepository implements RefreshTokenRepositoryInterface
 {

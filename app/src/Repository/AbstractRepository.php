@@ -6,10 +6,18 @@ namespace App\Repository;
 
 use App\Entity\EntityInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Persistence\ManagerRegistry;
 use function str_replace;
 
+/**
+ * @method EntityInterface|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EntityInterface|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EntityInterface[]    findAll()
+ * @method EntityInterface[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
 abstract class AbstractRepository extends ServiceEntityRepository implements Selectable
 {
     public function __construct(ManagerRegistry $registry)
@@ -32,5 +40,25 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Sel
     public function save(): void
     {
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Criteria $criteria
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function matching(Criteria $criteria): Collection
+    {
+        return parent::matching($criteria);
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Criteria $criteria
+     * @return \App\Entity\EntityInterface|null
+     */
+    public function matchingOneOrNull(Criteria $criteria): ?EntityInterface
+    {
+        $matched = parent::matching($criteria);
+
+        return $matched->isEmpty() ? null : $matched->first();
     }
 }
