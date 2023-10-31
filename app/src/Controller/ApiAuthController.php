@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use App\Entity\FcmTokenDeviceType;
 use App\Entity\User;
 use App\Entity\UserInterface;
+use App\Repository\FirebaseCloudMessagingRepository;
 use App\Repository\RefreshTokenRepository;
 use App\Repository\UserRepository;
 use App\Transfer\UserRegisterJsonTransfer;
@@ -12,6 +14,8 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use function array_map;
+use function var_dump;
 
 #[Route('/api/auth', name: "api_auth")]
 class ApiAuthController extends AbstractController
@@ -53,20 +57,8 @@ class ApiAuthController extends AbstractController
         ], JsonResponse::HTTP_OK);
     }
 
-    #[Route('/logout', name: '_logout', methods: ['GET'])]
-    public function logout(
-        Security $security,
-        RefreshTokenRepository $refreshTokenRepository
-    ): JsonResponse {
-        $user = $this->getUser();
-        if ($user instanceof UserInterface) {
-            $refreshTokenRepository->removeAllByUser($user);
-
-            $security->logout(false);
-        }
-
-        return $this->json([
-            'message' => 'success',
-        ]);
+    #[Route('/logout/{deviceType}', name: '_logout', defaults: ['deviceType' => 'web'], methods: ['GET', 'POST', 'OPTIONS'])]
+    public function logout(): never {
+        throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
 }

@@ -26,9 +26,6 @@ security:
         api_register:
             pattern: ^/api/auth/register
             security: false
-        api_logout:
-            pattern: ^/api/auth/logout
-            security: false
         api_token_refresh:
             pattern: ^/api/auth/token/refresh
             stateless: true
@@ -52,11 +49,13 @@ security:
             jwt: ~
             refresh_jwt:
                 check_path: /api/auth/token/refresh
+            logout:
+                path: api_auth_logout
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: '^/api/auth/(login|register|logout|token/refresh)', roles: PUBLIC_ACCESS }
+        - { path: '^/api/auth/(login|register|token/refresh)', roles: PUBLIC_ACCESS }
         - { path: '^/api', roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
