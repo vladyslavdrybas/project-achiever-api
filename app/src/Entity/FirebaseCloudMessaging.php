@@ -93,6 +93,6 @@ class FirebaseCloudMessaging extends AbstractEntity
 
     public function prolong(): void
     {
-        $this->setExpireAt((new DateTimeImmutable('+5 minutes')));
+        $this->setExpireAt((new DateTimeImmutable('+9000 hours')));
     }
 }
