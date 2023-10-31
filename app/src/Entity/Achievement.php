@@ -33,11 +33,10 @@ class Achievement extends AbstractEntity
     #[ORM\Column(name: "is_notified", type: Types::BOOLEAN, options: ["default" => false])]
     protected bool $isNotified = false;
 
-    #[ORM\Column(
-        name: "done_at",
-        type: Types::DATETIME_IMMUTABLE,
-        nullable: true
-    )]
+    #[ORM\Column(name: "notified_at", type: Types::DATETIME_IMMUTABLE, nullable: true )]
+    protected ?DateTimeInterface $notifiedAt;
+
+    #[ORM\Column(name: "done_at", type: Types::DATETIME_IMMUTABLE, nullable: true)]
     protected ?DateTimeInterface $doneAt;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'achievements')]
@@ -172,6 +171,22 @@ class Achievement extends AbstractEntity
     public function setUser(User $user): void
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getNotifiedAt(): ?DateTimeInterface
+    {
+        return $this->notifiedAt;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $notifiedAt
+     */
+    public function setNotifiedAt(?DateTimeInterface $notifiedAt): void
+    {
+        $this->notifiedAt = $notifiedAt;
     }
 
     /**

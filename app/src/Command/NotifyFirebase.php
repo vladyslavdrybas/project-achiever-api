@@ -84,7 +84,7 @@ class NotifyFirebase extends Command
         $tokenUserHash = [];
         foreach ($tokens as $token) {
             $hash = $token->getToken() . ':' . $token->getUser()->getRawId();
-            if ( !isset($tokenUserHash[$hash])) {
+            if ( !isset($tokenUserHash[$hash]) && $token->getUser()->isActive()) {
                 $tokenUserHash[$hash] = [
                     'token' => $token->getToken(),
                     'userId' => $token->getUser()->getRawId(),
@@ -118,8 +118,7 @@ class NotifyFirebase extends Command
             $achievementsToNotify = array_values(array_filter(
                 $achievements,
                 function (Achievement $a) {
-
-                    return !$a->isNotified();
+                    return false === $a->isNotified();
                 }
             ));
 
@@ -138,6 +137,7 @@ class NotifyFirebase extends Command
                 /** @var Achievement $achievement */
                 $achievement = $achievementsToNotify[$index];
 
+                $achievement->setNotifiedAt(new DateTimeImmutable());
                 $achievement->setIsNotified(true);
                 $this->achievementRepository->add($achievement);
 
@@ -153,6 +153,7 @@ class NotifyFirebase extends Command
                     'body' => sprintf('[%s] %s', $achievement->getTitle(), $achievement->getDescription()),
                     'doneAt' => (string) $achievement->getDoneAt()?->getTimestamp(),
                     'link' => $link,
+                    'userId' => $userId,
                 ];
 
                 $messages[$hash] = $message;
@@ -195,6 +196,7 @@ class NotifyFirebase extends Command
                         'duration' => (string)(30 * 1000), // 30sec
                         'messageId' => time() . ':' . bin2hex(random_bytes(10)),
                         'link' => $msg['link'],
+                        'userId' => $msg['userId'],
                         'icon' => 'http://localhost:3000/logo.svg'
                     ],
                     'webpush' => [

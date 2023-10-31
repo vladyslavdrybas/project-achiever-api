@@ -24,11 +24,7 @@ class FirebaseCloudMessaging extends AbstractEntity
     #[ORM\JoinColumn(name:'user_id', referencedColumnName: 'id', nullable: false)]
     protected User $user;
 
-    #[ORM\Column(
-        name: "expire_at",
-        type: Types::DATETIME_IMMUTABLE,
-        nullable: true
-    )]
+    #[ORM\Column(name: "expire_at", type: Types::DATETIME_IMMUTABLE, nullable: true )]
     protected ?DateTimeInterface $expireAt;
 
     /**
