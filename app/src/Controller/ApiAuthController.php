@@ -3,19 +3,14 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-use App\Entity\FcmTokenDeviceType;
 use App\Entity\User;
 use App\Entity\UserInterface;
-use App\Repository\FirebaseCloudMessagingRepository;
-use App\Repository\RefreshTokenRepository;
 use App\Repository\UserRepository;
 use App\Transfer\UserRegisterJsonTransfer;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use function array_map;
-use function var_dump;
 
 #[Route('/api/auth', name: "api_auth")]
 class ApiAuthController extends AbstractController

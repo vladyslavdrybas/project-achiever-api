@@ -8,12 +8,10 @@ use App\Transfer\TransferInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 use function class_exists;
 use function class_implements;
-use function var_dump;
 
 class JsonTransferValueResolver implements ValueResolverInterface
 {

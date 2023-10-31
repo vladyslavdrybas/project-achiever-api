@@ -6,12 +6,6 @@ namespace App\Command;
 
 use Google\Service\FirebaseCloudMessaging;
 use Google_Client;
-use Google_Service_FirebaseCloudMessaging;
-use Google_Service_FirebaseCloudMessaging_FcmOptions;
-use Google_Service_FirebaseCloudMessaging_Message;
-use Google_Service_FirebaseCloudMessaging_Notification;
-use Google_Service_FirebaseCloudMessaging_SendMessageRequest;
-use Google_Service_FirebaseCloudMessaging_WebpushConfig;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,14 +13,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\Notifier\ChatterInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use function bin2hex;
 use function random_bytes;
 use function sprintf;
 use function time;
-use function var_dump;
 use const PHP_EOL;
 
 #[AsCommand(
