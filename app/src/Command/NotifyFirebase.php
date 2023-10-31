@@ -28,6 +28,7 @@ use function bin2hex;
 use function rand;
 use function random_bytes;
 use function time;
+use function var_dump;
 use const PHP_EOL;
 
 #[AsCommand(
@@ -42,7 +43,7 @@ class NotifyFirebase extends Command
         protected readonly SerializerInterface $serializer,
         protected readonly FirebaseCloudMessagingRepository $messagingRepository,
         protected readonly AchievementRepository $achievementRepository,
-        protected readonly UrlGeneratorInterface $urlGenerator
+        protected readonly UrlGeneratorInterface $urlGenerator,
     ) {
         parent::__construct();
     }
@@ -78,6 +79,7 @@ class NotifyFirebase extends Command
             'isActive' => true,
         ]);
 
+        $tokensHash = [];
         $tokenUserHash = [];
         foreach ($tokens as $token) {
             $hash = $token->getToken() . ':' . $token->getUser()->getRawId();
@@ -86,6 +88,8 @@ class NotifyFirebase extends Command
                     'token' => $token->getToken(),
                     'userId' => $token->getUser()->getRawId(),
                 ];
+
+                $tokensHash[$token->getToken()] = $token;
             }
         }
 
@@ -200,6 +204,15 @@ class NotifyFirebase extends Command
                     'json' => $message
                 ]
             );
+
+            if ($response->getStatusCode() === 404) {
+                if (isset($tokensHash[$msg['token']])) {
+                    $tokenToDeactivate = $tokensHash[$msg['token']];
+                    $tokenToDeactivate->setIsActive(false);
+                    $this->messagingRepository->add($tokenToDeactivate);
+                    $this->messagingRepository->save();
+                }
+            }
 
             $io->info($response->getStatusCode() . PHP_EOL);
             $io->info($response->getBody() . PHP_EOL);
