@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use function array_map;
 use function base64_decode;
 
 #[Route('/api/firebase', name: "api_firebase")]
@@ -37,43 +38,18 @@ class FirebaseCloudMessagingController extends AbstractController
             ]);
 
             if (!count($tokens)) {
-                $repository->add($entity);
-                $repository->save();
-            }
-        } catch (Exception $e) {
-            return $this->json(
-                [
-                    'message' => $e->getMessage(),
-                ],
-                JsonResponse::HTTP_BAD_REQUEST
-            );
-        }
+                $tokens = $repository->findBy([
+                    'deviceType' => $entity->getDeviceType(),
+                    'user' => $entity->getUser(),
+                ]);
 
-        return $this->json(["message" => "success"]);
-    }
+                array_map(
+                    function (FirebaseCloudMessaging $fcm) use ($repository) {
+                        $repository->remove($fcm);
+                    },
+                    $tokens
+                );
 
-    #[Route("/fake/store/token/{token}/{deviceType}/{userId}", name: "_fake_store_token", methods: ["GET", "OPTIONS", "HEAD"])]
-    public function fakeTokenStore(
-        string $token,
-        string $deviceType,
-        string $userId,
-        FirebaseCloudMessagingRepository $repository,
-        UserRepository $userRepository
-    ): JsonResponse {
-        try {
-            $user = $userRepository->find($userId);
-            $entity = new FirebaseCloudMessaging();
-            $entity->setToken(base64_decode($token));
-            $entity->setDeviceType($deviceType);
-            $entity->setUser($user);
-
-            $tokens = $repository->findBy([
-                'token' => $entity->getToken(),
-                'deviceType' => $entity->getDeviceType(),
-                'user' => $entity->getUser(),
-            ]);
-
-            if (!count($tokens)) {
                 $repository->add($entity);
                 $repository->save();
             }
