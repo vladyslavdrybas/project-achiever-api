@@ -10,6 +10,8 @@ use App\Entity\FcmTokenDeviceType;
 use App\Entity\FirebaseCloudMessaging as FcmToken;
 use App\Repository\AchievementRepository;
 use App\Repository\FirebaseCloudMessagingRepository;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\Criteria;
 use Google\Service\FirebaseCloudMessaging;
 use Google_Client;
@@ -75,8 +77,10 @@ class NotifyFirebase extends Command
         $deviceType = FcmTokenDeviceType::from($input->getArgument('deviceType')) ?? FcmTokenDeviceType::WEB;
 
         $deviceCriteria = new Criteria();
-        $deviceCriteria->where(Criteria::expr()->eq('deviceType', $deviceType))
-            ->andWhere(Criteria::expr()->eq('isActive', true));
+        $deviceCriteria
+            ->andWhere(Criteria::expr()->gt('expireAt', new DateTimeImmutable()))
+            ->andWhere(Criteria::expr()->eq('deviceType', $deviceType))
+        ;
 
         $tokens = $this->messagingRepository->matching($deviceCriteria);
 
@@ -92,6 +96,12 @@ class NotifyFirebase extends Command
 
                 $tokensHash[$token->getToken()] = $token;
             }
+        }
+
+        if (!count($tokenUserHash)) {
+            $io->success('No tokens to send.');
+
+            return Command::SUCCESS;
         }
 
         $messages = [];
@@ -209,7 +219,7 @@ class NotifyFirebase extends Command
             if ($response->getStatusCode() === 404) {
                 if (isset($tokensHash[$msg['token']])) {
                     $tokenToDeactivate = $tokensHash[$msg['token']];
-                    $tokenToDeactivate->setIsActive(false);
+                    $tokenToDeactivate->setExpireAt(null);
                     $this->messagingRepository->add($tokenToDeactivate);
                     $this->messagingRepository->save();
                 }
