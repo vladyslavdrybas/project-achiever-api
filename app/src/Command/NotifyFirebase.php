@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Constants\RouteConstants;
 use App\Entity\Achievement;
 use App\Entity\FcmTokenDeviceType;
-use App\Entity\FirebaseCloudMessaging as FcmToken;
 use App\Repository\AchievementRepository;
 use App\Repository\FirebaseCloudMessagingRepository;
-use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Criteria;
 use Google\Service\FirebaseCloudMessaging;
@@ -31,7 +28,6 @@ use function bin2hex;
 use function rand;
 use function random_bytes;
 use function time;
-use function var_dump;
 use const PHP_EOL;
 
 #[AsCommand(
@@ -76,13 +72,13 @@ class NotifyFirebase extends Command
         $io = new SymfonyStyle($input, $output);
         $deviceType = FcmTokenDeviceType::from($input->getArgument('deviceType')) ?? FcmTokenDeviceType::WEB;
 
-        $deviceCriteria = new Criteria();
-        $deviceCriteria
+        $tokensCriteria = new Criteria();
+        $tokensCriteria
             ->andWhere(Criteria::expr()->gt('expireAt', new DateTimeImmutable()))
             ->andWhere(Criteria::expr()->eq('deviceType', $deviceType))
         ;
 
-        $tokens = $this->messagingRepository->matching($deviceCriteria);
+        $tokens = $this->messagingRepository->matching($tokensCriteria);
 
         $tokensHash = [];
         $tokenUserHash = [];

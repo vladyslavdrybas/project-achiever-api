@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\FirebaseCloudMessagingRepository;
+use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -59,12 +60,7 @@ class FirebaseCloudMessaging extends AbstractEntity
      */
     public function setDeviceType(FcmTokenDeviceType|string $deviceType): void
     {
-        $deviceType = FcmTokenDeviceType::tryFrom($deviceType);
-        if (null === $deviceType) {
-            $deviceType = FcmTokenDeviceType::UNKNOWN;
-        }
-
-        $this->deviceType = $deviceType;
+        $this->deviceType = FcmTokenDeviceType::getOrDefault($deviceType);
     }
 
     /**
@@ -97,5 +93,10 @@ class FirebaseCloudMessaging extends AbstractEntity
     public function setExpireAt(?DateTimeInterface $expireAt): void
     {
         $this->expireAt = $expireAt;
+    }
+
+    public function prolong(): void
+    {
+        $this->setExpireAt((new DateTimeImmutable('+5 minutes')));
     }
 }

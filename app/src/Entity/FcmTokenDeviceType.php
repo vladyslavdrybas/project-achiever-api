@@ -18,4 +18,14 @@ enum FcmTokenDeviceType: string
 //    case facebook;
 //    case whatsup;
 //    case viber;
+
+    public static function getOrDefault(string $value): FcmTokenDeviceType
+    {
+        $value = self::tryFrom($value);
+        if (null === $value) {
+            $value = self::UNKNOWN;
+        }
+
+        return $value;
+    }
 }
