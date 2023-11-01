@@ -9,6 +9,7 @@ use App\Entity\FcmTokenDeviceType;
 use App\Repository\AchievementRepository;
 use App\Repository\FirebaseCloudMessagingRepository;
 use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\Common\Collections\Criteria;
 use Google\Service\FirebaseCloudMessaging;
 use Google_Client;
@@ -147,11 +148,16 @@ class NotifyFirebase extends Command
                     $achievement->getRawId()
                 );
 
+                $doneAt = '';
+                if ($achievement->getDoneAt()) {
+                    $doneAt = $achievement->getDoneAt()->format(DateTimeInterface::W3C);
+                }
+
                 $message = [
                     'token' => $data['token'],
                     'title' => $achievement->getDoneAt() ? 'Achieved' : 'Achievement in progress',
                     'body' => sprintf('[%s] %s', $achievement->getTitle(), $achievement->getDescription()),
-                    'doneAt' => (string) $achievement->getDoneAt()?->getTimestamp(),
+                    'doneAt' => $doneAt,
                     'link' => $link,
                     'userId' => $userId,
                 ];
