@@ -37,6 +37,9 @@ use const PHP_EOL;
 )]
 class NotifyFirebase extends Command
 {
+    const MESSAGE_ICON_DEFAULT = 'https://cdn.discordapp.com/attachments/1072152653670387765/1169467002780385330/mr.wh1te___replace_one_man_on_a_woman_3c676d31-671a-4e59-8bb6-b49bea864e10.png?ex=65558205&is=65430d05&hm=5cbddf8054a4397143b08ad61fc5588b78891d379b85986e084cb24503227f21&';
+    const EXTENSION_LOGO_DEFAULT = 'assets/icons/logo.png';
+
     public function __construct(
         protected readonly HttpClientInterface $client,
         protected readonly ParameterBagInterface $bag,
@@ -160,6 +163,7 @@ class NotifyFirebase extends Command
                     'doneAt' => $doneAt,
                     'link' => $link,
                     'userId' => $userId,
+                    'achievementId' => $achievement->getRawId(),
                 ];
 
                 $messages[$hash] = $message;
@@ -200,15 +204,11 @@ class NotifyFirebase extends Command
                         'requireInteraction' => 'true',
                         'doneAt' => $msg['doneAt'],
                         'duration' => (string)(30 * 1000), // 30sec
-                        'messageId' => time() . ':' . bin2hex(random_bytes(10)),
+                        'messageToken' => hash('sha512', time() . ':' . bin2hex(random_bytes(10)) . ':' . $msg['body']),
                         'link' => $msg['link'],
                         'userId' => $msg['userId'],
-                        'icon' => 'http://localhost:3000/logo.svg'
-                    ],
-                    'webpush' => [
-                        'fcm_options' => [
-                            'link' => $msg['link'],
-                        ]
+                        'achievementId' => $msg['achievementId'],
+                        'icon' => static::EXTENSION_LOGO_DEFAULT ?? static::MESSAGE_ICON_DEFAULT,
                     ]
                 ],
             ];
