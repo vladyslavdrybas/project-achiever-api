@@ -14,3 +14,8 @@ proxy-run:
 	ngrok http https://localhost:8000 --host-header=rewrite
 generate-jwt-keys:
 	docker compose exec app composer generate-jwt-keys
+ubuntu-docker-compose-install:
+	mkdir -p ~/.docker/cli-plugins/
+	curl -SL https://github.com/docker/compose/releases/download/v2.23.0/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+	chmod +x ~/.docker/cli-plugins/docker-compose
+	docker compose version
