@@ -1,0 +1,23 @@
+version: "3.9"
+
+x-php-variables: &php-environment
+  environment:
+    - APP_ENV=prod
+    - ACCESS_TOKENS=${ACCESS_TOKENS:-token123}
+
+services:
+  app:
+    ports:
+       - 80:8000
+    <<: *php-environment
+
+###> doctrine/doctrine-bundle ###
+  database:
+    ports:
+      - "5432:5432"
+###< doctrine/doctrine-bundle ###
+
+volumes:
+###> doctrine/doctrine-bundle ###
+  database_data:
+###< doctrine/doctrine-bundle ###

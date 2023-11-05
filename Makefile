@@ -4,6 +4,8 @@ composer-update:
 	docker compose -f docker-compose.composer.yml up composer-update --remove-orphans
 app-run:
 	docker compose -f docker-compose.yml up -d --remove-orphans
+app-run-prod:
+	docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --remove-orphans
 app-stop:
 	docker compose -f docker-compose.yml down
 app-code-check:
