@@ -1,14 +1,14 @@
 {
-    "name": "vladyslavdrybas/motivator",
-    "description": "motivator",
+    "name": "vladyslavdrybas/achievernotifier",
+    "description": "Achiever Notifier API",
     "type": "project",
     "license": "proprietary",
     "keywords": [
-        "motivator"
+        "achievernotifier", "achiever", "notifier"
     ],
     "authors": [
         {
-            "name": "Vladyslav Drybas"
+            "name": "Vladyslav Drybas (https://www.linkedin.com/in/vladyslavdrybas)"
         }
     ],
     "minimum-stability": "dev",
