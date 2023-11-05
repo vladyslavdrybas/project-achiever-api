@@ -7,7 +7,7 @@ address = ":80"
 address = ":443"
 [entryPoints.https.tls]
 [entryPoints.api]
-address = ":8000"
+address = ":8080"
 
 [api]
 entryPoint = "api"
