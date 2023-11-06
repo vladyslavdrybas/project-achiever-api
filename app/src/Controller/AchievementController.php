@@ -20,7 +20,7 @@ use function array_map;
 use function sprintf;
 
 //TODO add author restrictions for author
-#[Route('/api/achievement', name: "api_achievement")]
+#[Route('/achievement', name: "api_achievement")]
 class AchievementController extends AbstractController
 {
     #[Route("/create", name: "_create", methods: ["POST"])]

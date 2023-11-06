@@ -1,4 +1,5 @@
 ARG PHP_VERSION=8.1-fpm-alpine3.16
+ARG NGINX_VERSION=1.22-alpine
 
 ### ### ###
 FROM php:${PHP_VERSION} AS php_base
@@ -38,6 +39,8 @@ RUN symfony -V
 RUN symfony check:requirements
 RUN symfony server:ca:install
 
+EXPOSE 9000
+
 WORKDIR /app
 
 ### ### ###
@@ -55,3 +58,12 @@ CMD composer install --prefer-dist
 FROM composer_base AS composer_update
 
 CMD composer update --prefer-dist
+
+### ### ###
+FROM nginx:${NGINX_VERSION} AS nginx_server
+
+WORKDIR /app
+
+CMD ["nginx"]
+
+EXPOSE 80 443

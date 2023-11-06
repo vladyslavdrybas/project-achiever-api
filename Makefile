@@ -2,18 +2,23 @@ composer-install:
 	docker compose -f docker-compose.composer.yml up composer-install --remove-orphans
 composer-update:
 	docker compose -f docker-compose.composer.yml up composer-update --remove-orphans
-app-run:
-	docker compose -f docker-compose.yml up -d --remove-orphans
+app-run-dev:
+	docker network ls|grep reverse_proxy_network > /dev/null || docker network create reverse_proxy_network
+	docker compose -f docker-compose.reverse-proxy.yml -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans
 app-run-prod:
-	docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --remove-orphans
+	docker network ls|grep reverse_proxy_network > /dev/null || docker network create reverse_proxy_network
+	docker compose -f docker-compose.reverse-proxy.yml -f docker-compose.yml -f docker-compose.prod.yml up -d --remove-orphans
 app-stop:
-	docker compose -f docker-compose.yml down
+	docker compose -f docker-compose.reverse-proxy.yml -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.prod.yml down
 app-code-check:
-	docker compose exec app composer code-check
+	docker compose exec php composer code-check
+reverse-proxy-run:
+	docker network ls|grep reverse_proxy_network > /dev/null || docker network create reverse_proxy_network
+	docker compose -f docker-compose.reverse-proxy.yml up -d --remove-orphans
 proxy-run:
 	ngrok http https://localhost:8000 --host-header=rewrite
 generate-jwt-keys:
-	docker compose exec app composer generate-jwt-keys
+	docker compose exec php composer generate-jwt-keys
 ubuntu-docker-compose-install:
 	sudo apt update
 	sudo apt install apt-transport-https ca-certificates curl software-properties-common

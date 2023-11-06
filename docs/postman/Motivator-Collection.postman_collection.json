@@ -15,16 +15,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/firebase/store/token/ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcA==/postman",
+							"raw": "{{host}}/firebase/store/token/ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcB==/postman",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"api",
 								"firebase",
 								"store",
 								"token",
-								"ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcA==",
+								"ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcB==",
 								"postman"
 							]
 						}
@@ -36,7 +35,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{host}}/api/firebase/store/token/ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcA==/postman",
+									"raw": "{{host}}/api/firebase/store/token/ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcB==/postman",
 									"host": [
 										"{{host}}"
 									],
@@ -45,7 +44,7 @@
 										"firebase",
 										"store",
 										"token",
-										"ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcA==",
+										"ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcB==",
 										"postman"
 									]
 								}
@@ -64,15 +63,15 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sun, 29 Oct 2023 04:50:35 GMT"
+									"value": "Tue, 31 Oct 2023 13:43:11 GMT"
 								},
 								{
 									"key": "X-Debug-Token",
-									"value": "ad3748"
+									"value": "098007"
 								},
 								{
 									"key": "X-Debug-Token-Link",
-									"value": "https://localhost:8000/_profiler/ad3748"
+									"value": "https://localhost:8000/_profiler/098007"
 								},
 								{
 									"key": "X-Powered-By",
@@ -84,11 +83,91 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "21"
+									"value": "93"
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"message\": \"success\"\n}"
+							"body": "{\n    \"deviceType\": \"postman\",\n    \"user\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"expireAt\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Prolong Register Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/firebase/prolong/token/postman",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"firebase",
+								"prolong",
+								"token",
+								"postman"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/firebase/prolong/token/postman",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"firebase",
+										"prolong",
+										"token",
+										"postman"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 31 Oct 2023 14:25:37 GMT"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "49a662"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://localhost:8000/_profiler/49a662"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.24"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Content-Length",
+									"value": "116"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"deviceType\": \"postman\",\n    \"user\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"expireAt\": \"2023-10-31T14:30:37+00:00\"\n}"
 						}
 					]
 				}
@@ -122,12 +201,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/auth/register",
+					"raw": "{{host}}/auth/register",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"auth",
 						"register"
 					]
@@ -293,12 +371,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/profile",
+					"raw": "{{host}}/profile",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"profile"
 					]
 				}
@@ -429,17 +506,26 @@
 		{
 			"name": "JWT Logout",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refresh_token\": \"{{jwt_refresh_token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{host}}/api/auth/logout",
+					"raw": "{{host}}/auth/logout/post",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"auth",
-						"logout"
+						"logout",
+						"post"
 					]
 				}
 			},
@@ -447,17 +533,27 @@
 				{
 					"name": "Success",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"{{jwt_refresh_token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/api/auth/logout",
+							"raw": "{{host}}/api/auth/logout/postman",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"auth",
-								"logout"
+								"logout",
+								"postman"
 							]
 						}
 					},
@@ -475,15 +571,15 @@
 						},
 						{
 							"key": "Date",
-							"value": "Fri, 27 Oct 2023 00:21:21 GMT"
+							"value": "Tue, 31 Oct 2023 16:26:35 GMT"
 						},
 						{
 							"key": "X-Debug-Token",
-							"value": "ce21cb"
+							"value": "7cc550"
 						},
 						{
 							"key": "X-Debug-Token-Link",
-							"value": "https://localhost:8000/_profiler/ce21cb"
+							"value": "https://localhost:8000/_profiler/7cc550"
 						},
 						{
 							"key": "X-Powered-By",
@@ -495,11 +591,11 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "21"
+							"value": "73"
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"message\": \"success\"\n}"
+					"body": "{\n    \"code\": 200,\n    \"message\": \"The supplied refresh_token has been invalidated.\"\n}"
 				}
 			]
 		},
@@ -613,14 +709,133 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/achievement/create",
+					"raw": "{{host}}/achievement/create",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"achievement",
 						"create"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"first achievement\",\n    \"description\": \"description of the first achievement\",\n    \"isPublic\": false,\n    \"doneAt\": \"2023-10-18T17:00:54+0300\",\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"pet-project\",\n        \"hustle\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/create",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:17:30 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:17:30 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "0dcdb0"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/0dcdb0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "485"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"pet-project\",\n        \"hustle\",\n        \"ytext\",\n        \"restrictedCharActers\"\n    ],\n    \"title\": \"PageMaker including versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is not simply random te\",\n    \"description\": \"pecimen book. It ha\",\n    \"doneAt\": \"2023-10-21T11:29:00+00:00\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"object\": \"Achievement\",\n    \"id\": \"6aa249b8-feba-439c-90ca-e2f141e420ea\",\n    \"createdAt\": \"2023-10-19T20:17:30+00:00\",\n    \"updatedAt\": \"2023-10-19T20:17:30+00:00\",\n    \"isPublic\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "Analytics Track Notification",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"first achievement\",\n    \"description\": \"description of the first achievement\",\n    \"isPublic\": false,\n    \"doneAt\": null,\n    \"tags\": [\n        \"en\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/analytics/track/notification",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"analytics",
+						"track",
+						"notification"
 					]
 				}
 			},
@@ -715,12 +930,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}",
+					"raw": "{{host}}/achievement/{{achievement_last_created_id}}",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"achievement",
 						"{{achievement_last_created_id}}"
 					]
@@ -808,12 +1022,11 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}",
+					"raw": "{{host}}/achievement/{{achievement_last_created_id}}",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"achievement",
 						"{{achievement_last_created_id}}"
 					]
@@ -902,12 +1115,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/achievement/list/{{user_id}}/0/5",
+					"raw": "{{host}}/achievement/list/{{user_id}}/0/5",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"achievement",
 						"list",
 						"{{user_id}}",
@@ -1008,12 +1220,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}",
+					"raw": "{{host}}/achievement/{{achievement_last_created_id}}",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"achievement",
 						"{{achievement_last_created_id}}"
 					]
@@ -1138,12 +1349,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}/tag/attach",
+					"raw": "{{host}}/achievement/{{achievement_last_created_id}}/tag/attach",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"achievement",
 						"{{achievement_last_created_id}}",
 						"tag",
@@ -1262,12 +1472,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}/tag/detach",
+					"raw": "{{host}}/achievement/{{achievement_last_created_id}}/tag/detach",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"achievement",
 						"{{achievement_last_created_id}}",
 						"tag",
@@ -1386,12 +1595,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}/tag/replace",
+					"raw": "{{host}}/achievement/{{achievement_last_created_id}}/tag/replace",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"achievement",
 						"{{achievement_last_created_id}}",
 						"tag",
@@ -1509,12 +1717,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/auth/login",
+					"raw": "{{host}}/auth/login",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"auth",
 						"login"
 					]
@@ -1627,12 +1834,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/auth/token/refresh",
+					"raw": "{{host}}/auth/token/refresh",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api",
 						"auth",
 						"token",
 						"refresh"

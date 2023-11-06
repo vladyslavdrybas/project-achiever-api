@@ -7,7 +7,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/api/profile', name: "api_profile")]
+#[Route('/profile', name: "api_profile")]
 class ProfileController extends AbstractController
 {
     #[Route("/", name: "", methods: ["GET"])]

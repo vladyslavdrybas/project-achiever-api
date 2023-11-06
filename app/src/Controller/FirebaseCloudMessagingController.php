@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use function base64_decode;
 
 // TODO remove credentials on frontend -> use server token to register fcm token
-#[Route('/api/firebase', name: "api_firebase")]
+#[Route('/firebase', name: "api_firebase")]
 class FirebaseCloudMessagingController extends AbstractController
 {
     #[Route("/store/token/{token}/{deviceType}", name: "_store_token", methods: ["GET", "OPTIONS", "HEAD"])]

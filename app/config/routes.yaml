@@ -3,7 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+    prefix: '/api/v1'
 
 api_auth_login:
-    path: /api/auth/login
+    path: /api/v1/auth/login
     methods: ["POST"]

@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  reverse-proxy:
+    container_name: ${APP_NAME:-achievernotifier}-reverse-proxy
+    image: traefik:v2.10
+    networks:
+      - reverse_proxy_network
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - ./traefik/letsencrypt:/letsencrypt
+      - ./traefik/traefik.yaml:/etc/traefik/traefik.yaml
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  reverse_proxy_network:
+    external: true

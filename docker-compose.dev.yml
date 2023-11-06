@@ -1,0 +1,29 @@
+version: "3.9"
+
+x-php-variables: &php-environment
+  environment:
+    - APP_ENV=dev
+    - ACCESS_TOKENS=${ACCESS_TOKENS:-token123}
+
+services:
+  php:
+    <<: *php-environment
+
+  database:
+    ports:
+      - "64067:5432"
+  
+  whoami:
+    container_name: ${APP_NAME:-achievernotifier}-test-whoami
+    # A container that exposes an API to show its IP address
+    image: traefik/whoami
+    networks:
+      - reverse_proxy_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+      
+volumes:
+###> doctrine/doctrine-bundle ###
+  database_data:
+###< doctrine/doctrine-bundle ###

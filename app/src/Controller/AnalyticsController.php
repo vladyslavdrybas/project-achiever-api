@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use function is_string;
 
-#[Route('/api/analytics', name: "api_analytics")]
+#[Route('/analytics', name: "api_analytics")]
 class AnalyticsController extends AbstractController
 {
     #[Route("/track/notification", name: "_track_notification", methods: ["POST"])]

@@ -6,25 +6,21 @@ x-php-variables: &php-environment
     - ACCESS_TOKENS=${ACCESS_TOKENS:-token123}
 
 services:
-  app:
+  php:
+    env_file:
+      - .env
     restart: always
     <<: *php-environment
 
   database:
+    env_file:
+      - .env
+    expose:
+      - 5432
     restart: always
-    
-  traefik:
-    container_name: traefik
-    image: traefik:alpine
-    restart: always
-    ports:
-      - 80:80
-      - 443:443
-      - 8080:8080
-    volumes:
-      - ./traefik:/etc/traefik
-      - /var/run/docker.sock:/var/run/docker.sock
 
+  reverse-proxy:
+    restart: always
 volumes:
 ###> doctrine/doctrine-bundle ###
   database_data:
