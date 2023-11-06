@@ -12,6 +12,11 @@ services:
     restart: always
     <<: *php-environment
 
+  web:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.achievernotifier-api.rule=Host(`server1591.server-vps.com`) && PathPrefix(`/api/v1`)"
+      
   database:
     env_file:
       - .env

@@ -52,14 +52,6 @@ services:
       - default
     depends_on:
       - php
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.achievernotifier-api.rule=Host(`achievernotifier.localhost`) && PathPrefix(`/api/v1`)"
-#       - "traefik.http.routers.achievernotifier-api.tls=true"
-#       - "traefik.http.routers.achievernotifier-api.tls.certresolver=letsencrypt"
-#       - "traefik.http.routers.achievernotifier-api.service=achievernotifier-api-service"
-#       - "traefik.http.services.achievernotifier-api-service.loadbalancer.server.scheme=https"
-#       - "traefik.http.services.achievernotifier-api-service.loadbalancer.server.port=80"
     volumes:
       - ./public:/app/public
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf

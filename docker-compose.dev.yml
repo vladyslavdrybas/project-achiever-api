@@ -12,6 +12,16 @@ services:
   database:
     ports:
       - "64067:5432"
+      
+  web:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.achievernotifier-api.rule=Host(`achievernotifier.localhost`) && PathPrefix(`/api/v1`)"
+#       - "traefik.http.routers.achievernotifier-api.tls=true"
+#       - "traefik.http.routers.achievernotifier-api.tls.certresolver=letsencrypt"
+#       - "traefik.http.routers.achievernotifier-api.service=achievernotifier-api-service"
+#       - "traefik.http.services.achievernotifier-api-service.loadbalancer.server.scheme=https"
+#       - "traefik.http.services.achievernotifier-api-service.loadbalancer.server.port=80"
   
   whoami:
     container_name: ${APP_NAME:-achievernotifier}-test-whoami
