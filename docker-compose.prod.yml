@@ -31,7 +31,7 @@ services:
 
   web:
     labels:
-      - "traefik.http.routers.webapi.rule=(Host(`194.33.180.50`) || Host(`leogiftbox.com`)) && PathPrefix(`/api/v1`)"
+      - "traefik.http.routers.webapi.rule=(Host(`194.33.180.50`) || Host(`leogiftbox.com`) || Host(`achievernotifier.com`)) && PathPrefix(`/api/v1`)"
     
 volumes:
 ###> doctrine/doctrine-bundle ###
