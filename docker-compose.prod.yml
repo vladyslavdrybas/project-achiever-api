@@ -10,7 +10,7 @@ services:
     restart: always
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.api.rule=(Host(`194.33.180.50`) || Host(`leogiftbox.com`) ) && PathPrefix(`/balancer`)"
+      - "traefik.http.routers.api.rule=Host(`proxy.leogiftbox.com`)"
       - "traefik.http.middlewares.auth.basicauth.users=authuser:$$2y$$05$$cr2.VRJTg6AWHMWiFHIU..7rlHFGTVzTkcMBIjNWNFcF9jMjbKwgq"
     volumes:
       - ./docker/traefik/prod/letsencrypt:/letsencrypt
