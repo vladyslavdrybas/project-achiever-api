@@ -25,6 +25,8 @@ services:
   database:
     env_file:
       - .env
+    ports:
+      - "64068:5432"
     restart: always
 
   web:
