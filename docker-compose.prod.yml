@@ -15,7 +15,7 @@ services:
   web:
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.achievernotifier-api.rule=Host(`194.33.180.50`) && PathPrefix(`/api/v1`)"
+      - "traefik.http.routers.achievernotifier-api.rule=(Host(`194.33.180.50`) || Host(`leogiftbox.com`) ) && PathPrefix(`/api/v1`)"
       
   database:
     env_file:
