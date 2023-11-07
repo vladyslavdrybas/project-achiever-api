@@ -6,6 +6,14 @@ x-php-variables: &php-environment
     - ACCESS_TOKENS=${ACCESS_TOKENS:-token123}
 
 services:
+  reverse-proxy:
+    labels:
+      - "traefik.http.routers.api.rule=Host(`traefik.docker.localhost`)"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$05$$A9hvJPnfOr3r7BsKdjwPn.SGKElp6L13ZlWumcXgO47NADt78sfZi"
+    volumes:
+      - ./docker/traefik/dev/letsencrypt:/letsencrypt
+      - ./docker/traefik/dev/traefik.yaml:/etc/traefik/traefik.yaml
+  
   php:
     <<: *php-environment
 
@@ -15,14 +23,10 @@ services:
       
   web:
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.achievernotifier-api.rule=Host(`achievernotifier.localhost`) && PathPrefix(`/api/v1`)"
-#       - "traefik.http.routers.achievernotifier-api.tls=true"
-#       - "traefik.http.routers.achievernotifier-api.tls.certresolver=letsencrypt"
-#       - "traefik.http.routers.achievernotifier-api.service=achievernotifier-api-service"
-#       - "traefik.http.services.achievernotifier-api-service.loadbalancer.server.scheme=https"
-#       - "traefik.http.services.achievernotifier-api-service.loadbalancer.server.port=80"
-  
+      - "traefik.http.routers.webapi.rule=Host(`achievernotifier.docker.localhost`) && (PathPrefix(`/api/v1`) || PathPrefix(`/.well-known/acme-challenge/`))"
+    volumes:
+      - ./docker/traefik/dev/letsencrypt:/var/www/letsencrypt
+      
   whoami:
     container_name: ${APP_NAME:-achievernotifier}-test-whoami
     # A container that exposes an API to show its IP address
@@ -32,6 +36,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+      - "traefik.http.routers.whoami.entrypoints=web,websecure"
+      - "traefik.http.routers.whoami.tls.certresolver=letsencrypt"
       
 volumes:
 ###> doctrine/doctrine-bundle ###

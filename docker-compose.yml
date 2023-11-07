@@ -19,6 +19,8 @@ services:
       - default
     depends_on:
       - database
+    labels:
+      - "traefik.enable=false"
     volumes:
       - ./app:/app:rw
     <<: *php-environment
@@ -32,7 +34,7 @@ services:
     networks:
       - default
     labels:
-        com.symfony.server.service-prefix: 'DATABASE'
+      - "traefik.enable=false"
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-app_db}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
@@ -52,6 +54,12 @@ services:
       - default
     depends_on:
       - php
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webapi.entrypoints=web,websecure"
+      - "traefik.http.routers.webapi.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.webapi.service=webapi-service"
+      - "traefik.http.services.webapi-service.loadbalancer.server.port=80"
     volumes:
       - ./public:/app/public
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf

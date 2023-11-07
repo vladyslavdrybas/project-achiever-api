@@ -19,6 +19,8 @@ proxy-run:
 	ngrok http https://localhost:8000 --host-header=rewrite
 generate-jwt-keys:
 	docker compose exec php composer generate-jwt-keys
+generate-reverse-proxy-user:
+	htpasswd -nB $(ARGS)
 ubuntu-docker-compose-install:
 	sudo apt update
 	sudo apt install apt-transport-https ca-certificates curl software-properties-common

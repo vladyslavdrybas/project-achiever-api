@@ -4,26 +4,15 @@ providers:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
     httpClientTimeout: 300
-#     tls:
-#       insecureSkipVerify: true
-#     cert: path/to/foo.cert
-#     key: path/to/foo.key
-#     ca: path/to/ca.crt
-api:
-#   entryPoint: api
-  insecure: true
+    
+api: {}
+  
 entrypoints:
   web:
     address: ":80"
-#     http:
-#       encodeQuerySemicolons: true
-#       redirections:
-#         entryPoint:
-#           to: websecure
-#           scheme: https
-    
   websecure:
     address: ":443"
+    
 certificatesResolvers:
   letsencrypt:
     acme:

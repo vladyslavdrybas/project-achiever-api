@@ -1,5 +1,6 @@
 ARG PHP_VERSION=8.1-fpm-alpine3.16
 ARG NGINX_VERSION=1.22-alpine
+ARG TRAEFIK_VERSION=v2.10
 
 ### ### ###
 FROM php:${PHP_VERSION} AS php_base
@@ -66,4 +67,9 @@ WORKDIR /app
 
 CMD ["nginx"]
 
-EXPOSE 80 443
+EXPOSE 80 443 8000
+
+### ### ###
+FROM traefik:${TRAEFIK_VERSION} AS reverse_proxy
+
+RUN apk update && apk add apache2-utils
