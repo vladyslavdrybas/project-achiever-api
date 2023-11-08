@@ -24,6 +24,7 @@ services:
   web:
     labels:
       - "traefik.http.routers.webapi.rule=Host(`achievernotifier.docker.localhost`) && (PathPrefix(`/api/v1`) || PathPrefix(`/.well-known/acme-challenge/`))"
+      - "traefik.http.routers.webapi.tls.certresolver=letsencrypt"
     volumes:
       - ./docker/traefik/dev/letsencrypt:/var/www/letsencrypt
       
