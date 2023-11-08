@@ -2,14 +2,20 @@ composer-install:
 	docker compose -f docker-compose.composer.yml up composer-install --remove-orphans
 composer-update:
 	docker compose -f docker-compose.composer.yml up composer-update --remove-orphans
-app-run-dev:
+app-run-local:
 	docker network ls|grep reverse_proxy_network > /dev/null || docker network create reverse_proxy_network
-	docker compose -f docker-compose.reverse-proxy.yml -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans
+	docker compose --env-file ./.env.dev -f docker-compose.reverse-proxy.yml -f docker-compose.yml -f docker-compose.local.yml up -d --remove-orphans
 app-run-prod:
 	docker network ls|grep reverse_proxy_network > /dev/null || docker network create reverse_proxy_network
-	docker compose -f docker-compose.reverse-proxy.yml -f docker-compose.yml -f docker-compose.prod.yml up -d --remove-orphans
+	docker compose  --env-file ./.env.prod -f docker-compose.reverse-proxy.yml -f docker-compose.yml -f docker-compose.prod.yml up -d --remove-orphans
+app-build-local:
+	docker network ls|grep reverse_proxy_network > /dev/null || docker network create reverse_proxy_network
+	docker compose --env-file ./.env.dev -f docker-compose.reverse-proxy.yml -f docker-compose.yml -f docker-compose.local.yml build --force-rm --no-cache
+app-build-prod:
+	docker network ls|grep reverse_proxy_network > /dev/null || docker network create reverse_proxy_network
+	docker compose  --env-file ./.env.prod -f docker-compose.reverse-proxy.yml -f docker-compose.yml -f docker-compose.prod.yml build --force-rm --no-cache
 app-stop:
-	docker compose -f docker-compose.reverse-proxy.yml -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.prod.yml down
+	docker compose -f docker-compose.reverse-proxy.yml -f docker-compose.yml -f docker-compose.local.yml -f docker-compose.prod.yml down
 app-code-check:
 	docker compose exec php composer code-check
 reverse-proxy-run:

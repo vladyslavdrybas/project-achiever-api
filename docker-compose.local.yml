@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  reverse-proxy:
+    container_name: ${APP_NAME:-an}-reverse-proxy-${APP_ENV:-dev}
+    labels:
+      - "traefik.http.routers.api.rule=Host(`traefik.docker.dev.localhost`)"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$05$$A9hvJPnfOr3r7BsKdjwPn.SGKElp6L13ZlWumcXgO47NADt78sfZi"
+    volumes:
+      - ./docker/traefik/dev/letsencrypt:/letsencrypt
+      - ./docker/traefik/dev/configuration:/etc/traefik
+  
+  php:
+    container_name: ${APP_NAME:-an}-php-${APP_ENV:-dev}
+
+  database:
+    container_name: ${APP_NAME:-an}-db-${APP_ENV:-dev}
+    ports:
+      - "64067:5432"
+      
+  web:
+    container_name: ${APP_NAME:-an}-server-${APP_ENV:-dev}
+    labels:
+      - "traefik.http.routers.webapi-http.rule=Host(`achievernotifier.docker.dev.localhost`) && PathPrefix(`/api/v1`,`/.well-known`, `/ishealthy`)"
+      - "traefik.http.routers.webapi.rule=Host(`achievernotifier.docker.dev.localhost`) && PathPrefix(`/api/v1`,`/.well-known`, `/ishealthy`)"
+      - "traefik.http.routers.webapi.tls.certresolver=letsencrypt"
+      
+  whoami:
+    container_name: ${APP_NAME:-an}-whoami-${APP_ENV:-dev}
+    # A container that exposes an API to show its IP address
+    image: traefik/whoami
+    networks:
+      - reverse_proxy_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami-http.entrypoints=web"
+      - "traefik.http.routers.whoami-http.rule=Host(`whoami.docker.dev.localhost`)"
+      - "traefik.http.routers.whoami-http.middlewares=whoami-https"
+      - "traefik.http.middlewares.whoami-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.dev.localhost`)"
+      - "traefik.http.routers.whoami.tls=true"
+      - "traefik.http.routers.whoami.tls.certresolver=letsencrypt"
+      
+volumes:
+###> doctrine/doctrine-bundle ###
+  database_data:
+###< doctrine/doctrine-bundle ###

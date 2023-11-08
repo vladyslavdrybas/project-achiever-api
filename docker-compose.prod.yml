@@ -1,41 +1,35 @@
 version: "3.9"
 
-x-php-variables: &php-environment
-  environment:
-    - APP_ENV=prod
-    - ACCESS_TOKENS=${ACCESS_TOKENS:-token123}
-
 services:
   reverse-proxy:
+    container_name: ${APP_NAME:-an}-reverse-proxy-${APP_ENV:-prod}
     restart: always
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.api.rule=Host(`proxy.achievernotifier.com`)"
+      - "traefik.http.routers.api.rule=Host(`proxy.achievernotifier.com`) || Host(`traefik.docker.${APP_ENV:-prod}.local`)"
       - "traefik.http.middlewares.auth.basicauth.users=authuser:$$2y$$05$$cr2.VRJTg6AWHMWiFHIU..7rlHFGTVzTkcMBIjNWNFcF9jMjbKwgq"
     volumes:
       - ./docker/traefik/prod/letsencrypt:/letsencrypt
-      - ./docker/traefik/prod/traefik.yaml:/etc/traefik/traefik.yaml
-      - ./docker/traefik/prod/cert:/cert
+      - ./docker/traefik/prod/configuration:/etc/traefik
+      - ./docker/certificates/*.crt:/etc/traefik/*.crt
+      - ./docker/certificates/*.key:/etc/traefik/*.key
   
   php:
-    env_file:
-      - .env
+    container_name: ${APP_NAME:-an}-php-${APP_ENV:-prod}
     restart: always
-    <<: *php-environment
       
   database:
-    env_file:
-      - .env
+    container_name: ${APP_NAME:-an}-db-${APP_ENV:-prod}
+    restart: always
     ports:
       - "64068:5432"
-    restart: always
 
   web:
+    image: ${APP_NAME:-an}-server:${APP_ENV:-prod}
+    restart: always
     labels:
-      - "traefik.http.routers.webapi.rule=(Host(`194.33.180.50`) || Host(`achievernotifier.com`)) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
-      - "traefik.http.routers.webapi.entrypoints=web,websecure"
+      - "traefik.http.routers.webapi-http.rule=Host(`achievernotifier.com`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
+      - "traefik.http.routers.webapi.rule=Host(`achievernotifier.com`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
       - "traefik.http.routers.webapi.tls=true"
-      - "traefik.http.routers.webapi.tls.options=require-mtls@file"
     
 volumes:
 ###> doctrine/doctrine-bundle ###

@@ -18,8 +18,7 @@ services:
       - "traefik.http.routers.api.rule=Host(`traefik.docker.localhost`)"
       - "traefik.http.routers.api.service=api@internal"
       - "traefik.http.routers.api.middlewares=auth"
-      - "traefik.http.routers.api.entrypoints=web,websecure"
-      - "traefik.http.routers.api.tls.certresolver=letsencrypt"
+#       - "serverstransport.forwardingtimeouts.dialtimeout=2"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 

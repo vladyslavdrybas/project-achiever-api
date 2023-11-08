@@ -7,13 +7,11 @@ x-php-variables: &php-environment
 
 services:
   php:
-    container_name: ${APP_NAME:-achievernotifier}-php
+    container_name: ${APP_NAME:-an}-php
     build:
         context: .
         dockerfile: ./Dockerfile
         target: php_base
-    env_file:
-      - .env
     networks:
       - reverse_proxy_network
       - default
@@ -27,10 +25,8 @@ services:
 
 ###> doctrine/doctrine-bundle ###
   database:
-    container_name: ${APP_NAME:-achievernotifier}-db
+    container_name: ${APP_NAME:-an}-db
     image: postgres:${POSTGRES_VERSION:-15}-alpine
-    env_file:
-      - .env
     networks:
       - default
     labels:
@@ -44,7 +40,7 @@ services:
 ###< doctrine/doctrine-bundle ###
 
   web:
-    container_name: ${APP_NAME:-achievernotifier}-server
+    container_name: ${APP_NAME:-an}-server
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -56,8 +52,11 @@ services:
       - php
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.webapi.service=webapi-service"
-      - "traefik.http.services.webapi-service.loadbalancer.server.port=80"
+      - "traefik.http.routers.webapi-http.entrypoints=web"
+      - "traefik.http.routers.webapi-http.middlewares=webapi-https"
+      - "traefik.http.middlewares.webapi-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.webapi.entrypoints=websecure"
+      - "traefik.http.routers.webapi.tls=true"
     volumes:
       - ./public:/app/public
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf

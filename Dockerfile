@@ -67,7 +67,7 @@ WORKDIR /app
 
 CMD ["nginx"]
 
-EXPOSE 80 443 8000
+EXPOSE 80
 
 ### ### ###
 FROM traefik:${TRAEFIK_VERSION} AS reverse_proxy
