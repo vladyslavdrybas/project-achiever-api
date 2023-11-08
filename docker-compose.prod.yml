@@ -32,7 +32,8 @@ services:
 
   web:
     labels:
-      - "traefik.http.routers.webapi.rule=(Host(`194.33.180.50`) || Host(`achievernotifier.com`)) && PathPrefix(`/api/v1`, `/.well-known`, `ishealthy`)"
+      - "traefik.http.routers.webapi.rule=(Host(`194.33.180.50`) || Host(`achievernotifier.com`)) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
+      - "traefik.http.routers.webapi.entrypoints=web"
 #       - "traefik.http.routers.webapi.tls.certresolver=pki"
 #       - "traefik.http.routers.whoami.tls=true"
     
