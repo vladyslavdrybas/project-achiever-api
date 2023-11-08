@@ -34,7 +34,7 @@ tls:
           - /etc/traefik/ca.pem
         clientAuthType: RequireAndVerifyClientCert
       defaultCertificate:
-        certFile: /etc/traefik/cert/chain.pem
+        certFile: /etc/traefik/cert/fullchain.pem
         keyFile: /etc/traefik/cert/privatekey.pem
 #   certificates:
 #     - certFile: /etc/traefik/cert.pem

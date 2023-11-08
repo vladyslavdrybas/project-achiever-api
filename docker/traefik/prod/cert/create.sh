@@ -7,9 +7,6 @@
 #but usually you have to create a file containing the server certificate file and the intermediate certificate file.
 #It is required to put the server certificate file first, and then the intermediate certificate file(s).
 #When using the files in our example, we can create the correct file for the chain using the following command:
-cat cert.pem > chain.pem
-echo  -e "\n" >> chain.pem
-cat intermediate.pem >> chain.pem
 
 #check generated chain.pem
 #expect something like this:
@@ -18,4 +15,17 @@ cat intermediate.pem >> chain.pem
 #
 #subject=/C=PL/O=Unizeto Technologies S.A./OU=Certum Certification Authority/CN=Certum Domain Validation CA SHA2
 #issuer=/C=PL/O=Unizeto Technologies S.A./OU=Certum Certification Authority/CN=Certum Trusted Network CA
+
+echo -e "Create chain cert \n"
+cat cert.pem > chain.pem
+echo  -e "\n" >> chain.pem
+cat intermediate.pem >> chain.pem
 openssl crl2pkcs7 -nocrl -certfile chain.pem | openssl pkcs7 -print_certs -noout
+
+echo -e "Create full chain cert \n"
+cat chain.pem > fullchain.pem
+echo  -e "\n" >> fullchain.pem
+cat ca.pem >> fullchain.pem
+openssl crl2pkcs7 -nocrl -certfile fullchain.pem | openssl pkcs7 -print_certs -noout
+
+
