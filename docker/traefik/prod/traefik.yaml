@@ -12,3 +12,8 @@ entrypoints:
     address: ":80"
   websecure:
     address: ":443"
+
+tls:
+  certificates:
+    - certFile: /cert/achievernotifier.com_intermediate.cer
+      keyFile: /cert/achievernotifier.com_618396088AD1C05A311618D11165503E.cer
