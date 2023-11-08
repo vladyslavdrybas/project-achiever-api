@@ -8,11 +8,8 @@ services:
       - "traefik.http.routers.api.rule=Host(`proxy.achievernotifier.com`) || Host(`traefik.docker.prod.localhost`)"
       - "traefik.http.middlewares.auth.basicauth.users=authuser:$$2y$$05$$cr2.VRJTg6AWHMWiFHIU..7rlHFGTVzTkcMBIjNWNFcF9jMjbKwgq"
     volumes:
-      - ./docker/traefik/prod/letsencrypt:/letsencrypt
       - ./docker/traefik/prod/configuration:/etc/traefik
       - ./docker/traefik/prod/cert:/etc/traefik/cert
-      - ./docker/certificates/achievernotifier.com.crt:/etc/traefik/achievernotifier.com.crt
-      - ./docker/certificates/achievernotifier.com.key:/etc/traefik/achievernotifier.com.key
   
   php:
     container_name: ${APP_NAME:-an}-php-${APP_ENV:-prod}
