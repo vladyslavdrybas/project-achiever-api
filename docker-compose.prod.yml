@@ -34,7 +34,8 @@ services:
     labels:
       - "traefik.http.routers.webapi.rule=(Host(`194.33.180.50`) || Host(`achievernotifier.com`)) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
       - "traefik.http.routers.webapi.entrypoints=web,websecure"
-      - "traefik.http.routers.whoami.tls=true"
+      - "traefik.http.routers.webapi.tls=true"
+      - "traefik.http.routers.webapi.tls.options=require-mtls@file"
     
 volumes:
 ###> doctrine/doctrine-bundle ###

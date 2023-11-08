@@ -14,6 +14,12 @@ entrypoints:
     address: ":443"
 
 tls:
-  certificates:
-    - certFile: /cert/achievernotifier.com_intermediate.cer
-      keyFile: /cert/achievernotifier.com_618396088AD1C05A311618D11165503E.cer
+  options:
+    default:
+      clientAuth:
+        # in PEM format. each file can contain multiple CAs.
+        caFiles:
+#           - /cert/x509.crt
+#           - /cert/intermediate.crt
+          - /cert/root.crt
+        clientAuthType: RequireAndVerifyClientCert
