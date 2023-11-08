@@ -56,7 +56,7 @@ services:
       - php
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.webapi.entrypoints=web,websecure"
+      - "traefik.http.routers.webapi.entrypoints=web"
       - "traefik.http.routers.webapi.service=webapi-service"
       - "traefik.http.services.webapi-service.loadbalancer.server.port=80"
     volumes:
