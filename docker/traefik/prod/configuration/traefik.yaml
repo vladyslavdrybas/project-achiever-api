@@ -34,8 +34,8 @@ tls:
 #           - /etc/traefik/achievernotifier.com.crt
 #         clientAuthType: RequireAndVerifyClientCert
       defaultCertificate:
-        certFile: /etc/traefik/cert/cert.fullchain.pem
-        keyFile: /etc/traefik/cert/crt.privattekey.pem
+        certFile: /etc/traefik/cert/x509.pem
+        keyFile: /etc/traefik/cert/crt.privatekey.pem
 #   certificates:
 #     - certFile: /etc/traefik/achievernotifier.com.crt
 #       keyFile: /etc/traefik/achievernotifier.com.key
