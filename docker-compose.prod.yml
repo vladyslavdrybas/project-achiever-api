@@ -32,7 +32,7 @@ services:
 
   web:
     labels:
-      - "traefik.http.routers.webapi.rule=(Host(`194.33.180.50`) || Host(`leogiftbox.com`) || Host(`achievernotifier.com`)) && (PathPrefix(`/api/v1`) || PathPrefix(`/.well-known/pki-validation/`)"
+      - "traefik.http.routers.webapi.rule=(Host(`194.33.180.50`) || Host(`leogiftbox.com`) || Host(`achievernotifier.com`)) && PathPrefix(`/api/v1`, `/.well-known`)"
     
 volumes:
 ###> doctrine/doctrine-bundle ###
