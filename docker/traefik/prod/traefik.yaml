@@ -14,12 +14,15 @@ entrypoints:
     address: ":443"
 
 tls:
-  options:
-    default:
-      clientAuth:
-        # in PEM format. each file can contain multiple CAs.
-        caFiles:
-#           - /cert/x509.crt
-#           - /cert/intermediate.crt
-          - /cert/root.crt
-        clientAuthType: RequireAndVerifyClientCert
+  certificates:
+    - certFile: /cert/cert.crt
+      keyFile: /cert/csr.key
+#   options:
+#     default:
+#       clientAuth:
+#         # in PEM format. each file can contain multiple CAs.
+#         caFiles:
+# #           - /cert/x509.crt
+# #           - /cert/intermediate.crt
+#           - /cert/root.crt
+#         clientAuthType: RequireAndVerifyClientCert
