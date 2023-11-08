@@ -5,7 +5,11 @@ providers:
     exposedByDefault: false
     httpClientTimeout: 300
     
-api: {}
+log:
+  level: DEBUG
+  
+api:
+  debug: true
   
 entrypoints:
   web:
