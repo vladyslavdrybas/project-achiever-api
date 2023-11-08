@@ -10,11 +10,12 @@ services:
     restart: always
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.api.rule=Host(`proxy.leogiftbox.com`)"
+      - "traefik.http.routers.api.rule=Host(`proxy.achievernotifier.com`)"
       - "traefik.http.middlewares.auth.basicauth.users=authuser:$$2y$$05$$cr2.VRJTg6AWHMWiFHIU..7rlHFGTVzTkcMBIjNWNFcF9jMjbKwgq"
     volumes:
       - ./docker/traefik/prod/letsencrypt:/letsencrypt
       - ./docker/traefik/prod/traefik.yaml:/etc/traefik/traefik.yaml
+      - ./docker/nginx/well-known/pki-validation:/var/www/well-known/pki-validation
   
   php:
     env_file:
@@ -31,7 +32,7 @@ services:
 
   web:
     labels:
-      - "traefik.http.routers.webapi.rule=(Host(`194.33.180.50`) || Host(`leogiftbox.com`) || Host(`achievernotifier.com`)) && PathPrefix(`/api/v1`)"
+      - "traefik.http.routers.webapi.rule=(Host(`194.33.180.50`) || Host(`leogiftbox.com`) || Host(`achievernotifier.com`)) && (PathPrefix(`/api/v1`) || PathPrefix(`/.well-known/pki-validation/`)"
     
 volumes:
 ###> doctrine/doctrine-bundle ###
