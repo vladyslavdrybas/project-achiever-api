@@ -6,6 +6,7 @@ providers:
     httpClientTimeout: 300
     
 log:
+  filePath: "/var/log/traefik.log"
   level: DEBUG
   
 api:

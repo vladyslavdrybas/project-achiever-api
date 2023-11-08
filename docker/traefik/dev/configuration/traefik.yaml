@@ -6,11 +6,16 @@ providers:
     httpClientTimeout: 300
     
 log:
+  filePath: "/var/log/traefik.log"
   level: DEBUG
   
 api:
+  dashboard: true
   debug: true
-  
+
+serversTransport:
+  insecureSkipVerify: true
+
 entrypoints:
   web:
     address: ":80"

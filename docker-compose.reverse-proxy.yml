@@ -18,9 +18,9 @@ services:
       - "traefik.http.routers.api.rule=Host(`traefik.docker.localhost`)"
       - "traefik.http.routers.api.service=api@internal"
       - "traefik.http.routers.api.middlewares=auth"
-#       - "serverstransport.forwardingtimeouts.dialtimeout=2"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./tmp/log/traefik:/var/log
 
 networks:
   reverse_proxy_network:
