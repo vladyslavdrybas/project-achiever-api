@@ -22,6 +22,9 @@ indent_size = 2
 [*.txt]
 insert_final_newline = false
 
+[{*.crt,*.pem,*.cer,*.key}]
+insert_final_newline = false
+
 [*.json]
 indent_style = space
 indent_size = 2

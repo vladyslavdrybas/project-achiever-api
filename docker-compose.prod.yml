@@ -5,13 +5,14 @@ services:
     container_name: ${APP_NAME:-an}-reverse-proxy-${APP_ENV:-prod}
     restart: always
     labels:
-      - "traefik.http.routers.api.rule=Host(`proxy.achievernotifier.com`) || Host(`traefik.docker.${APP_ENV:-prod}.local`)"
+      - "traefik.http.routers.api.rule=Host(`proxy.achievernotifier.com`) || Host(`traefik.docker.prod.localhost`)"
       - "traefik.http.middlewares.auth.basicauth.users=authuser:$$2y$$05$$cr2.VRJTg6AWHMWiFHIU..7rlHFGTVzTkcMBIjNWNFcF9jMjbKwgq"
     volumes:
       - ./docker/traefik/prod/letsencrypt:/letsencrypt
       - ./docker/traefik/prod/configuration:/etc/traefik
-      - ./docker/certificates/*.crt:/etc/traefik/*.crt
-      - ./docker/certificates/*.key:/etc/traefik/*.key
+      - ./docker/traefik/prod/cert:/etc/traefik/cert
+      - ./docker/certificates/achievernotifier.com.crt:/etc/traefik/achievernotifier.com.crt
+      - ./docker/certificates/achievernotifier.com.key:/etc/traefik/achievernotifier.com.key
   
   php:
     container_name: ${APP_NAME:-an}-php-${APP_ENV:-prod}
@@ -24,11 +25,11 @@ services:
       - "64068:5432"
 
   web:
-    image: ${APP_NAME:-an}-server:${APP_ENV:-prod}
+    container_name: ${APP_NAME:-an}-server-${APP_ENV:-prod}
     restart: always
     labels:
-      - "traefik.http.routers.webapi-http.rule=Host(`achievernotifier.com`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
-      - "traefik.http.routers.webapi.rule=Host(`achievernotifier.com`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
+      - "traefik.http.routers.webapi-http.rule=Host(`achievernotifier.com`) || Host(`achievernotifier.docker.prod.localhost`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
+      - "traefik.http.routers.webapi.rule=Host(`achievernotifier.com`) || Host(`achievernotifier.docker.prod.localhost`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
       - "traefik.http.routers.webapi.tls=true"
     
 volumes:

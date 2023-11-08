@@ -13,7 +13,6 @@ entrypoints:
   websecure:
     address: ":443"
 
-    
 certificatesResolvers:
   letsencrypt:
     acme:
@@ -24,6 +23,37 @@ certificatesResolvers:
         entryPoint: web
 
 tls:
+  options:
+    minVersion: "VersionTLS12"
+    sniStrict: true
+  stores:
+    default:
+#       clientAuth:
+#         # in PEM format. each file can contain multiple CAs.
+#         caFiles:
+#           - /etc/traefik/achievernotifier.com.crt
+#         clientAuthType: RequireAndVerifyClientCert
+      defaultCertificate:
+        certFile: /etc/traefik/cert/cert.crt
+        keyFile: /etc/traefik/cert/csr.key
   certificates:
     - certFile: /etc/traefik/achievernotifier.com.crt
       keyFile: /etc/traefik/achievernotifier.com.key
+      stores:
+        - default
+    - certFile: /etc/traefik/cert/cert.crt
+      keyFile: /etc/traefik/cert/csr.key
+      stores:
+        - default
+    - certFile: /etc/traefik/cert/intermediate.crt
+      keyFile: /etc/traefik/cert/csr.key
+      stores:
+        - default
+    - certFile: /etc/traefik/cert/root.crt
+      keyFile: /etc/traefik/cert/csr.key
+      stores:
+        - default
+    - certFile: /etc/traefik/cert/x509.crt
+      keyFile: /etc/traefik/cert/csr.key
+      stores:
+        - default
