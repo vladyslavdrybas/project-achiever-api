@@ -12,12 +12,3 @@ entrypoints:
     address: ":80"
   websecure:
     address: ":443"
-    
-certificatesResolvers:
-  letsencrypt:
-    acme:
-      email: admin@localhost.com
-      storage: /letsencrypt/acme.json
-      httpChallenge:
-        # used during the challenge
-        entryPoint: web
