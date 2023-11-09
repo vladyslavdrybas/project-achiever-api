@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\PropertyAccess\Exception\AccessException;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 
 class ExceptionJsonSubscriber implements EventSubscriberInterface
 {
@@ -39,6 +40,8 @@ class ExceptionJsonSubscriber implements EventSubscriberInterface
             $code = JsonResponse::HTTP_UNAUTHORIZED;
         } else if ($exception instanceof NotFoundHttpException) {
             $code = JsonResponse::HTTP_NOT_FOUND;
+        } else if ($exception instanceof MethodNotAllowedException) {
+            $code = JsonResponse::HTTP_METHOD_NOT_ALLOWED;
         }
 
         $data = [
