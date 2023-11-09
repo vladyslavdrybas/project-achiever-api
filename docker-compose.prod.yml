@@ -25,8 +25,8 @@ services:
     container_name: ${APP_NAME:-an}-server-${APP_ENV:-prod}
     restart: always
     labels:
-      - "traefik.http.routers.webapi-http.rule=Host(`achievernotifier.com`) || Host(`achievernotifier.docker.prod.localhost`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
-      - "traefik.http.routers.webapi.rule=Host(`achievernotifier.com`) || Host(`achievernotifier.docker.prod.localhost`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
+      - "traefik.http.routers.webapi-http.rule=(Host(`achievernotifier.com`) || Host(`achievernotifier.docker.prod.localhost`)) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
+      - "traefik.http.routers.webapi.rule=(Host(`achievernotifier.com`) || Host(`achievernotifier.docker.prod.localhost`)) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
       - "traefik.http.routers.webapi.tls=true"
       - "traefik.http.routers.webapi.tls.domains[0].main=achievernotifier.com"
     
