@@ -4,6 +4,7 @@ x-php-variables: &php-environment
   environment:
     - APP_ENV=${APP_ENV:-dev}
     - ACCESS_TOKENS=${ACCESS_TOKENS:-token123}
+    - DATABASE_URL=postgresql://app_user:!ChangeMe!@database:5432/app_db?serverVersion=15&charset=utf8
     
 services:
   reverse-proxy:
@@ -32,6 +33,7 @@ services:
       - "traefik.http.routers.webapi-http.rule=Host(`achievernotifier.docker.dev.localhost`) && PathPrefix(`/api/v1`,`/.well-known`, `/ishealthy`)"
       - "traefik.http.routers.webapi.rule=Host(`achievernotifier.docker.dev.localhost`) && PathPrefix(`/api/v1`,`/.well-known`, `/ishealthy`)"
       - "traefik.http.routers.webapi.tls.certresolver=letsencrypt"
+      - "serverstransport.insecureskipverify=true"
       
   whoami:
     container_name: ${APP_NAME:-an}-whoami-${APP_ENV:-dev}
