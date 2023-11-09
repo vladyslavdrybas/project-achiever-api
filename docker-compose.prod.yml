@@ -15,7 +15,6 @@ services:
       - "traefik.http.middlewares.auth.basicauth.users=authuser:$$2y$$05$$cr2.VRJTg6AWHMWiFHIU..7rlHFGTVzTkcMBIjNWNFcF9jMjbKwgq"
     volumes:
       - ./docker/traefik/prod/configuration:/etc/traefik
-      - ./docker/traefik/prod/cert:/etc/traefik/cert
   
   php:
     container_name: ${APP_NAME:-an}-php-${APP_ENV:-prod}
@@ -34,10 +33,10 @@ services:
     container_name: ${APP_NAME:-an}-server-${APP_ENV:-prod}
     restart: always
     labels:
-      - "traefik.http.routers.webapi-http.rule=(Host(`achievernotifier.com`) || Host(`achievernotifier.docker.prod.localhost`)) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
-      - "traefik.http.routers.webapi.rule=(Host(`achievernotifier.com`) || Host(`achievernotifier.docker.prod.localhost`)) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
-      - "traefik.http.routers.webapi.tls=true"
+      - "traefik.http.routers.webapi-http.rule=Host(`achievernotifier.com`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
+      - "traefik.http.routers.webapi.rule=Host(`achievernotifier.com`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`)"
       - "traefik.http.routers.webapi.tls.domains[0].main=achievernotifier.com"
+      - "traefik.http.routers.webapi.tls.domains[0].sans=proxy.achievernotifier.com dev.achievernotifier.com"
     
 volumes:
 ###> doctrine/doctrine-bundle ###

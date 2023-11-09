@@ -32,9 +32,8 @@ services:
     labels:
       - "traefik.http.routers.webapi-http.rule=Host(`dev.achievernotifier.localhost`) && PathPrefix(`/api/v1`,`/.well-known`, `/ishealthy`)"
       - "traefik.http.routers.webapi.rule=Host(`dev.achievernotifier.localhost`) && PathPrefix(`/api/v1`,`/.well-known`, `/ishealthy`)"
-      - "traefik.http.routers.webapi.tls.certresolver=letsencrypt"
-      - traefik.http.routers.blog.tls.domains[0].main=dev.achievernotifier.localhost
-      - "serverstransport.insecureskipverify=true"
+      - "traefik.http.routers.webapi.tls.domains[0].main=achievernotifier.localhost"
+      - "traefik.http.routers.webapi.tls.domains[0].sans=dev.achievernotifier.localhost"
       
   whoami:
     container_name: ${APP_NAME:-an}-whoami-${APP_ENV:-dev}

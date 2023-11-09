@@ -1,42 +1,24 @@
 providers:
   docker:
     network: reverse_proxy_network
-    endpoint: "unix:///var/run/docker.sock"
+    endpoint: unix:///var/run/docker.sock
     exposedByDefault: false
     httpClientTimeout: 300
-#   file:
-#     directory: /etc/traefik/dynamic
-#     watch: true
+    watch: true
+  file:
+    filename: /etc/traefik/dynamic_conf.yml
+    watch: true
 
 log:
-  filePath: "/var/log/traefik.log"
+  filePath: /var/log/traefik.log
   level: DEBUG
   
 api:
   dashboard: true
   debug: true
 
-# serversTransport:
-#   insecureSkipVerify: true
-
 entrypoints:
   web:
     address: ":80"
   websecure:
     address: ":443"
-   
-# serversTransports:
-#     insecureTransport:
-#       insecureSkipVerify: true
-              
-certificatesResolvers:
-  letsencrypt:
-    acme:
-      email: vlad.drybas@gmail.com
-      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
-      storage: /letsencrypt/acme.json
-      
-      httpChallenge:
-        # used during the challenge
-        entryPoint: web
-      tlsChallenge: true

@@ -4,9 +4,9 @@ providers:
     endpoint: unix:///var/run/docker.sock
     exposedByDefault: false
     httpClientTimeout: 300
-#   file:
-#     directory: /etc/traefik/dynamic
-#     watch: true
+  file:
+    filename: /etc/traefik/dynamic_conf.yml
+    watch: true
 
 log:
   filePath: /var/log/traefik.log
@@ -21,21 +21,21 @@ entrypoints:
   websecure:
     address: ":443"
 
-tls:
-  certificates:
-    - certFile: /etc/traefik/cert/achievernotifier.com.cert
-      keyFile: /etc/traefik/cert/achievernotifier.com.key
-      stores:
-        - default
-  default:
-    clientAuth:
-      # in PEM format. each file can contain multiple CAs.
-      caFiles:
-        - /etc/traefik/cert/ca.pem
-      clientAuthType: RequireAndVerifyClientCert
-    defaultCertificate:
-      certFile: /etc/traefik/cert/fullchain.pem
-      keyFile: /etc/traefik/cert/privatekey.pem
+# tls:
+#   certificates:
+#     - certFile: /etc/traefik/cert/achievernotifier.com.cert
+#       keyFile: /etc/traefik/cert/achievernotifier.com.key
+#       stores:
+#         - default
+#   default:
+#     clientAuth:
+#       # in PEM format. each file can contain multiple CAs.
+#       caFiles:
+#         - /etc/traefik/cert/ca.pem
+#       clientAuthType: RequireAndVerifyClientCert
+#     defaultCertificate:
+#       certFile: /etc/traefik/cert/fullchain.pem
+#       keyFile: /etc/traefik/cert/privatekey.pem
 
 # tls:
 # #   options:

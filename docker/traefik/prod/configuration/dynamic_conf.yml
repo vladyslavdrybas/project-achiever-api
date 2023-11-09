@@ -1,0 +1,9 @@
+# Dynamic configuration
+tls:
+  certificates:
+    - certFile: "/etc/traefik/certs/achievernotifier.com.pem"
+      keyFile: "/etc/traefik/certs/achievernotifier.com-key.pem"
+    - certFile: "/etc/traefik/certs/proxy.achievernotifier.com.pem"
+      keyFile: "/etc/traefik/certs/proxy.achievernotifier.com-key.pem"
+    - certFile: "/etc/traefik/certs/dev.achievernotifier.com.pem"
+      keyFile: "/etc/traefik/certs/dev.achievernotifier.com-key.pem"
