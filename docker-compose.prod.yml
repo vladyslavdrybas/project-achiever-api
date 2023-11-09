@@ -1,5 +1,10 @@
 version: "3.9"
 
+x-php-variables: &php-environment
+  environment:
+    - APP_ENV=${APP_ENV:-prod}
+    - ACCESS_TOKENS=${ACCESS_TOKENS:-token123}
+    
 services:
   reverse-proxy:
     container_name: ${APP_NAME:-an}-reverse-proxy-${APP_ENV:-prod}
@@ -14,6 +19,9 @@ services:
   php:
     container_name: ${APP_NAME:-an}-php-${APP_ENV:-prod}
     restart: always
+    env_file:
+      - .env.prod
+    <<: *php-environment
       
   database:
     container_name: ${APP_NAME:-an}-db-${APP_ENV:-prod}
