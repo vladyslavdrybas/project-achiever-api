@@ -25,8 +25,11 @@ entrypoints:
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: admin@localhost.com
+      email: vlad.drybas@gmail.com
+      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
       storage: /letsencrypt/acme.json
+      
       httpChallenge:
         # used during the challenge
         entryPoint: web
+      tlsChallenge: true

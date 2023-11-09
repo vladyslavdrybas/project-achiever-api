@@ -33,6 +33,7 @@ services:
       - "traefik.http.routers.webapi-http.rule=Host(`achievernotifier.docker.dev.localhost`) && PathPrefix(`/api/v1`,`/.well-known`, `/ishealthy`)"
       - "traefik.http.routers.webapi.rule=Host(`achievernotifier.docker.dev.localhost`) && PathPrefix(`/api/v1`,`/.well-known`, `/ishealthy`)"
       - "traefik.http.routers.webapi.tls.certresolver=letsencrypt"
+      - traefik.http.routers.blog.tls.domains[0].main=achievernotifier.docker.dev.localhost
       - "serverstransport.insecureskipverify=true"
       
   whoami:
