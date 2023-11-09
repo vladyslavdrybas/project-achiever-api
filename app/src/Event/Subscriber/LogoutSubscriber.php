@@ -46,6 +46,9 @@ class LogoutSubscriber implements EventSubscriberInterface
     {
         // get the security token of the session that is about to be logged out
         $token = $event->getToken();
+        if (null === $token) {
+            return;
+        }
         // get the current request
         $request = $event->getRequest();
 
