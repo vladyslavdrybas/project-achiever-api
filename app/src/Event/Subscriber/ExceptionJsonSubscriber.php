@@ -28,7 +28,7 @@ class ExceptionJsonSubscriber implements EventSubscriberInterface
             // the priority must be greater than the Security HTTP
             // ExceptionListener, to make sure it's called before
             // the default exception listener
-            KernelEvents::EXCEPTION => ['onKernelException', 2],
+            KernelEvents::EXCEPTION => ['onKernelException', 100],
         ];
     }
 
@@ -36,16 +36,20 @@ class ExceptionJsonSubscriber implements EventSubscriberInterface
     {
         $exception = $event->getThrowable();
         $code = JsonResponse::HTTP_BAD_REQUEST;
+        $message = $exception->getMessage();
         if ($exception instanceof AccessDeniedException) {
             $code = JsonResponse::HTTP_UNAUTHORIZED;
+            $message = 'Access denied';
         } else if ($exception instanceof NotFoundHttpException) {
             $code = JsonResponse::HTTP_NOT_FOUND;
+            $message = '404 not found';
         } else if ($exception instanceof MethodNotAllowedException) {
             $code = JsonResponse::HTTP_METHOD_NOT_ALLOWED;
+            $message = 'Method not allowed';
         }
 
         $data = [
-            'message' => $exception->getMessage(),
+            'message' => $message,
             'status' => $code,
             'environment' => $this->environment,
         ];
