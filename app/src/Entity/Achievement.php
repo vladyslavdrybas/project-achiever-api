@@ -45,7 +45,7 @@ class Achievement extends AbstractEntity
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'achievements')]
     #[ORM\JoinColumn(name:'user_id', referencedColumnName: 'id', nullable: false)]
-    protected User $user;
+    protected User $owner;
 
     #[ORM\JoinTable(name: 'achievement_tag')]
     #[ORM\JoinColumn(name: 'achievement_id', referencedColumnName: 'id')]
@@ -164,17 +164,17 @@ class Achievement extends AbstractEntity
     /**
      * @return \App\Entity\User
      */
-    public function getUser(): User
+    public function getOwner(): User
     {
-        return $this->user;
+        return $this->owner;
     }
 
     /**
-     * @param \App\Entity\User $user
+     * @param \App\Entity\User $owner
      */
-    public function setUser(User $user): void
+    public function setOwner(User $owner): void
     {
-        $this->user = $user;
+        $this->owner = $owner;
     }
 
     /**

@@ -13,13 +13,12 @@ use App\Transfer\AchievementCreateJsonTransfer;
 use App\Transfer\AchievementEditJsonTransfer;
 use App\Transfer\AchievementTagAttachJsonTransfer;
 use DateTimeZone;
-use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use function array_map;
 use function sprintf;
 
-//TODO add author restrictions for author
 #[Route('/achievement', name: "api_achievement")]
 class AchievementController extends AbstractController
 {
@@ -37,9 +36,7 @@ class AchievementController extends AbstractController
         if (count($transfer->getTags()) === 0) {
             return $this->json(
                 [
-                    'message' => sprintf(
-                        'You should add at least one tag to achievement.',
-                    ),
+                    'message' => 'You should add at least one tag to achievement.',
                 ],
                 JsonResponse::HTTP_FORBIDDEN
             );
@@ -72,7 +69,7 @@ class AchievementController extends AbstractController
 
         $user = $userRepository->findByEmail($this->getUser()->getUserIdentifier());
 
-        $achievement->setUser($user);
+        $achievement->setOwner($user);
 
         $achievementRepository->add($achievement);
         $achievementRepository->save();
@@ -112,51 +109,20 @@ class AchievementController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route("/{id}", name: "_show", methods: ["GET"])]
+    #[Route("/{achievement}", name: "_show", methods: ["GET"])]
+    #[IsGranted('read', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function show(
-        string $id,
-        AchievementRepository $achievementRepository
+        Achievement $achievement
     ): JsonResponse {
-        try {
-            $achievement = $achievementRepository->find($id);
-
-            if (!$achievement instanceof Achievement) {
-                throw new Exception('not found');
-            }
-        } catch (Exception $e) {
-            return $this->json(
-                [
-                    'message' => $e->getMessage(),
-                ],
-                JsonResponse::HTTP_NOT_FOUND
-            );
-        }
-
-        $data = $this->serializer->normalize($achievement);
-
-        return $this->json($data);
+        return $this->json($this->serializer->normalize($achievement));
     }
 
-    #[Route("/{id}", name: "_delete", methods: ["DELETE"])]
+    #[Route("/{achievement}", name: "_delete", methods: ["DELETE"])]
+    #[IsGranted('update', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function delete(
-        string $id,
+        Achievement $achievement,
         AchievementRepository $achievementRepository
     ): JsonResponse {
-        try {
-            $achievement = $achievementRepository->find($id);
-
-            if (!$achievement instanceof Achievement) {
-                throw new Exception('not found');
-            }
-        } catch (Exception $e) {
-            return $this->json(
-                [
-                    'message' => $e->getMessage(),
-                ],
-                JsonResponse::HTTP_NOT_FOUND
-            );
-        }
-
         $achievementRepository->remove($achievement);
         $achievementRepository->save();
 
@@ -165,23 +131,13 @@ class AchievementController extends AbstractController
         ]);
     }
 
-    #[Route("/{id}", name: "_edit", methods: ["PUT"])]
+    #[Route("/{achievement}", name: "_edit", methods: ["PUT"])]
+    #[IsGranted('update', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function edit(
-        string $id,
+        Achievement $achievement,
         AchievementEditJsonTransfer $transfer,
         AchievementRepository $achievementRepository
     ): JsonResponse {
-        try {
-            $achievement = $this->getUserAchievementById($id, $achievementRepository);
-        } catch (Exception $e) {
-            return $this->json(
-                [
-                    'message' => $e->getMessage(),
-                ],
-                JsonResponse::HTTP_FORBIDDEN
-            );
-        }
-
         $achievement->setTitle($transfer->getTitle());
         $achievement->setDescription($transfer->getDescription());
         $achievement->setIsPublic($transfer->isPublic());
@@ -199,24 +155,14 @@ class AchievementController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route("/{id}/tag/detach", name: "_detach_tag", methods: ["PUT"])]
+    #[Route("/{achievement}/tag/detach", name: "_detach_tag", methods: ["PUT"])]
+    #[IsGranted('update', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function removeTag(
-        string $id,
+        Achievement $achievement,
         AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
         AchievementRepository $achievementRepository,
         TagRepository $tagRepository
     ): JsonResponse {
-        try {
-            $achievement = $this->getUserAchievementById($id, $achievementRepository);
-        } catch (Exception $e) {
-            return $this->json(
-                [
-                    'message' => $e->getMessage(),
-                ],
-                JsonResponse::HTTP_FORBIDDEN
-            );
-        }
-
         foreach ($tagAttachJsonTransfer->getTags() as $tagId) {
             $checkTag = new Tag();
             $checkTag->setId($tagId);
@@ -236,24 +182,14 @@ class AchievementController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route("/{id}/tag/attach", name: "_attach_tag", methods: ["PUT"])]
+    #[Route("/{achievement}/tag/attach", name: "_attach_tag", methods: ["PUT"])]
+    #[IsGranted('update', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function addTag(
-        string                           $id,
+        Achievement $achievement,
         AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
-        AchievementRepository            $achievementRepository,
-        TagRepository                    $tagRepository
+        AchievementRepository $achievementRepository,
+        TagRepository $tagRepository
     ): JsonResponse {
-        try {
-            $achievement = $this->getUserAchievementById($id, $achievementRepository);
-        } catch (Exception $e) {
-            return $this->json(
-                [
-                    'message' => $e->getMessage(),
-                ],
-                JsonResponse::HTTP_FORBIDDEN
-            );
-        }
-
         $addLength = count($tagAttachJsonTransfer->getTags());
         $hasLength = $achievement->getTags()->count();
         $expectedLength = $hasLength + $addLength;
@@ -293,24 +229,14 @@ class AchievementController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route("/{id}/tag/replace", name: "_replace_tag", methods: ["PUT"])]
+    #[Route("/{achievement}/tag/replace", name: "_replace_tag", methods: ["PUT"])]
+    #[IsGranted('update', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function replaceTag(
-        string                           $id,
+        Achievement $achievement,
         AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
-        AchievementRepository            $achievementRepository,
-        TagRepository                    $tagRepository
+        AchievementRepository $achievementRepository,
+        TagRepository $tagRepository
     ): JsonResponse {
-        try {
-            $achievement = $this->getUserAchievementById($id, $achievementRepository);
-        } catch (Exception $e) {
-            return $this->json(
-                [
-                    'message' => $e->getMessage(),
-                ],
-                JsonResponse::HTTP_FORBIDDEN
-            );
-        }
-
         $replaceLength = count($tagAttachJsonTransfer->getTags());
         $maxLength = 10;
         if ($replaceLength >= $maxLength) {
@@ -376,23 +302,5 @@ class AchievementController extends AbstractController
         $data = $this->serializer->normalize($achievement);
 
         return $this->json($data);
-    }
-
-    protected function getUserAchievementById(
-        string $id,
-        AchievementRepository $achievementRepository
-    ): ?Achievement {
-        $achievement = $achievementRepository->find($id);
-        if (!$achievement instanceof Achievement) {
-            throw new \Exception('achievement not found');
-        }
-
-        if ($achievement->getUser()->getUserIdentifier()
-            !== $this->getUser()->getUserIdentifier()
-        ) {
-            throw new \Exception('Access denied');
-        }
-
-        return $achievement;
     }
 }
