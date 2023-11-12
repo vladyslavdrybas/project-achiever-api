@@ -67,17 +67,25 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\Column(name: "locale", type: Types::STRING, length: 5, options: ["default" => 'en'])]
     protected string $locale = 'en';
 
-    #[ORM\OneToMany(mappedBy: 'user',targetEntity: Achievement::class)]
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Achievement::class)]
     protected Collection $achievements;
 
-    #[ORM\OneToMany(mappedBy: 'user',targetEntity: FirebaseCloudMessaging::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: FirebaseCloudMessaging::class)]
     protected Collection $firebaseCloudMessagingTokens;
+
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: UserGroup::class)]
+    protected Collection $ownedUserGroups;
+
+    #[ORM\OneToMany(mappedBy: 'member', targetEntity: UserGroupRelation::class)]
+    protected Collection $userGroupRelations;
 
     public function __construct()
     {
         parent::__construct();
         $this->achievements = new ArrayCollection();
         $this->firebaseCloudMessagingTokens = new ArrayCollection();
+        $this->ownedUserGroups = new ArrayCollection();
+        $this->userGroupRelations = new ArrayCollection();
     }
 
     public function isEqualTo(SecurityUserInterface $user): bool
@@ -256,5 +264,72 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     public function setFirebaseCloudMessagingTokens(Collection $firebaseCloudMessagingTokens): void
     {
         $this->firebaseCloudMessagingTokens = $firebaseCloudMessagingTokens;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOwnedUserGroups(): Collection
+    {
+        return $this->ownedUserGroups;
+    }
+
+    /**
+     * @param \App\Entity\UserGroup $group
+     * @return void
+     */
+    public function addOwnedUserGroup(UserGroup $group): void
+    {
+        if (!$this->ownedUserGroups->contains($group)) {
+            $this->ownedUserGroups->add($group);
+            $group->setOwner($this);
+        }
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $ownedUserGroups
+     */
+    public function setOwnedUserGroups(Collection $ownedUserGroups): void
+    {
+        foreach ($ownedUserGroups as $group) {
+            if (!$group instanceof UserGroup) {
+                throw new \Exception('Group should be instance of UserGroup');
+            }
+
+            $this->addOwnedUserGroup($group);
+        }
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMemberOfUserGroups(): Collection
+    {
+        return $this->userGroupRelations;
+    }
+
+    public function addMembership(UserGroupRelation $relation): void
+    {
+        if (!$this->userGroupRelations->contains($relation)) {
+            $this->userGroupRelations->add($relation);
+        } else {
+            $relation = $this->userGroupRelations->get($this->userGroupRelations->indexOf($relation));
+        }
+
+        $relation->setMember($this);
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $userGroupRelations
+     */
+    public function setMemberOfUserGroups(Collection $userGroupRelations): void
+    {
+        foreach ($userGroupRelations as $groupRelation) {
+            if (!$groupRelation instanceof UserGroupRelation) {
+                throw new \Exception('Membership should be instance of UserGroupRelation');
+            }
+
+            $this->addMembership($groupRelation);
+        }
     }
 }

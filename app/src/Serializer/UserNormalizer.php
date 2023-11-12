@@ -43,6 +43,8 @@ class UserNormalizer implements NormalizerInterface
                     'banned',
                     'deleted',
                     'firebaseCloudMessagingTokens',
+                    'ownedUserGroups',
+                    'userGroupRelations',
                 ],
             ]
         );
