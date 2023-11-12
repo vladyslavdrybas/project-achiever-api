@@ -18,4 +18,14 @@ enum UserGroupRelationType: string
 
         return $value;
     }
+
+    public static function getOrException(int|string $value): static
+    {
+        $value = self::tryFrom($value);
+        if (null === $value) {
+            throw new \Exception('Not existed user group role.');
+        }
+
+        return $value;
+    }
 }

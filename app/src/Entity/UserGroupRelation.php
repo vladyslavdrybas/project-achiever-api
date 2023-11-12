@@ -37,7 +37,7 @@ class UserGroupRelation extends AbstractEntity
     protected bool $canDelete = false;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
-    protected bool $canManageMembers = false;
+    protected bool $canManage = false;
 
     /**
      * @return \App\Entity\User
@@ -138,16 +138,16 @@ class UserGroupRelation extends AbstractEntity
     /**
      * @return bool
      */
-    public function isCanManageMembers(): bool
+    public function isCanManage(): bool
     {
-        return $this->canManageMembers;
+        return $this->canManage;
     }
 
     /**
-     * @param bool $canManageMembers
+     * @param bool $canManage
      */
-    public function setCanManageMembers(bool $canManageMembers): void
+    public function setCanManage(bool $canManage): void
     {
-        $this->canManageMembers = $canManageMembers;
+        $this->canManage = $canManage;
     }
 }

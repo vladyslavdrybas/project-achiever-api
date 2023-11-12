@@ -10,6 +10,7 @@ use App\Security\Permissions;
 use App\Security\UserGroupManager;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use function in_array;
+use function var_dump;
 
 class UserGroupVoter extends AbstractVoter
 {
@@ -23,7 +24,7 @@ class UserGroupVoter extends AbstractVoter
             return false;
         }
 
-        if (!in_array($attribute, [Permissions::VIEW, Permissions::EDIT])) {
+        if (!in_array($attribute, [Permissions::VIEW, Permissions::EDIT, Permissions::DELETE, Permissions::MANAGE_MEMBERS])) {
             return false;
         }
 

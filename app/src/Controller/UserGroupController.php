@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\UserGroup;
 use App\Security\Permissions;
 use App\Security\UserGroupManager;
@@ -46,5 +47,20 @@ class UserGroupController extends AbstractController
         $group = $groupManager->editGroup($editJsonTransfer->getTitle(), $editJsonTransfer->getDescription(), $group, $this->getUser());
 
         return $this->json($this->serializer->normalize($group));
+    }
+
+    #[Route("/{group}/{user}/{role}", name: "_add_user", methods: ["POST"])]
+    #[IsGranted(Permissions::MANAGE_MEMBERS, 'group', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    public function addUserToGroup(
+        UserGroup $group,
+        User $user,
+        string $role,
+        UserGroupManager $groupManager
+    ): JsonResponse {
+        $groupManager->addUserToGroup($group, $user, $this->getUser(), $role);
+
+        return $this->json([
+            'message' => 'success',
+        ]);
     }
 }
