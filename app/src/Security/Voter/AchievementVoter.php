@@ -6,14 +6,12 @@ namespace App\Security\Voter;
 
 use App\Entity\User;
 use App\Entity\Achievement;
+use App\Security\Permissions;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 final class AchievementVoter extends Voter
 {
-    const READ = 'read';
-    const UPDATE = 'update';
-
     protected function supports(string $attribute, mixed $subject): bool
     {
         // only vote on `Achievement` objects
@@ -22,7 +20,7 @@ final class AchievementVoter extends Voter
         }
 
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::READ, self::UPDATE])) {
+        if (!in_array($attribute, [Permissions::VIEW, Permissions::EDIT])) {
             return false;
         }
 
@@ -42,26 +40,26 @@ final class AchievementVoter extends Voter
         $achievement = $subject;
 
         return match($attribute) {
-            self::READ => $this->canRead($achievement, $user),
-            self::UPDATE => $this->canUpdate($achievement, $user),
+            Permissions::VIEW => $this->canView($achievement, $user),
+            Permissions::EDIT => $this->canEdit($achievement, $user),
             default => throw new \LogicException('This code should not be reached!')
         };
     }
 
-    protected function canRead(Achievement $achievement, User $user): bool
+    protected function canView(Achievement $achievement, User $user): bool
     {
         if ($achievement->isPublic()) {
             return true;
         }
 
-        if ($this->canUpdate($achievement, $user)) {
+        if ($this->canEdit($achievement, $user)) {
             return true;
         }
 
         return $achievement->getOwner()->getRawId() === $user->getRawId();
     }
 
-    protected function canUpdate(Achievement $achievement, User $user): bool
+    protected function canEdit(Achievement $achievement, User $user): bool
     {
         return $achievement->getOwner()->getRawId() === $user->getRawId();
     }

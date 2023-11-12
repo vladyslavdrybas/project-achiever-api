@@ -6,15 +6,9 @@ namespace App\Serializer;
 
 use App\Entity\User;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class UserNormalizer implements NormalizerInterface
+class UserNormalizer extends AbstractEntityNormalizer
 {
-    public function __construct(
-        private readonly GetSetMethodNormalizer $normalizer,
-    ) {
-    }
 
     /**
      * @param User $object

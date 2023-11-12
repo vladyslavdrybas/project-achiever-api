@@ -6,7 +6,7 @@ enum UserGroupRelationType: string
 {
     case VIEWER = 'viewer'; // read only
     case EDITOR = 'editor'; // read and edit
-    case MANAGER = 'manager'; // read, edit, delete, manage users
+    case MANAGER = 'manager'; // read, edit, manage users
     case OWNER = 'owner'; // full access
 
     public static function getOrDefault(string $value): UserGroupRelationType

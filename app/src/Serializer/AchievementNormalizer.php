@@ -7,15 +7,9 @@ namespace App\Serializer;
 use App\Entity\Achievement;
 use App\Entity\Tag;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class AchievementNormalizer implements NormalizerInterface
+class AchievementNormalizer extends AbstractEntityNormalizer
 {
-    public function __construct(
-        private readonly GetSetMethodNormalizer $normalizer,
-    ) {
-    }
     /**
      * @param Achievement $object
      * @param string|null $format

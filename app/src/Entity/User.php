@@ -301,7 +301,7 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection|\App\Entity\UserGroupRelation[]
      */
     public function getMemberOfUserGroups(): Collection
     {

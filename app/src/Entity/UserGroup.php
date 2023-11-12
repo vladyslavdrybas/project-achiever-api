@@ -86,7 +86,7 @@ class UserGroup extends AbstractEntity
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection|\App\Entity\UserGroupRelation[]
      */
     public function getUserGroupRelations(): Collection
     {

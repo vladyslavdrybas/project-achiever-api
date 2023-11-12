@@ -9,6 +9,7 @@ use App\Entity\Tag;
 use App\Repository\AchievementRepository;
 use App\Repository\TagRepository;
 use App\Repository\UserRepository;
+use App\Security\Permissions;
 use App\Transfer\AchievementCreateJsonTransfer;
 use App\Transfer\AchievementEditJsonTransfer;
 use App\Transfer\AchievementTagAttachJsonTransfer;
@@ -110,7 +111,7 @@ class AchievementController extends AbstractController
     }
 
     #[Route("/{achievement}", name: "_show", methods: ["GET"])]
-    #[IsGranted('read', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::VIEW, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function show(
         Achievement $achievement
     ): JsonResponse {
@@ -118,7 +119,7 @@ class AchievementController extends AbstractController
     }
 
     #[Route("/{achievement}", name: "_delete", methods: ["DELETE"])]
-    #[IsGranted('update', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function delete(
         Achievement $achievement,
         AchievementRepository $achievementRepository
@@ -132,7 +133,7 @@ class AchievementController extends AbstractController
     }
 
     #[Route("/{achievement}", name: "_edit", methods: ["PUT"])]
-    #[IsGranted('update', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function edit(
         Achievement $achievement,
         AchievementEditJsonTransfer $transfer,
@@ -156,7 +157,7 @@ class AchievementController extends AbstractController
     }
 
     #[Route("/{achievement}/tag/detach", name: "_detach_tag", methods: ["PUT"])]
-    #[IsGranted('update', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function removeTag(
         Achievement $achievement,
         AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
@@ -183,7 +184,7 @@ class AchievementController extends AbstractController
     }
 
     #[Route("/{achievement}/tag/attach", name: "_attach_tag", methods: ["PUT"])]
-    #[IsGranted('update', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function addTag(
         Achievement $achievement,
         AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
@@ -230,7 +231,7 @@ class AchievementController extends AbstractController
     }
 
     #[Route("/{achievement}/tag/replace", name: "_replace_tag", methods: ["PUT"])]
-    #[IsGranted('update', 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function replaceTag(
         Achievement $achievement,
         AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
