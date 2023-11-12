@@ -39,6 +39,7 @@ class UserNormalizer extends AbstractEntityNormalizer
                     'firebaseCloudMessagingTokens',
                     'ownedUserGroups',
                     'userGroupRelations',
+                    'memberOfUserGroups',
                 ],
             ]
         );

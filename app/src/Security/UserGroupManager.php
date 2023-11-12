@@ -123,6 +123,11 @@ class UserGroupManager
         }
     }
 
+    public function membersShow(UserGroup $group, int $offset = 0, int $limit = 5): array
+    {
+        return $this->userGroupRelationRepository->findAllByGroup($group, $offset, $limit);
+    }
+
     public function removeGroup() {}
 
     public function isOwner(UserGroup $object, User $user): bool

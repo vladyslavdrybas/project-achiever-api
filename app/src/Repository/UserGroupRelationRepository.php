@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\UserGroup;
 use App\Entity\UserGroupRelation;
 
 /**
@@ -16,4 +17,15 @@ use App\Entity\UserGroupRelation;
  */
 class UserGroupRelationRepository extends AbstractRepository
 {
+    public function findAllByGroup(UserGroup $group, $offset, $limit): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.userGroup = :group')
+            ->setParameter(':group', $group)
+            ->orderBy('t.createdAt', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

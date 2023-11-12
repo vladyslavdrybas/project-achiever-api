@@ -10,7 +10,6 @@ use App\Security\Permissions;
 use App\Security\UserGroupManager;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use function in_array;
-use function var_dump;
 
 class UserGroupVoter extends AbstractVoter
 {

@@ -23,7 +23,7 @@ class UserGroupNormalizer extends AbstractEntityNormalizer
             $format,
             [
                 AbstractNormalizer::CALLBACKS => [
-                    'owner' => [$this, 'normalizeUserWithIdOnly'],
+                    'owner' => [$this, 'normalizeWithIdOnly'],
                 ],
                 AbstractNormalizer::IGNORED_ATTRIBUTES => [
                     'userGroupRelations',

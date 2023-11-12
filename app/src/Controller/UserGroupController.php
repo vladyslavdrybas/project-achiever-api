@@ -77,4 +77,24 @@ class UserGroupController extends AbstractController
             'message' => 'success',
         ]);
     }
+
+    #[Route(
+        "/{group}/members/{offset}/{limit}",
+        name: "_members_show",
+        requirements: ['offset' => '\d+', 'limit' => '5|10|20|50'],
+        defaults: ['offset' => 0, 'limit' => 5],
+        methods: ["GET"]
+    )]
+    #[IsGranted(Permissions::VIEW, 'group', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    public function membersShow(
+        UserGroup $group,
+        int $offset,
+        int $limit,
+        UserGroupManager $groupManager
+    ): JsonResponse {
+        $members = $groupManager->membersShow($group, $offset, $limit);
+        $data = $this->serializer->normalize($members);
+
+        return $this->json($data);
+    }
 }

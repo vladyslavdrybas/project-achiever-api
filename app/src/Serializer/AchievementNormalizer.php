@@ -19,15 +19,6 @@ class AchievementNormalizer extends AbstractEntityNormalizer
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
-        $userCallable = function (
-            object $innerObject
-        ): array {
-            /** @var \App\Entity\User $innerObject */
-            return [
-                'id' => $innerObject->getRawId(),
-            ];
-        };
-
         $tagsCallable = function (
             object $innerObject
         ): array {
@@ -42,7 +33,7 @@ class AchievementNormalizer extends AbstractEntityNormalizer
             $format,
             [
                 AbstractNormalizer::CALLBACKS => [
-                    'user' => $userCallable,
+                    'owner' => [$this, 'normalizeWithIdOnly'],
                     'tags' => $tagsCallable,
                 ],
                 AbstractNormalizer::IGNORED_ATTRIBUTES => [
