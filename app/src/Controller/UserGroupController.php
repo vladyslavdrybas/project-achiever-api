@@ -57,7 +57,21 @@ class UserGroupController extends AbstractController
         string $role,
         UserGroupManager $groupManager
     ): JsonResponse {
-        $groupManager->addUserToGroup($group, $user, $this->getUser(), $role);
+        $groupManager->addMember($group, $user, $this->getUser(), $role);
+
+        return $this->json([
+            'message' => 'success',
+        ]);
+    }
+
+    #[Route("/{group}/{user}", name: "_remove_user", methods: ["DELETE"])]
+    #[IsGranted(Permissions::MANAGE_MEMBERS, 'group', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    public function removeUserFromGroup(
+        UserGroup $group,
+        User $user,
+        UserGroupManager $groupManager
+    ): JsonResponse {
+        $groupManager->removeMember($group, $user, $this->getUser());
 
         return $this->json([
             'message' => 'success',

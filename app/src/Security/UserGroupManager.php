@@ -15,7 +15,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use function method_exists;
 use function strtoupper;
 use function ucfirst;
-use function var_dump;
 
 class UserGroupManager
 {
@@ -68,21 +67,21 @@ class UserGroupManager
         return $group;
     }
 
-    public function addUserToGroup(UserGroup $group, User $user, User $owner, string $role): UserGroup
+    public function addMember(UserGroup $group, User $member, User $owner, string $role): UserGroup
     {
         $role = UserGroupRelationType::getOrException($role);
-        if ($user === $owner) {
+        if ($member === $owner) {
             return $group;
         }
 
         foreach ($group->getUserGroupRelations() as $relation) {
-            if ($relation->getMember() === $user) {
+            if ($relation->getMember() === $member) {
                 throw new \Exception('User has been added to the group already.');
             }
         }
 
         $relation = new UserGroupRelation();
-        $relation->setMember($user);
+        $relation->setMember($member);
         $relation->setUserGroup($group);
         $relation->setTitle($role);
 
@@ -103,11 +102,27 @@ class UserGroupManager
         $this->userGroupRelationRepository->save();
 
         $group->addUserGroupRelation($relation);
+        //TODO notify member;
 
         return $group;
     }
 
-    public function removeUserFromGroup() {}
+    public function removeMember(UserGroup $group, User $member, User $owner): void
+    {
+        if ($member === $owner) {
+            throw new \Exception('Owner can not remove himself from the group. Switch owner.');
+        }
+
+        foreach ($group->getUserGroupRelations() as $relation)
+        {
+            if ($relation->getMember() === $member) {
+                $this->userGroupRelationRepository->remove($relation);
+                $this->userGroupRelationRepository->save();
+                //TODO notify member;
+            }
+        }
+    }
+
     public function removeGroup() {}
 
     public function isOwner(UserGroup $object, User $user): bool
