@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Achievement;
 use App\Entity\AchievementList;
 use App\Entity\User;
 use App\Repository\AchievementListRepository;
@@ -12,11 +11,9 @@ use App\Repository\AchievementRepository;
 use App\Security\Permissions;
 use App\Transfer\AchievementListCreateJsonTransfer;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use function array_slice;
-use function var_dump;
 
 #[Route('/achievement/list', name: "api_achievement_list")]
 class AchievementListController extends AbstractController
@@ -43,44 +40,6 @@ class AchievementListController extends AbstractController
         AchievementList $achievementList
     ): JsonResponse {
         return $this->json($this->serializer->normalize($achievementList));
-    }
-
-    #[Route("/{achievementList}/{achievement}", name: "_add_achievement", methods: ["POST"])]
-    #[IsGranted(Permissions::EDIT, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
-    public function addAchievement(
-        AchievementList $achievementList,
-        Achievement $achievement,
-        AchievementListRepository $achievementListRepository
-    ): JsonResponse {
-        $achievementList->addAchievement($achievement);
-        $achievementListRepository->add($achievementList);
-        $achievementListRepository->save();
-
-        return $this->json([
-            'message' => 'success',
-        ]);
-    }
-
-    #[Route("/{achievementList}/{achievement}", name: "_show_achievement", methods: ["GET"])]
-    #[IsGranted(Permissions::VIEW, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
-    public function showAchievement(
-        AchievementList $achievementList,
-        Achievement $achievement
-    ): JsonResponse {
-        $isAchievementInList = false;
-        foreach ($achievementList->getAchievements() as $listAchievement)
-        {
-            if ($listAchievement === $achievement) {
-                $isAchievementInList = true;
-                break;
-            }
-        }
-
-        if (!$isAchievementInList) {
-            throw new NotFoundHttpException();
-        }
-
-        return $this->json($this->serializer->normalize($achievement));
     }
 
     #[Route(
