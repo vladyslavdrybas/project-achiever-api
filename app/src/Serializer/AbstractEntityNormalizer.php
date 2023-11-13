@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Serializer;
 
+use App\Entity\AchievementList;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use function method_exists;
 
 abstract class AbstractEntityNormalizer implements NormalizerInterface
 {
@@ -32,5 +34,23 @@ abstract class AbstractEntityNormalizer implements NormalizerInterface
             'isBanned' => $innerObject->isBanned(),
             'isDeleted' => $innerObject->isDeleted(),
         ];
+    }
+
+    public function normalizeAchievementListInObject(object $innerObject): array
+    {
+        $lists = [];
+
+        if (method_exists($innerObject, 'getLists')) {
+            foreach ($innerObject->getLists() as $list) {
+                if ($list instanceof AchievementList) {
+                    $lists[] = [
+                        'id' => $list->getRawId(),
+                        'title' => $list->getTitle(),
+                    ];
+                }
+            }
+        }
+
+        return $lists;
     }
 }

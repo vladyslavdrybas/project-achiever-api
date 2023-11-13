@@ -34,6 +34,7 @@ class AchievementNormalizer extends AbstractEntityNormalizer
             [
                 AbstractNormalizer::CALLBACKS => [
                     'owner' => [$this, 'normalizeWithIdOnly'],
+                    'lists' => [$this, 'normalizeAchievementListInObject'],
                     'tags' => $tagsCallable,
                 ],
                 AbstractNormalizer::IGNORED_ATTRIBUTES => [

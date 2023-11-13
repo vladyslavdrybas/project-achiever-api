@@ -53,10 +53,14 @@ class Achievement extends AbstractEntity
     #[ORM\ManyToMany(targetEntity: Tag::class)]
     protected Collection $tags;
 
+    #[ORM\ManyToMany(targetEntity: AchievementList::class, mappedBy: 'achievements')]
+    protected Collection $lists;
+
     public function __construct()
     {
         parent::__construct();
         $this->tags = new ArrayCollection();
+        $this->lists = new ArrayCollection();
     }
 
     /**
@@ -223,5 +227,34 @@ class Achievement extends AbstractEntity
     public function setContentImageLink(?string $contentImageLink): void
     {
         $this->contentImageLink = $contentImageLink;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLists(): Collection
+    {
+        return $this->lists;
+    }
+
+    public function addList(AchievementList $achievementList): void
+    {
+        if (!$this->lists->contains($achievementList)) {
+            $this->lists->add($achievementList);
+        }
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $lists
+     */
+    public function setLists(Collection $lists): void
+    {
+        foreach ($lists as $list) {
+            if (!$list instanceof AchievementList) {
+                throw new \Exception('Item should be instance of AchievementList');
+            }
+
+            $this->addList($list);
+        }
     }
 }

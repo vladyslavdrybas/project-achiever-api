@@ -31,10 +31,14 @@ class UserGroup extends AbstractEntity
     #[ORM\OneToMany(mappedBy: 'userGroup',targetEntity: UserGroupRelation::class)]
     protected Collection $userGroupRelations;
 
+    #[ORM\ManyToMany(targetEntity: AchievementList::class, mappedBy: 'listGroupRelations')]
+    protected Collection $lists;
+
     public function __construct()
     {
         parent::__construct();
         $this->userGroupRelations = new ArrayCollection();
+        $this->lists = new ArrayCollection();
     }
 
     /**
@@ -116,5 +120,34 @@ class UserGroup extends AbstractEntity
         }
 
         $relation->setUserGroup($this);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLists(): Collection
+    {
+        return $this->lists;
+    }
+
+    public function addList(AchievementList $achievementList): void
+    {
+        if (!$this->lists->contains($achievementList)) {
+            $this->lists->add($achievementList);
+        }
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $lists
+     */
+    public function setLists(Collection $lists): void
+    {
+        foreach ($lists as $list) {
+            if (!$list instanceof AchievementList) {
+                throw new \Exception('Item should be instance of AchievementList');
+            }
+
+            $this->addList($list);
+        }
     }
 }

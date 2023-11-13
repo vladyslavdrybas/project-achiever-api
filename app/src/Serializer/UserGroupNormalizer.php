@@ -24,6 +24,7 @@ class UserGroupNormalizer extends AbstractEntityNormalizer
             [
                 AbstractNormalizer::CALLBACKS => [
                     'owner' => [$this, 'normalizeWithIdOnly'],
+                    'lists' => [$this, 'normalizeAchievementListInObject'],
                 ],
                 AbstractNormalizer::IGNORED_ATTRIBUTES => [
                     'userGroupRelations',
