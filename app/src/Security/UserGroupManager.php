@@ -140,8 +140,7 @@ class UserGroupManager
     }
 
     public function removeGroup(
-        UserGroup $group,
-        User $owner
+        UserGroup $group
     ): void {
         $batch = 0;
         foreach($group->getUserGroupRelations() as $relation)

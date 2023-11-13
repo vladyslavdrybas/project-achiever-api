@@ -55,7 +55,7 @@ class UserGroupController extends AbstractController
         UserGroup $group,
         UserGroupManager $groupManager
     ): JsonResponse {
-        $groupManager->removeGroup($group, $this->getUser());
+        $groupManager->removeGroup($group);
 
         return $this->json([
             'message' => 'success',
