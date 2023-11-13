@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/user/group', name: "api_user_group")]
 class UserGroupController extends AbstractController
 {
-    #[Route("/create", name: "_create", methods: ["POST"])]
+    #[Route("", name: "_create", methods: ["POST"])]
     public function create(
         UserGroupCreateJsonTransfer $createTransfer,
         UserGroupManager            $groupManager

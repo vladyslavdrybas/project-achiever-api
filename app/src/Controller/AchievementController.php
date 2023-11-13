@@ -6,7 +6,6 @@ namespace App\Controller;
 
 use App\Entity\Achievement;
 use App\Entity\Tag;
-use App\Entity\User;
 use App\Repository\AchievementRepository;
 use App\Repository\TagRepository;
 use App\Repository\UserRepository;
@@ -77,36 +76,6 @@ class AchievementController extends AbstractController
         $achievementRepository->save();
 
         $data = $this->serializer->normalize($achievement);
-
-        return $this->json($data);
-    }
-
-    #[Route(
-        "/list/{user}/{offset}/{length}",
-        name: "_list",
-        requirements: ['offset' => '\d+', 'length' => '5|10|20|50'],
-        defaults: ['offset' => 0, 'length' => 5],
-        methods: ["GET"]
-    )]
-    public function list(
-        User $user,
-        int $offset,
-        int $length,
-        AchievementRepository $achievementRepository
-    ): JsonResponse {
-        $achievements = $achievementRepository->findBy(
-            [
-                'owner' => $user,
-            ],
-            [
-                'doneAt' => 'DESC',
-                'createdAt' => 'DESC'
-            ]
-        );
-
-        $achievements = array_slice($achievements, $offset, $length);
-
-        $data = $this->serializer->normalize($achievements);
 
         return $this->json($data);
     }
