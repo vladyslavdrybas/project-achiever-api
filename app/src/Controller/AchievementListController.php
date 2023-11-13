@@ -32,6 +32,13 @@ class AchievementListController extends AbstractController
         return $this->json($this->serializer->normalize($list));
     }
 
+    #[Route("/{achievementList}", name: "_show", methods: ["GET"])]
+    public function show(
+        AchievementList $achievementList
+    ): JsonResponse {
+        return $this->json($this->serializer->normalize($achievementList));
+    }
+
     #[Route(
         "/{user}/{offset}/{length}",
         name: "_list_of_user",

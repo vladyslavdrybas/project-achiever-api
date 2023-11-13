@@ -40,5 +40,4 @@ class AchievementListNormalizer extends AbstractEntityNormalizer
     {
         return $data instanceof AchievementList;
     }
-
 }
