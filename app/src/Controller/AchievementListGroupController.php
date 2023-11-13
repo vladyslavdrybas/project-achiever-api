@@ -34,7 +34,7 @@ class AchievementListGroupController extends AbstractController
     }
 
     #[Route("", name: "_all_show", methods: ["GET"])]
-    #[IsGranted(Permissions::EDIT, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::VIEW, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function showMembers(
         AchievementList $achievementList
     ): JsonResponse {

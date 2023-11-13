@@ -8,19 +8,15 @@ use App\Entity\AchievementList;
 use App\Entity\User;
 use App\Security\Permissions;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use function get_class;
-use function var_dump;
 
 final class AchievementListVoter extends AbstractVoter
 {
     protected function supports(string $attribute, mixed $subject): bool
     {
-        // only vote on `Achievement` objects
         if (!$subject instanceof AchievementList) {
             return false;
         }
 
-        // if the attribute isn't one we support, return false
         if (!in_array(
             $attribute,
             [
@@ -39,7 +35,6 @@ final class AchievementListVoter extends AbstractVoter
         $user = $token->getUser();
 
         if (!$user instanceof User) {
-            // the user must be logged in; if not, deny access
             return false;
         }
 
@@ -60,14 +55,13 @@ final class AchievementListVoter extends AbstractVoter
             return true;
         }
 
-        if ($this->canEdit($subject, $user)) {
-            return true;
-        }
-
-        // TODO add check for user group members
         foreach ($subject->getListGroupRelations() as $relation) {
-            var_dump(get_class($relation));
-            exit;
+            /** @var \App\Entity\UserGroup $relation */
+            foreach ($relation->getUserGroupRelations() as $userGroupRelation) {
+                if ($userGroupRelation->getMember() === $user) {
+                    return $userGroupRelation->isCanView();
+                }
+            }
         }
 
         return false;
@@ -79,6 +73,15 @@ final class AchievementListVoter extends AbstractVoter
             return true;
         }
 
-        return $subject->getOwner()->getRawId() === $user->getRawId();
+        foreach ($subject->getListGroupRelations() as $relation) {
+            /** @var \App\Entity\UserGroup $relation */
+            foreach ($relation->getUserGroupRelations() as $userGroupRelation) {
+                if ($userGroupRelation->getMember() === $user) {
+                    return $userGroupRelation->isCanEdit();
+                }
+            }
+        }
+
+        return false;
     }
 }
