@@ -8,9 +8,11 @@ use App\Entity\AchievementList;
 use App\Entity\User;
 use App\Repository\AchievementListRepository;
 use App\Repository\AchievementRepository;
+use App\Security\Permissions;
 use App\Transfer\AchievementListCreateJsonTransfer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use function array_slice;
 
 #[Route('/achievement/list', name: "api_achievement_list")]
@@ -33,6 +35,7 @@ class AchievementListController extends AbstractController
     }
 
     #[Route("/{achievementList}", name: "_show", methods: ["GET"])]
+    #[IsGranted(Permissions::VIEW, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function show(
         AchievementList $achievementList
     ): JsonResponse {

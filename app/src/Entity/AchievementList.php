@@ -28,6 +28,9 @@ class AchievementList extends AbstractEntity
     #[ORM\JoinColumn(name:'owner_id', referencedColumnName: 'id', nullable: false)]
     protected User $owner;
 
+    #[ORM\Column(name: "is_public", type: Types::BOOLEAN, options: ["default" => false])]
+    protected bool $isPublic = false;
+
     #[ORM\JoinTable(name: 'achievement_list_relation')]
     #[ORM\JoinColumn(name: 'list_id', referencedColumnName: 'id')]
     #[ORM\InverseJoinColumn(name: 'achievement_id', referencedColumnName: 'id')]
@@ -93,6 +96,22 @@ class AchievementList extends AbstractEntity
     public function setOwner(User $owner): void
     {
         $this->owner = $owner;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublic(): bool
+    {
+        return $this->isPublic;
+    }
+
+    /**
+     * @param bool $isPublic
+     */
+    public function setIsPublic(bool $isPublic): void
+    {
+        $this->isPublic = $isPublic;
     }
 
     /**
