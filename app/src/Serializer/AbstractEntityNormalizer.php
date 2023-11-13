@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Serializer;
 
 use App\Entity\AchievementList;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use function get_class;
 use function method_exists;
+use function var_dump;
 
 abstract class AbstractEntityNormalizer implements NormalizerInterface
 {
@@ -40,7 +43,16 @@ abstract class AbstractEntityNormalizer implements NormalizerInterface
     {
         $lists = [];
 
-        if (method_exists($innerObject, 'getLists')) {
+        if ($innerObject instanceof Collection) {
+            foreach ($innerObject as $list) {
+                if ($list instanceof AchievementList) {
+                    $lists[] = [
+                        'id' => $list->getRawId(),
+                        'title' => $list->getTitle(),
+                    ];
+                }
+            }
+        } else if (method_exists($innerObject, 'getLists')) {
             foreach ($innerObject->getLists() as $list) {
                 if ($list instanceof AchievementList) {
                     $lists[] = [
