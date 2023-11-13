@@ -13,7 +13,6 @@ use App\Transfer\AchievementListCreateJsonTransfer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use function array_slice;
 
 #[Route('/achievement/list', name: "api_achievement_list")]
 class AchievementListController extends AbstractController
@@ -42,33 +41,5 @@ class AchievementListController extends AbstractController
         return $this->json($this->serializer->normalize($achievementList));
     }
 
-    #[Route(
-        "/{user}/{offset}/{length}",
-        name: "_list_of_user",
-        requirements: ['offset' => '\d+', 'length' => '5|10|20|50'],
-        defaults: ['offset' => 0, 'length' => 5],
-        methods: ["GET"]
-    )]
-    public function list(
-        User $user,
-        int $offset,
-        int $length,
-        AchievementRepository $achievementRepository
-    ): JsonResponse {
-        $achievements = $achievementRepository->findBy(
-            [
-                'owner' => $user,
-            ],
-            [
-                'doneAt' => 'DESC',
-                'createdAt' => 'DESC'
-            ]
-        );
 
-        $achievements = array_slice($achievements, $offset, $length);
-
-        $data = $this->serializer->normalize($achievements);
-
-        return $this->json($data);
-    }
 }

@@ -11,8 +11,6 @@ use App\Security\Permissions;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use function get_class;
-use function var_dump;
 
 #[Route('/achievement/list/{achievementList}/g', name: "api_achievement_list_group")]
 class AchievementListGroupController extends AbstractController

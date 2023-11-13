@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Achievement;
+use App\Entity\AchievementList;
 
 /**
  * @method Achievement|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,4 +17,15 @@ use App\Entity\Achievement;
  */
 class AchievementRepository extends AbstractRepository
 {
+    public function findByList(AchievementList $achievementList, $offset, $limit): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where(':list MEMBER OF t.lists')
+            ->setParameter(':list', $achievementList)
+            ->orderBy('t.createdAt', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

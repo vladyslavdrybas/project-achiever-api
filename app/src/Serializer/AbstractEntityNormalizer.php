@@ -8,9 +8,7 @@ use App\Entity\AchievementList;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use function get_class;
 use function method_exists;
-use function var_dump;
 
 abstract class AbstractEntityNormalizer implements NormalizerInterface
 {

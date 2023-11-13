@@ -8,9 +8,8 @@ use App\Entity\User;
 use App\Entity\Achievement;
 use App\Security\Permissions;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-final class AchievementVoter extends Voter
+final class AchievementVoter extends AbstractVoter
 {
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -20,7 +19,11 @@ final class AchievementVoter extends Voter
         }
 
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [Permissions::VIEW, Permissions::EDIT])) {
+        if (!in_array($attribute, [
+            Permissions::VIEW,
+            Permissions::EDIT,
+            Permissions::DELETE,
+        ])) {
             return false;
         }
 
@@ -42,25 +45,98 @@ final class AchievementVoter extends Voter
         return match($attribute) {
             Permissions::VIEW => $this->canView($achievement, $user),
             Permissions::EDIT => $this->canEdit($achievement, $user),
+            Permissions::DELETE => $this->canDelete($achievement, $user),
             default => throw new \LogicException('This code should not be reached!')
         };
     }
 
-    protected function canView(Achievement $achievement, User $user): bool
+    protected function canView(Achievement $subject, User $user): bool
     {
-        if ($achievement->isPublic()) {
+        if ($this->isOwner($subject, $user)) {
             return true;
         }
 
-        if ($this->canEdit($achievement, $user)) {
-            return true;
+        foreach ($subject->getLists() as $list) {
+            /** @var \App\Entity\AchievementList $list */
+            if ($this->isOwner($list, $user)) {
+                return true;
+            }
+
+            foreach ($list->getListGroupRelations() as $group) {
+                /** @var \App\Entity\UserGroup $group */
+                if ($this->isOwner($group, $user)) {
+                    return true;
+                }
+
+                foreach ($group->getUserGroupRelations() as $relation) {
+                    /** @var \App\Entity\UserGroupRelation $relation */
+                    if ($relation->getMember() === $user) {
+                        return $relation->isCanView();
+                    }
+                }
+            }
         }
 
-        return $achievement->getOwner()->getRawId() === $user->getRawId();
+        return false;
     }
 
-    protected function canEdit(Achievement $achievement, User $user): bool
+    protected function canEdit(Achievement $subject, User $user): bool
     {
-        return $achievement->getOwner()->getRawId() === $user->getRawId();
+        if ($this->isOwner($subject, $user)) {
+            return true;
+        }
+
+        foreach ($subject->getLists() as $list) {
+            /** @var \App\Entity\AchievementList $list */
+            if ($this->isOwner($list, $user)) {
+                return true;
+            }
+
+            foreach ($list->getListGroupRelations() as $group) {
+                /** @var \App\Entity\UserGroup $group */
+                if ($this->isOwner($group, $user)) {
+                    return true;
+                }
+
+                foreach ($group->getUserGroupRelations() as $relation) {
+                    /** @var \App\Entity\UserGroupRelation $relation */
+                    if ($relation->getMember() === $user) {
+                        return $relation->isCanEdit();
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    protected function canDelete(Achievement $subject, User $user): bool
+    {
+        if ($this->isOwner($subject, $user)) {
+            return true;
+        }
+
+        foreach ($subject->getLists() as $list) {
+            /** @var \App\Entity\AchievementList $list */
+            if ($this->isOwner($list, $user)) {
+                return true;
+            }
+
+            foreach ($list->getListGroupRelations() as $group) {
+                /** @var \App\Entity\UserGroup $group */
+                if ($this->isOwner($group, $user)) {
+                    return true;
+                }
+
+                foreach ($group->getUserGroupRelations() as $relation) {
+                    /** @var \App\Entity\UserGroupRelation $relation */
+                    if ($relation->getMember() === $user) {
+                        return $relation->isCanDelete();
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }
