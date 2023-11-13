@@ -38,7 +38,7 @@ class UserGroupController extends AbstractController
     }
 
     #[Route("/{group}", name: "_edit", methods: ["PUT"])]
-    #[IsGranted(Permissions::EDIT, 'group', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::MANAGE_MEMBERS, 'group', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function edit(
         UserGroup $group,
         UserGroupEditJsonTransfer $editJsonTransfer,
