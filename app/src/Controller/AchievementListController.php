@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\AchievementList;
-use App\Entity\User;
 use App\Repository\AchievementListRepository;
-use App\Repository\AchievementRepository;
 use App\Security\Permissions;
 use App\Transfer\AchievementListCreateJsonTransfer;
 use Symfony\Component\HttpFoundation\JsonResponse;
