@@ -38,6 +38,4 @@ class AchievementListController extends AbstractController
     ): JsonResponse {
         return $this->json($this->serializer->normalize($achievementList));
     }
-
-
 }

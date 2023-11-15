@@ -26,6 +26,10 @@ security:
         api_register:
             pattern: ^/api/v1/auth/register
             security: false
+#         api_achievement_show:
+#             pattern: ^/api/v1/achievement/list/[0-9a-z-]+/a/[0-9a-z-]+
+#             stateless: true
+#             security: false
         api_token_refresh:
             pattern: ^/api/v1/auth/token/refresh
             stateless: true
@@ -47,7 +51,8 @@ security:
             provider: entity_provider
             entry_point: jwt
             user_checker: App\Security\UserChecker
-            jwt: ~
+            jwt:
+                authenticator: api.custom_jwt_authenticator
             refresh_jwt:
                 check_path: /api/auth/token/refresh
             logout:
@@ -57,6 +62,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: '^/api/v1/auth/(login|register|token/refresh)', roles: PUBLIC_ACCESS }
+        - { route: 'api_achievement_list_achievement_show', roles: PUBLIC_ACCESS, methods: ['GET', 'PUT'] }
         - { path: '^/api', roles: IS_AUTHENTICATED_FULLY }
 
 when@test:

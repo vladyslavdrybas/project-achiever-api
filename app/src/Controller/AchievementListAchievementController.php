@@ -17,7 +17,6 @@ use App\Transfer\AchievementEditJsonTransfer;
 use App\Transfer\AchievementTagAttachJsonTransfer;
 use DateTimeZone;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use function array_map;
@@ -27,8 +26,7 @@ use function sprintf;
 class AchievementListAchievementController extends AbstractController
 {
     #[Route("/{achievement}", name: "_add", methods: ["POST"])]
-    #[IsGranted(Permissions::EDIT, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
-    #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::MANAGE, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function addAchievement(
         AchievementList $achievementList,
         Achievement $achievement,
@@ -44,24 +42,10 @@ class AchievementListAchievementController extends AbstractController
     }
 
     #[Route("/{achievement}", name: "_show", methods: ["GET"])]
-    #[IsGranted(Permissions::VIEW, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::VIEW, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function showAchievement(
-        AchievementList $achievementList,
         Achievement $achievement
     ): JsonResponse {
-        $isAchievementInList = false;
-        foreach ($achievementList->getAchievements() as $listAchievement)
-        {
-            if ($listAchievement === $achievement) {
-                $isAchievementInList = true;
-                break;
-            }
-        }
-
-        if (!$isAchievementInList) {
-            throw new NotFoundHttpException();
-        }
-
         return $this->json($this->serializer->normalize($achievement));
     }
 
@@ -127,10 +111,8 @@ class AchievementListAchievementController extends AbstractController
     }
 
     #[Route("/{achievement}", name: "_delete", methods: ["DELETE"])]
-    #[IsGranted(Permissions::EDIT, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     #[IsGranted(Permissions::DELETE, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function delete(
-        AchievementList $achievementList,
         Achievement $achievement,
         AchievementRepository $achievementRepository
     ): JsonResponse {
@@ -143,7 +125,6 @@ class AchievementListAchievementController extends AbstractController
     }
 
     #[Route("/{achievement}", name: "_edit", methods: ["PUT"])]
-    #[IsGranted(Permissions::EDIT, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function edit(
         AchievementList $achievementList,
@@ -169,7 +150,6 @@ class AchievementListAchievementController extends AbstractController
     }
 
     #[Route("/{achievement}/tag/detach", name: "_detach_tag", methods: ["PUT"])]
-    #[IsGranted(Permissions::EDIT, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function removeTag(
         AchievementList $achievementList,
@@ -198,7 +178,6 @@ class AchievementListAchievementController extends AbstractController
     }
 
     #[Route("/{achievement}/tag/attach", name: "_attach_tag", methods: ["PUT"])]
-    #[IsGranted(Permissions::EDIT, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function addTag(
         AchievementList $achievementList,
@@ -247,7 +226,6 @@ class AchievementListAchievementController extends AbstractController
     }
 
     #[Route("/{achievement}/tag/replace", name: "_replace_tag", methods: ["PUT"])]
-    #[IsGranted(Permissions::EDIT, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function replaceTag(
         AchievementList $achievementList,

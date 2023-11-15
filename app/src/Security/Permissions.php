@@ -11,5 +11,5 @@ interface Permissions
     const VIEW = 'view';
     const EDIT = 'edit';
     const DELETE = 'delete';
-    const MANAGE_MEMBERS = 'manage_members';
+    const MANAGE = 'manage';
 }

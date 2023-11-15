@@ -25,6 +25,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
+            - '../src/Security/JWTTokenAuthenticator.php'
 
     App\Event\Listener\TablePrefixListener:
         arguments:
@@ -39,6 +40,7 @@ services:
     Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer:
          class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
          tags: [serializer.normalizer]  
-            
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+
+    api.custom_jwt_authenticator:
+        class: App\Security\JWTTokenAuthenticator
+        parent: lexik_jwt_authentication.security.jwt_authenticator

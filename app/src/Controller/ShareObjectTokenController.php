@@ -8,6 +8,7 @@ use App\Entity\Achievement;
 use App\Entity\AchievementList;
 use App\Entity\ShareObjectToken;
 use App\Repository\ShareObjectTokenRepository;
+use App\Security\Permissions;
 use App\Transfer\ShareObjectTokenJsonTransfer;
 use DateTime;
 use DateTimeZone;
@@ -44,8 +45,8 @@ class ShareObjectTokenController extends AbstractController
             throw new NotFoundHttpException(ucfirst($transfer->getTarget()) . ' not found.');
         }
 
-        if (!$security->isGranted('edit', $subject)) {
-            throw new AccessDeniedHttpException('Permissions restricted to create link for chosen ' . ucfirst($transfer->getTarget()));
+        if (!$security->isGranted(Permissions::EDIT, $subject)) {
+            throw new AccessDeniedHttpException('Permissions restricted to create view link for chosen ' . ucfirst($transfer->getTarget()));
         }
 
         $owner = $this->getUser();
@@ -54,7 +55,15 @@ class ShareObjectTokenController extends AbstractController
         $token->setOwner($owner);
         $token->setTarget($transfer->getTarget());
         $token->setTargetId($subject->getRawId());
-        $token->setCanEdit($transfer->isCanEdit());
+
+        if ($transfer->isCanEdit()) {
+            if (!$security->isGranted(Permissions::MANAGE, $subject)) {
+                throw new AccessDeniedHttpException('Permissions restricted to create edit link for chosen ' . ucfirst($transfer->getTarget()));
+            }
+
+            $token->setCanEdit($transfer->isCanEdit());
+        }
+
         $token->setId($token->generateId());
         if ($transfer->getExpireAt()) {
             $expireAt = new DateTime($transfer->getExpireAt());
