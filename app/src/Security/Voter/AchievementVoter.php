@@ -50,11 +50,15 @@ final class AchievementVoter extends AbstractVoter
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
+        /** @var Achievement $subject */
         if (!$this->setAchievementList($subject)) {
             return false;
         }
 
-        if ($this->isGrantedByShareToken($subject, $attribute)) {
+        if ($this->isAchievementPublicView($subject, $attribute)
+            || $this->isAchievementListPublicView($this->achievementList, $attribute)
+            || $this->isGrantedByAchievementShareToken($subject, $attribute)
+        ) {
             return true;
         }
 
@@ -91,7 +95,17 @@ final class AchievementVoter extends AbstractVoter
         return null !== $this->achievementList;
     }
 
-    protected function isGrantedByShareToken(Achievement $subject, string $attribute): bool
+    protected function isAchievementPublicView(Achievement $subject, string $attribute): bool
+    {
+        return Permissions::VIEW === $attribute && $subject->isPublic();
+    }
+
+    protected function isAchievementListPublicView(?AchievementList $subject, string $attribute): bool
+    {
+        return Permissions::VIEW === $attribute && $subject?->isPublic();
+    }
+
+    protected function isGrantedByAchievementShareToken(Achievement $subject, string $attribute): bool
     {
         $tokenId = $this->request->query->get(ShareObjectToken::QUERY_IDENTIFIER);
         if (null === $tokenId) {

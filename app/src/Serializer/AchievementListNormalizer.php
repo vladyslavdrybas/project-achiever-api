@@ -18,6 +18,8 @@ class AchievementListNormalizer extends AbstractEntityNormalizer
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
+        $achievementsAmount = $object->getAchievements()->count();
+
         $data = $this->normalizer->normalize(
             $object,
             $format,
@@ -29,9 +31,11 @@ class AchievementListNormalizer extends AbstractEntityNormalizer
                     'rawId',
                     'listGroupRelations',
                     'achievements',
-                ],
+                ]
             ]
         );
+
+        $data['achievementsAmount'] = $achievementsAmount;
 
         return $data;
     }

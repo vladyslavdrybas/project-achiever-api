@@ -38,7 +38,7 @@ class UserGroupController extends AbstractController
     }
 
     #[Route("/{group}", name: "_edit", methods: ["PUT"])]
-    #[IsGranted(Permissions::MANAGE_MEMBERS, 'group', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::MANAGE, 'group', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function edit(
         UserGroup $group,
         UserGroupEditJsonTransfer $editJsonTransfer,
@@ -63,7 +63,7 @@ class UserGroupController extends AbstractController
     }
 
     #[Route("/{group}/{user}/{role}", name: "_add_user", methods: ["POST"])]
-    #[IsGranted(Permissions::MANAGE_MEMBERS, 'group', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::MANAGE, 'group', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function addUserToGroup(
         UserGroup $group,
         User $user,
@@ -78,7 +78,7 @@ class UserGroupController extends AbstractController
     }
 
     #[Route("/{group}/{user}", name: "_remove_user", methods: ["DELETE"])]
-    #[IsGranted(Permissions::MANAGE_MEMBERS, 'group', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    #[IsGranted(Permissions::MANAGE, 'group', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function removeUserFromGroup(
         UserGroup $group,
         User $user,

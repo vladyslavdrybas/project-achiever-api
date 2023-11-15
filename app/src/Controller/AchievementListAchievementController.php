@@ -152,7 +152,6 @@ class AchievementListAchievementController extends AbstractController
     #[Route("/{achievement}/tag/detach", name: "_detach_tag", methods: ["PUT"])]
     #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function removeTag(
-        AchievementList $achievementList,
         Achievement $achievement,
         AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
         AchievementRepository $achievementRepository,
@@ -180,7 +179,6 @@ class AchievementListAchievementController extends AbstractController
     #[Route("/{achievement}/tag/attach", name: "_attach_tag", methods: ["PUT"])]
     #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function addTag(
-        AchievementList $achievementList,
         Achievement $achievement,
         AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
         AchievementRepository $achievementRepository,
@@ -228,7 +226,6 @@ class AchievementListAchievementController extends AbstractController
     #[Route("/{achievement}/tag/replace", name: "_replace_tag", methods: ["PUT"])]
     #[IsGranted(Permissions::EDIT, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function replaceTag(
-        AchievementList $achievementList,
         Achievement $achievement,
         AchievementTagAttachJsonTransfer $tagAttachJsonTransfer,
         AchievementRepository $achievementRepository,
@@ -303,7 +300,7 @@ class AchievementListAchievementController extends AbstractController
 
     #[Route(
         "/l/{offset}/{limit}",
-        name: "_list_of_user",
+        name: "_list_of_achievements",
         requirements: ['offset' => '\d+', 'limit' => '5|10|20|50'],
         defaults: ['offset' => 0, 'limit' => 5],
         methods: ["GET"]

@@ -23,7 +23,7 @@ class UserGroupVoter extends AbstractVoter
             return false;
         }
 
-        if (!in_array($attribute, [Permissions::VIEW, Permissions::EDIT, Permissions::DELETE, Permissions::MANAGE_MEMBERS])) {
+        if (!in_array($attribute, [Permissions::VIEW, Permissions::EDIT, Permissions::DELETE, Permissions::MANAGE])) {
             return false;
         }
 
@@ -42,7 +42,7 @@ class UserGroupVoter extends AbstractVoter
             Permissions::VIEW => $this->userGroupManager->canView($subject, $user),
             Permissions::EDIT => $this->userGroupManager->canEdit($subject, $user),
             Permissions::DELETE => $this->userGroupManager->canDelete($subject, $user),
-            Permissions::MANAGE_MEMBERS => $this->userGroupManager->canManageMembers($subject, $user),
+            Permissions::MANAGE => $this->userGroupManager->canManageMembers($subject, $user),
             default => throw new \LogicException('This code should not be reached!')
         };
     }

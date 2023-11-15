@@ -7,7 +7,6 @@ namespace App\Repository;
 use App\Entity\AchievementList;
 use App\Entity\User;
 use App\Security\Permissions;
-use function var_dump;
 
 /**
  * @method AchievementList|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +18,51 @@ use function var_dump;
  */
 class AchievementListRepository extends AbstractRepository
 {
+    /**
+     * @param \App\Entity\User $user
+     * @param int $offset
+     * @param int $limit
+     * @return AchievementList[]
+     */
+    public function findOwnedLists(User $user, int $offset, int $limit): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.owner = :owner')
+            ->setParameter('owner', $user)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @param \App\Entity\User $user
+     * @param int $offset
+     * @param int $limit
+     * @return AchievementList[]
+     */
+    public function findShareLists(User $user, int $offset, int $limit): array
+    {
+        return $this->createQueryBuilder('t')
+            ->join('t.listGroupRelations', 'tug')
+            ->join('tug.userGroupRelations', 'tugr')
+            ->where('tugr.member = :member')
+            ->setParameter('member', $user)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @param \App\Entity\AchievementList $achievementList
+     * @param \App\Entity\User $user
+     * @param string $permission
+     * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function isUserHasPermission(
         AchievementList $achievementList,
         User $user,

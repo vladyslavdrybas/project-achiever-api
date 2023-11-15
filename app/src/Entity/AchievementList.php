@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+// TODO public view
 #[ORM\Entity(repositoryClass: AchievementListRepository::class, readOnly: false)]
 #[ORM\Table(name: "achievement_list")]
 #[ORM\UniqueConstraint(

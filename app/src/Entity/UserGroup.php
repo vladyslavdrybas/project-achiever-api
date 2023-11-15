@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+// TODO FOLLOW group for public changes
 #[ORM\Entity(repositoryClass: UserGroupRepository::class, readOnly: false)]
 #[ORM\Table(name: "user_group")]
 #[ORM\UniqueConstraint(

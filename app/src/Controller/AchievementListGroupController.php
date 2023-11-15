@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+// TODO leave group by the user initiative
+// TODO add user only after invitation confirmed
+// TODO ask for access to the group
 #[Route('/achievement/list/{achievementList}/g', name: "api_achievement_list_group")]
 class AchievementListGroupController extends AbstractController
 {
@@ -31,7 +34,7 @@ class AchievementListGroupController extends AbstractController
         ]);
     }
 
-    #[Route("", name: "_all_show", methods: ["GET"])]
+    #[Route("", name: "_groups_show", methods: ["GET"])]
     #[IsGranted(Permissions::VIEW, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function showMembers(
         AchievementList $achievementList
@@ -43,7 +46,11 @@ class AchievementListGroupController extends AbstractController
             $data[] = [
                 'id' => $relation->getRawId(),
                 'title' => $relation->getTitle(),
+                'owner' => [
+                    'id' => $relation->getOwner()->getRawId(),
+                ],
                 'membersAmount' => $relation->getUserGroupRelations()->count(),
+                'listsAmount' => $relation->getLists()->count(),
             ];
         }
 

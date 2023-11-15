@@ -38,4 +38,42 @@ class AchievementListController extends AbstractController
     ): JsonResponse {
         return $this->json($this->serializer->normalize($achievementList));
     }
+
+    #[Route(
+        "/my/owned/{offset}/{limit}",
+        name: "_my_owned_lists",
+        requirements: ['offset' => '\d+', 'limit' => '5|10|20|50'],
+        defaults: ['offset' => 0, 'limit' => 5],
+        methods: ["GET"]
+    )]
+    public function listOwned(
+        int $offset,
+        int $limit,
+        AchievementListRepository $achievementListRepository
+    ): JsonResponse {
+        $lists = $achievementListRepository->findOwnedLists($this->getUser(), $offset, $limit);
+
+        $data = $this->serializer->normalize($lists);
+
+        return $this->json($data);
+    }
+
+    #[Route(
+        "/my/share/{offset}/{limit}",
+        name: "_list_of_share",
+        requirements: ['offset' => '\d+', 'limit' => '5|10|20|50'],
+        defaults: ['offset' => 0, 'limit' => 5],
+        methods: ["GET"]
+    )]
+    public function listShare(
+        int $offset,
+        int $limit,
+        AchievementListRepository $achievementListRepository
+    ): JsonResponse {
+        $lists = $achievementListRepository->findShareLists($this->getUser(), $offset, $limit);
+
+        $data = $this->serializer->normalize($lists);
+
+        return $this->json($data);
+    }
 }

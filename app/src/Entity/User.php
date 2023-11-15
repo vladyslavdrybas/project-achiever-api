@@ -22,6 +22,7 @@ use function array_unique;
 // TODO add mail promotions for user
 // TODO add web push notification promotions for user
 // TODO add web/email reminders for user to do some action
+// TODO FOLLOW user for public changes
 #[ORM\Entity(repositoryClass: UserRepository::class, readOnly: false)]
 #[ORM\Table(name: "user")]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email.')]
