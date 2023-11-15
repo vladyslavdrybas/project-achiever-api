@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\AchievementList;
+use App\Entity\UserGroup;
 use App\Repository\AchievementListRepository;
 use App\Security\Permissions;
 use App\Transfer\AchievementListCreateJsonTransfer;
@@ -71,6 +72,27 @@ class AchievementListController extends AbstractController
         AchievementListRepository $achievementListRepository
     ): JsonResponse {
         $lists = $achievementListRepository->findShareLists($this->getUser(), $offset, $limit);
+
+        $data = $this->serializer->normalize($lists);
+
+        return $this->json($data);
+    }
+
+    #[Route(
+        "/{achievementList}/members/{offset}/{limit}",
+        name: "_members",
+        requirements: ['offset' => '\d+', 'limit' => '5|10|20|50'],
+        defaults: ['offset' => 0, 'limit' => 5],
+        methods: ["GET"]
+    )]
+    #[IsGranted(Permissions::VIEW, 'achievementList', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
+    public function members(
+        AchievementList $achievementList,
+        int $offset,
+        int $limit,
+        AchievementListRepository $achievementListRepository
+    ): JsonResponse {
+        $lists = $achievementListRepository->findMembers($achievementList, $offset, $limit);
 
         $data = $this->serializer->normalize($lists);
 

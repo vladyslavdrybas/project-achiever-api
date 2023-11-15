@@ -7,6 +7,8 @@ namespace App\Repository;
 use App\Entity\AchievementList;
 use App\Entity\User;
 use App\Security\Permissions;
+use Doctrine\ORM\Query\Expr\Join;
+use function var_dump;
 
 /**
  * @method AchievementList|null find($id, $lockMode = null, $lockVersion = null)
@@ -31,6 +33,7 @@ class AchievementListRepository extends AbstractRepository
             ->setParameter('owner', $user)
             ->setFirstResult($offset)
             ->setMaxResults($limit)
+            ->orderBy('t.createdAt', 'DESC')
             ->getQuery()
             ->getResult()
         ;
@@ -51,7 +54,42 @@ class AchievementListRepository extends AbstractRepository
             ->setParameter('member', $user)
             ->setFirstResult($offset)
             ->setMaxResults($limit)
+            ->orderBy('t.createdAt', 'DESC')
             ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @param \App\Entity\AchievementList $achievementList
+     * @param int $offset
+     * @param int $limit
+     * @return array
+     */
+    public function findMembers(AchievementList $achievementList, int $offset, int $limit): array
+    {
+        $query = $this->createQueryBuilder('t')
+//            ->select([
+//                't.id as listId',
+//                't.title as listTitle',
+//                'IDENTITY(t.owner) as listOwnerId',
+//                'tug.id as groupId',
+//                'IDENTITY(tug.owner) as groupOwnerId',
+//                'tug.title as groupTitle',
+//                'members.id as memberId',
+//            ])
+            ->select(['members'])
+            ->join('t.listGroupRelations', 'tug')
+            ->join('tug.userGroupRelations', 'tugr')
+            ->join(User::class, 'members', Join::WITH, 'members.id = tugr.member')
+            ->where('t.id = :list')
+            ->setParameter('list', $achievementList)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->orderBy('members.id', 'DESC')
+        ;
+
+        return $query->getQuery()
             ->getResult()
         ;
     }

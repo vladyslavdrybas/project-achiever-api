@@ -17,6 +17,7 @@ use Doctrine\Common\Collections\Collection;
 // TODO add link on achievement results
 // TODO add scheduler
 // TODO add sent marker to remove duplicates on short time range
+// TODO condition to complete
 #[ORM\Entity(repositoryClass: AchievementRepository::class, readOnly: false)]
 #[ORM\Table(name: "achievement")]
 class Achievement extends AbstractEntity
