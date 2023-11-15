@@ -57,11 +57,19 @@ class Achievement extends AbstractEntity
     #[ORM\ManyToMany(targetEntity: AchievementList::class, mappedBy: 'achievements')]
     protected Collection $lists;
 
+    #[ORM\OneToMany(mappedBy: 'achievement',targetEntity: AchievementPrerequisiteRelation::class)]
+    protected Collection $achievements;
+
+    #[ORM\OneToMany(mappedBy: 'prerequisite',targetEntity: AchievementPrerequisiteRelation::class)]
+    protected Collection $prerequisites;
+
     public function __construct()
     {
         parent::__construct();
         $this->tags = new ArrayCollection();
         $this->lists = new ArrayCollection();
+        $this->prerequisites = new ArrayCollection();
+        $this->achievements = new ArrayCollection();
     }
 
     /**
@@ -256,6 +264,65 @@ class Achievement extends AbstractEntity
             }
 
             $this->addList($list);
+        }
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAchievements(): Collection
+    {
+        return $this->achievements;
+    }
+
+    public function addAchievement(Achievement $achievement): void
+    {
+        if (!$this->achievements->contains($achievement)) {
+            $this->achievements->add($achievement);
+        }
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $achievements
+     */
+    public function setAchievements(Collection $achievements): void
+    {
+        foreach ($achievements as $achievement) {
+            if (!$achievement instanceof Achievement) {
+                throw new \Exception('Prerequisite Achievement should be instance of Achievement');
+            }
+
+            $this->addAchievement($achievement);
+        }
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPrerequisites(): Collection
+    {
+        return $this->prerequisites;
+    }
+
+    public function addPrerequisite(Achievement $achievement): void
+    {
+        if (!$this->prerequisites->contains($achievement)) {
+            $this->prerequisites->add($achievement);
+            $achievement->addAchievement($this);
+        }
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $prerequisites
+     */
+    public function setPrerequisites(Collection $prerequisites): void
+    {
+        foreach ($prerequisites as $prerequisite) {
+            if (!$prerequisite instanceof Achievement) {
+                throw new \Exception('Prerequisite should be instance of Achievement');
+            }
+
+            $this->addPrerequisite($prerequisite);
         }
     }
 }
