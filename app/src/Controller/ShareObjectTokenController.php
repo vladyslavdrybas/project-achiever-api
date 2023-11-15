@@ -54,14 +54,27 @@ class ShareObjectTokenController extends AbstractController
         $token->setOwner($owner);
         $token->setTarget($transfer->getTarget());
         $token->setTargetId($subject->getRawId());
+        $token->setCanEdit($transfer->isCanEdit());
+        $token->setId($token->generateId());
         if ($transfer->getExpireAt()) {
             $expireAt = new DateTime($transfer->getExpireAt());
             $expireAt->setTimezone(new DateTimeZone('UTC'));
             $token->setExpireAt($expireAt);
         }
-        $token->setCanView($transfer->isCanView());
-        $token->setCanEdit($transfer->isCanEdit());
-        $token->setId($token->generateId());
+        $token->setHash($token->generateHash());
+
+        $tokenOld = $tokenRepository->findOneBy([
+            'hash' => $token->getHash(),
+        ]);
+
+        if ($tokenOld instanceof ShareObjectToken) {
+            $data = [
+                'token' => $tokenOld->getRawId(),
+                'link' => $tokenOld->getLinkWithToken(),
+            ];
+
+            return $this->json($data);
+        }
 
         $list = null;
         if (null !== $transfer->getAchievementListId()) {

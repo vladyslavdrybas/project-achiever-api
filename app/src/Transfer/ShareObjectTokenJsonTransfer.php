@@ -6,13 +6,12 @@ namespace App\Transfer;
 
 class ShareObjectTokenJsonTransfer extends AbstractTransfer
 {
-    protected ?string $id;
-    protected ?string $target;
-    protected ?string $targetId;
-    protected ?string $ownerId;
-    protected ?string $expireAt;
-    protected ?string $achievementListId;
-    protected bool $canView = true;
+    protected ?string $id = null;
+    protected ?string $target = null;
+    protected ?string $targetId = null;
+    protected ?string $ownerId = null;
+    protected ?string $expireAt = null;
+    protected ?string $achievementListId = null;
     protected bool $canEdit = false;
 
     /**
@@ -109,22 +108,6 @@ class ShareObjectTokenJsonTransfer extends AbstractTransfer
     public function setAchievementListId(?string $achievementListId): void
     {
         $this->achievementListId = $achievementListId;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isCanView(): bool
-    {
-        return $this->canView;
-    }
-
-    /**
-     * @param bool $canView
-     */
-    public function setCanView(bool $canView): void
-    {
-        $this->canView = $canView;
     }
 
     /**

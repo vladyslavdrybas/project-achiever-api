@@ -25,6 +25,9 @@ class ShareObjectToken implements EntityInterface
     #[ORM\Column(name: "id", type: Types::STRING, length: 64, unique: true, nullable: false)]
     protected string $id;
 
+    #[ORM\Column(name: "hash", type: Types::STRING, length: 64, unique: true, nullable: false)]
+    protected string $hash;
+
     #[ORM\Column(name: "target", type: Types::STRING, length: 144, unique: false, nullable: false)]
     protected string $target;
 
@@ -40,9 +43,6 @@ class ShareObjectToken implements EntityInterface
 
     #[ORM\Column(name: "link", type: Types::STRING, unique: false, nullable: true)]
     protected ?string $link = null;
-
-    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
-    protected bool $canView = true;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     protected bool $canEdit = false;
@@ -101,6 +101,35 @@ class ShareObjectToken implements EntityInterface
         $salt = $this->getTarget() . $this->getTargetId() . $this->getOwner()->getRawId() . $expireAt;
 
         return hash('sha256', bin2hex(random_bytes(8)) . $salt);
+    }
+
+    /**
+     * @return string
+     */
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    /**
+     * @param string $hash
+     */
+    public function setHash(string $hash): void
+    {
+        $this->hash = $hash;
+    }
+
+    public function generateHash(): string
+    {
+        $expireAt = '';
+        if (null !== $this->getExpireAt()) {
+            $expireAt = $this->getExpireAt()->getTimestamp();
+        }
+
+        $salt = $this->getTarget() . $this->getTargetId() . $this->getOwner()->getRawId() . $expireAt;
+        $salt .= $this->canEdit ? 'yes' : 'no';
+
+        return hash('sha256', $salt);
     }
 
     /**
@@ -181,22 +210,6 @@ class ShareObjectToken implements EntityInterface
     public function setLink(?string $link): void
     {
         $this->link = $link;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isCanView(): bool
-    {
-        return $this->canView;
-    }
-
-    /**
-     * @param bool $canView
-     */
-    public function setCanView(bool $canView): void
-    {
-        $this->canView = $canView;
     }
 
     /**
