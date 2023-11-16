@@ -8,6 +8,7 @@ use App\Constants\RouteConstants;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as SymfonyAbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -50,5 +51,14 @@ abstract class AbstractController extends SymfonyAbstractController
     protected function getLoginUrl(): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE, [], UrlGeneratorInterface::ABSOLUTE_URL);
+    }
+
+    protected function success(): JsonResponse
+    {
+        return parent::json(
+            [
+                'message' => 'success'
+            ]
+        );
     }
 }

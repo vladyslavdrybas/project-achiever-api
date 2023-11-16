@@ -14,6 +14,7 @@ use App\Security\Permissions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use function var_dump;
 
 final class AchievementVoter extends AbstractVoter
 {
@@ -51,6 +52,7 @@ final class AchievementVoter extends AbstractVoter
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         /** @var Achievement $subject */
+
         if (!$this->setAchievementList($subject)) {
             return false;
         }
@@ -79,7 +81,11 @@ final class AchievementVoter extends AbstractVoter
     {
         $routeParams = $this->request->attributes->all('_route_params');
 
-        $listId = $routeParams['achievementList'] ?? $this->request->getPayload()->get('achievementListId');
+        $listId = $routeParams['achievementList']
+            ?? $this->request->getPayload()->get('achievementListId')
+            ?? $routeParams['prerequisiteList']
+            ?? $this->request->getPayload()->get('prerequisiteList')
+        ;
         if (null === $listId) {
             return false;
         }
@@ -132,25 +138,6 @@ final class AchievementVoter extends AbstractVoter
 
     protected function isUserHasPermissionInList(string $attribute, User $user): bool
     {
-//        foreach ($this->achievementList->getListGroupRelations() as $group) {
-//            /** @var \App\Entity\UserGroup $group */
-//            if ($this->isOwner($group, $user)) {
-//                return true;
-//            }
-//
-//            foreach ($group->getUserGroupRelations() as $relation) {
-//                /** @var \App\Entity\UserGroupRelation $relation */
-//                if ($relation->getMember() === $user) {
-//                    return match ($attribute) {
-//                        Permissions::VIEW => $relation->isCanView(),
-//                        Permissions::EDIT => $relation->isCanEdit(),
-//                        Permissions::DELETE => $relation->isCanDelete(),
-//                        Permissions::MANAGE => $relation->isCanManage(),
-//                        default => throw new \LogicException('This code should not be reached!')
-//                    };
-//                }
-//            }
-//        }
         return $this->achievementListRepository->isUserHasPermission($this->achievementList, $user, $attribute);
     }
 }

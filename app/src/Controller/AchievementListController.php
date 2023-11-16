@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\AchievementList;
-use App\Entity\UserGroup;
 use App\Repository\AchievementListRepository;
 use App\Security\Permissions;
 use App\Transfer\AchievementListCreateJsonTransfer;
