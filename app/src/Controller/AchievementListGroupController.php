@@ -8,7 +8,9 @@ use App\Entity\AchievementList;
 use App\Entity\UserGroup;
 use App\Repository\AchievementListRepository;
 use App\Security\Permissions;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -23,8 +25,13 @@ class AchievementListGroupController extends AbstractController
     public function addAchievement(
         AchievementList $achievementList,
         UserGroup $group,
-        AchievementListRepository $achievementListRepository
+        AchievementListRepository $achievementListRepository,
+        Security $security
     ): JsonResponse {
+        if (!$security->isGranted(Permissions::EDIT, $group)) {
+            throw new AccessDeniedHttpException('Access denied. Group Edit.');
+        }
+
         $achievementList->addGroup($group);
         $achievementListRepository->add($achievementList);
         $achievementListRepository->save();

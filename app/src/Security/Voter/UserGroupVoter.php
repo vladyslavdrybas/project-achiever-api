@@ -7,14 +7,14 @@ namespace App\Security\Voter;
 use App\Entity\User;
 use App\Entity\UserGroup;
 use App\Security\Permissions;
-use App\Security\UserGroupManager;
+use App\Security\UserGroupSecurityManager;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use function in_array;
 
 class UserGroupVoter extends AbstractVoter
 {
     public function __construct(
-        protected readonly UserGroupManager $userGroupManager
+        protected readonly UserGroupSecurityManager $userGroupSecurityManager
     ) {}
 
     protected function supports(string $attribute, mixed $subject): bool
@@ -39,10 +39,10 @@ class UserGroupVoter extends AbstractVoter
         }
 
         return match($attribute) {
-            Permissions::VIEW => $this->userGroupManager->canView($subject, $user),
-            Permissions::EDIT => $this->userGroupManager->canEdit($subject, $user),
-            Permissions::DELETE => $this->userGroupManager->canDelete($subject, $user),
-            Permissions::MANAGE => $this->userGroupManager->canManageMembers($subject, $user),
+            Permissions::VIEW => $this->userGroupSecurityManager->canView($subject, $user),
+            Permissions::EDIT => $this->userGroupSecurityManager->canEdit($subject, $user),
+            Permissions::DELETE => $this->userGroupSecurityManager->canDelete($subject, $user),
+            Permissions::MANAGE => $this->userGroupSecurityManager->canManage($subject, $user),
             default => throw new \LogicException('This code should not be reached!')
         };
     }

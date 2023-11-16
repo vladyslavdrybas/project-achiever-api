@@ -19,7 +19,7 @@ enum UserGroupRelationType: string
         return $value;
     }
 
-    public static function getOrException(int|string $value): static
+    public static function getOrException(int|string $value): UserGroupRelationType
     {
         $value = self::tryFrom($value);
         if (null === $value) {
