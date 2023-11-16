@@ -6,11 +6,16 @@ namespace App\Security\Voter;
 
 use App\Entity\AchievementList;
 use App\Entity\User;
+use App\Security\AchievementListSecurityManager;
 use App\Security\Permissions;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 final class AchievementListVoter extends AbstractVoter
 {
+    public function __construct(
+        protected readonly AchievementListSecurityManager $achievementListSecurityManager
+    ) {}
+
     protected function supports(string $attribute, mixed $subject): bool
     {
         if (!$subject instanceof AchievementList) {
@@ -39,49 +44,9 @@ final class AchievementListVoter extends AbstractVoter
         }
 
         return match($attribute) {
-            Permissions::VIEW => $this->canView($subject, $user),
-            Permissions::EDIT => $this->canEdit($subject, $user),
+            Permissions::VIEW => $this->achievementListSecurityManager->canView($subject, $user),
+            Permissions::EDIT => $this->achievementListSecurityManager->canEdit($subject, $user),
             default => throw new \LogicException('This code should not be reached!')
         };
-    }
-
-    protected function canView(AchievementList $subject, User $user): bool
-    {
-        if ($this->isOwner($subject, $user)) {
-            return true;
-        }
-
-        if ($subject->isPublic()) {
-            return true;
-        }
-
-        foreach ($subject->getListGroupRelations() as $relation) {
-            /** @var \App\Entity\UserGroup $relation */
-            foreach ($relation->getUserGroupRelations() as $userGroupRelation) {
-                if ($userGroupRelation->getMember() === $user) {
-                    return $userGroupRelation->isCanView();
-                }
-            }
-        }
-
-        return false;
-    }
-
-    protected function canEdit(AchievementList $subject, User $user): bool
-    {
-        if ($this->isOwner($subject, $user)) {
-            return true;
-        }
-
-        foreach ($subject->getListGroupRelations() as $relation) {
-            /** @var \App\Entity\UserGroup $relation */
-            foreach ($relation->getUserGroupRelations() as $userGroupRelation) {
-                if ($userGroupRelation->getMember() === $user) {
-                    return $userGroupRelation->isCanEdit();
-                }
-            }
-        }
-
-        return false;
     }
 }
