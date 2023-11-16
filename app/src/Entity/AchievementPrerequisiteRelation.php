@@ -16,11 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
 )]
 class AchievementPrerequisiteRelation extends AbstractEntity
 {
-    #[ORM\ManyToOne(targetEntity: Achievement::class, inversedBy: 'achievements')]
+    #[ORM\ManyToOne(targetEntity: Achievement::class, inversedBy: 'meAchievementIn')]
     #[ORM\JoinColumn(name:'achievement_id', referencedColumnName: 'id', nullable: false)]
     protected Achievement $achievement;
 
-    #[ORM\ManyToOne(targetEntity: Achievement::class, inversedBy: 'prerequisites')]
+    #[ORM\ManyToOne(targetEntity: Achievement::class, inversedBy: 'mePrerequisiteIn')]
     #[ORM\JoinColumn(name:'prerequisite_id', referencedColumnName: 'id', nullable: false)]
     protected Achievement $prerequisite;
 
