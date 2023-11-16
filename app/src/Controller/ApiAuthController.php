@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use App\Builder\UserBuilder;
 use App\Entity\User;
 use App\Entity\UserInterface;
 use App\Repository\UserRepository;
@@ -17,7 +18,7 @@ class ApiAuthController extends AbstractController
 {
     #[Route('/register', name: '_register', methods: ["POST"])]
     public function index(
-        UserPasswordHasherInterface $passwordHasher,
+        UserBuilder $userBuilder,
         UserRegisterJsonTransfer $userRegisterJsonTransfer,
         UserRepository $repo,
         Security $security
@@ -35,17 +36,10 @@ class ApiAuthController extends AbstractController
             $security->logout(false);
         }
 
-        $user = new User();
-        $user->setEmail($userRegisterJsonTransfer->getEmail());
-        $user->setPassword($userRegisterJsonTransfer->getPassword());
+        $user = $userBuilder->baseUser($userRegisterJsonTransfer->getEmail(), $userRegisterJsonTransfer->getPassword());
 
-        $hashedPassword = $passwordHasher->hashPassword(
-            $user,
-            $user->getPassword()
-        );
-        $user->setPassword($hashedPassword);
-
-        $repo->upgradePassword($user, $hashedPassword);
+        $repo->add($user);
+        $repo->save();
 
         return $this->json([
             'message' => 'success',

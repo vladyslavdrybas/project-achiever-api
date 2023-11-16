@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\EntityInterface;
+use App\Exceptions\AlreadyExists;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
-use Symfony\Component\Config\Definition\Exception\DuplicateKeyException;
 use function str_replace;
 
 /**
@@ -47,7 +47,7 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Sel
             $message = $e->getMessage();
             if (str_contains($message, 'duplicate key')) {
                 $message = 'Already exists.';
-                throw new DuplicateKeyException($message);
+                throw new AlreadyExists($message);
             } else {
                 throw $e;
             }

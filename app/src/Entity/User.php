@@ -13,6 +13,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 use function array_unique;
+use function bin2hex;
+use function hash;
+use function hex2bin;
+use function microtime;
+use function random_bytes;
+use function time;
+use function uniqid;
 
 // TODO add user password reset
 // TODO add user email confirmation
@@ -28,32 +35,22 @@ use function array_unique;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email.')]
 class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Column(
-        name: "roles",
-        type: Types::JSON,
-        nullable: false
-    )]
+    #[ORM\Column( name: "roles", type: Types::JSON, nullable: false )]
     protected array $roles = [self::ROLE_USER];
 
     #[Assert\Email]
     #[Assert\NotBlank]
-    #[ORM\Column(
-        name: "email",
-        type: Types::STRING,
-        length: 180,
-        unique: true,
-        nullable: false
-    )]
+    #[ORM\Column( name: "email", type: Types::STRING, length: 180, unique: true, nullable: false )]
     protected string $email;
+
+    // TODO remove nullable, make it mandatory
+    #[ORM\Column( name: "username", type: Types::STRING, length: 100, unique: true, nullable: true)]
+    protected string $username;
 
     #[ORM\Column(name: "password", type: Types::STRING, length: 100, unique: false, nullable: false)]
     protected string $password;
 
-    #[ORM\Column(
-        name: "is_email_verified",
-        type: 'boolean',
-        options: ["default" => false]
-    )]
+    #[ORM\Column( name: "is_email_verified", type: 'boolean', options: ["default" => false] )]
     protected bool $isEmailVerified = false;
 
     #[ORM\Column(name: "is_active", type: Types::BOOLEAN, options: ["default" => true])]
@@ -117,7 +114,29 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
 
     public function getUsername(): string
     {
-        return $this->email;
+        return $this->username;
+    }
+
+    protected function generateRandomUsername(): string
+    {
+        return sprintf(
+            '%s.%s'
+            , uniqid('u', false)
+            , bin2hex(random_bytes(3))
+        );
+    }
+
+    public function setRandomUsername(): void
+    {
+        $this->setUsername($this->generateRandomUsername());
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
     }
 
     public function setUserIdentifier(string $identifier): void
@@ -304,7 +323,7 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     /**
      * @return \Doctrine\Common\Collections\Collection|\App\Entity\UserGroupRelation[]
      */
-    public function getMemberOfUserGroups(): Collection
+    public function getUserGroupRelations(): Collection
     {
         return $this->userGroupRelations;
     }
@@ -323,7 +342,7 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     /**
      * @param \Doctrine\Common\Collections\Collection $userGroupRelations
      */
-    public function setMemberOfUserGroups(Collection $userGroupRelations): void
+    public function setUserGroupRelations(Collection $userGroupRelations): void
     {
         foreach ($userGroupRelations as $groupRelation) {
             if (!$groupRelation instanceof UserGroupRelation) {
