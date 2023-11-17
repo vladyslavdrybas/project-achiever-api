@@ -254,6 +254,14 @@ class Achievement extends AbstractEntity
         }
     }
 
+    public function removeList(AchievementList $achievementList): void
+    {
+        if ($this->lists->contains($achievementList)) {
+            $this->lists->removeElement($achievementList);
+            $achievementList->removeAchievement($this);
+        }
+    }
+
     /**
      * @param \Doctrine\Common\Collections\Collection $lists
      */

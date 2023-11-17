@@ -61,6 +61,7 @@ class AchievementListAchievementController extends AbstractController
         $achievement = new Achievement();
         $achievement->setTitle($transfer->getTitle());
         $achievement->setDescription($transfer->getDescription());
+        $achievement->setIsPublic($transfer->isPublic());
 
         if (count($transfer->getTags()) === 0) {
             return $this->json(
@@ -113,10 +114,14 @@ class AchievementListAchievementController extends AbstractController
     #[Route("/{achievement}", name: "_delete", methods: ["DELETE"])]
     #[IsGranted(Permissions::DELETE, 'achievement', 'Access denied', JsonResponse::HTTP_UNAUTHORIZED)]
     public function delete(
+        AchievementList $achievementList,
         Achievement $achievement,
         AchievementRepository $achievementRepository
     ): JsonResponse {
-        $achievementRepository->remove($achievement);
+        $achievement->removeList($achievementList);
+        $achievementList->removeAchievement($achievement);
+        $achievementRepository->add($achievement);
+        $achievementRepository->add($achievementList);
         $achievementRepository->save();
 
         return $this->json([

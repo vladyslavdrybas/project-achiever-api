@@ -260,6 +260,8 @@ class PostmanDevEnvironmentBuilder extends Command
                 $valueBuilder('achievementShareTokens', $shareObjectTokensContent)->toArray(),
                 $valueBuilder('fakedEmails', $fakedEmailsContent)->toArray(),
                 $valueBuilder('fakedText', $this->faker->realText(10000))->toArray(),
+                $valueBuilder('offset', '0')->toArray(),
+                $valueBuilder('limit', '5')->toArray(),
             ],
         ];
 

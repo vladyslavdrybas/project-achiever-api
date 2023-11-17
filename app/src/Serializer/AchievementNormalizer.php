@@ -40,6 +40,8 @@ class AchievementNormalizer extends AbstractEntityNormalizer
                 AbstractNormalizer::IGNORED_ATTRIBUTES => [
                     'rawId',
                     'public',
+                    'meAchievementIn',
+                    'mePrerequisiteIn',
                 ],
             ]
         );
