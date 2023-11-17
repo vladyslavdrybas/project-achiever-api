@@ -6,17 +6,21 @@ namespace App\Builder;
 
 use App\Entity\Achievement;
 use App\Entity\AchievementList;
+use App\Entity\AchievementPrerequisiteRelation;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Repository\AchievementPrerequisiteRelationRepository;
 use App\Repository\TagRepository;
 use DateTimeInterface;
 use DateTimeZone;
+use InvalidArgumentException;
 use function array_map;
 
 class AchievementBuilder
 {
     public function __construct(
         protected readonly TagRepository $tagRepository,
+        protected readonly AchievementPrerequisiteRelationRepository $achievementPrerequisiteRelationRepository
     ) {}
 
     public function baseAchievement(
@@ -66,6 +70,38 @@ class AchievementBuilder
             $achievement->addTag($tag);
         }
 
+        $owner->addAchievement($achievement);
+
         return $achievement;
+    }
+
+    public function prerequisiteRelation(
+        Achievement $achievement,
+        Achievement $prerequisite,
+        int $priority = 0,
+        string $condition = 'complete',
+        bool $isRequired = false
+    ): AchievementPrerequisiteRelation {
+        if ($achievement === $prerequisite) {
+            throw new InvalidArgumentException('Prerequisite cannot reference on itself.');
+        }
+
+        $loop = $this->achievementPrerequisiteRelationRepository->findOneBy([
+            'achievement' => $prerequisite,
+            'prerequisite' => $achievement
+        ]);
+
+        if (null !== $loop) {
+            throw new InvalidArgumentException('Attempt to creat relation loop.');
+        }
+
+        $relation = new AchievementPrerequisiteRelation();
+        $relation->setAchievement($achievement);
+        $relation->setPrerequisite($prerequisite);
+        $relation->setPriority($priority);
+        $relation->setCondition($condition);
+        $relation->setIsRequired($isRequired);
+
+        return $relation;
     }
 }

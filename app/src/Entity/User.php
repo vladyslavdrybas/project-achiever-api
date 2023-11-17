@@ -262,12 +262,26 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
         return $this->achievements;
     }
 
+    public function addAchievement(Achievement $achievement): void
+    {
+        if (!$this->achievements->contains($achievement)) {
+            $this->achievements->add($achievement);
+            $achievement->setOwner($this);
+        }
+    }
+
     /**
      * @param \Doctrine\Common\Collections\ArrayCollection|\Doctrine\Common\Collections\Collection $achievements
      */
     public function setAchievements(ArrayCollection|Collection $achievements): void
     {
-        $this->achievements = $achievements;
+        foreach ($achievements as $achievement) {
+            if (!$achievement instanceof Achievement) {
+                throw new \Exception('Should be instance of Achievement');
+            }
+
+            $this->addAchievement($achievement);
+        }
     }
 
     /**

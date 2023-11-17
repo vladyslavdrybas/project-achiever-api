@@ -12,12 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: "user_group_relation")]
 #[ORM\UniqueConstraint(
     name: 'member_group_idx',
-    columns: ['user_id', 'user_group_id']
+    columns: ['member_id', 'user_group_id']
 )]
 class UserGroupRelation extends AbstractEntity
 {
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'userGroupRelations')]
-    #[ORM\JoinColumn(name:'user_id', referencedColumnName: 'id', nullable: false)]
+    #[ORM\JoinColumn(name:'member_id', referencedColumnName: 'id', nullable: false)]
     protected User $member;
 
     #[ORM\ManyToOne(targetEntity: UserGroup::class, inversedBy: 'userGroupRelations')]

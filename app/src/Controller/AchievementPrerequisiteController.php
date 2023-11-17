@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Builder\AchievementBuilder;
 use App\Entity\Achievement;
 use App\Entity\AchievementPrerequisiteRelation;
 use App\Repository\AchievementPrerequisiteRelationRepository;
@@ -23,6 +24,7 @@ class AchievementPrerequisiteController extends AbstractController
     public function create(
         AchievementPrerequisiteRelationTransfer $transfer,
         AchievementPrerequisiteRelationRepository $repository,
+        AchievementBuilder $achievementBuilder,
         Security $security
     ): JsonResponse {
         if (!$security->isGranted(Permissions::VIEW, $transfer->getPrerequisite())) {
@@ -33,25 +35,13 @@ class AchievementPrerequisiteController extends AbstractController
             throw new AccessDeniedHttpException('Permissions restricted to attach prerequisite to achievement.');
         }
 
-        if ($transfer->getPrerequisite() === $transfer->getAchievement()) {
-            throw new InvalidArgumentException('Prerequisite cannot reference on itself.');
-        }
-
-        $loop = $repository->findOneBy([
-            'achievement' => $transfer->getPrerequisite(),
-            'prerequisite' => $transfer->getAchievement()
-        ]);
-
-        if (null !== $loop) {
-            throw new InvalidArgumentException('Attempt to creat relation loop.');
-        }
-
-        $relation = new AchievementPrerequisiteRelation();
-        $relation->setAchievement($transfer->getAchievement());
-        $relation->setPrerequisite($transfer->getPrerequisite());
-        $relation->setPriority($transfer->getPriority());
-        $relation->setCondition($transfer->getCondition());
-        $relation->setIsRequired($transfer->isRequired());
+        $relation = $achievementBuilder->prerequisiteRelation(
+            $transfer->getAchievement(),
+            $transfer->getPrerequisite(),
+            $transfer->getPriority(),
+            $transfer->getCondition(),
+            $transfer->isRequired()
+        );
 
         $repository->add($relation);
         $repository->save();

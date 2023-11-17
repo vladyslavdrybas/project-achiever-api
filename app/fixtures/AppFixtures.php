@@ -26,6 +26,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use function array_merge;
 use function filter_var;
+use function in_array;
 use function mt_rand;
 use function sleep;
 use function sprintf;
@@ -39,15 +40,17 @@ class AppFixtures extends Fixture
     protected const POOL_KEY_USER_GROUP = 'userGroup';
     protected const POOL_KEY_ACHIEVEMENT_LIST = 'achievementList';
     protected const POOL_KEY_ACHIEVEMENT = 'achievement';
+    protected const POOL_KEY_ACHIEVEMENT_PREREQUISITE = 'achievementPrerequisite';
     protected const POOL_KEY_TAG = 'tag';
     protected const POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN = 'achievementSareObjectToken';
 
     protected const AMOUNT = [
-        self::POOL_KEY_USER => 2,
-        self::POOL_KEY_USER_GROUP => 3,
-        self::POOL_KEY_ACHIEVEMENT_LIST => 13,
-        self::POOL_KEY_ACHIEVEMENT => 71,
-        self::POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN => 71,
+        self::POOL_KEY_USER => 89,
+        self::POOL_KEY_ACHIEVEMENT_PREREQUISITE => 34,
+        self::POOL_KEY_USER_GROUP => 55,
+        self::POOL_KEY_ACHIEVEMENT_LIST => 144,
+        self::POOL_KEY_ACHIEVEMENT => 610,
+        self::POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN => 377,
     ];
 
     protected ArrayCollection $pool;
@@ -117,6 +120,11 @@ class AppFixtures extends Fixture
             [$this, 'fixtureAchievementShareToken'],
             self::AMOUNT[self::POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN]
         );
+
+        $this->loadFixturesWithProgress(
+            [$this, 'fixtureAchievementPrerequisites'],
+            self::AMOUNT[self::POOL_KEY_ACHIEVEMENT_PREREQUISITE]
+        );
     }
 
     protected function loadFixturesWithProgress(callable $fixtureGeneratorFunction, int $entitiesAmount = 1): void
@@ -146,6 +154,14 @@ class AppFixtures extends Fixture
 
         $this->io->progressAdvance();
         $this->io->progressFinish();
+
+        $this->getPoolOf(self::POOL_KEY_USER)->first();
+        $this->getPoolOf(self::POOL_KEY_USER_GROUP)->first();
+        $this->getPoolOf(self::POOL_KEY_ACHIEVEMENT_LIST)->first();
+        $this->getPoolOf(self::POOL_KEY_ACHIEVEMENT)->first();
+        $this->getPoolOf(self::POOL_KEY_ACHIEVEMENT_PREREQUISITE)->first();
+        $this->getPoolOf(self::POOL_KEY_TAG)->first();
+        $this->getPoolOf(self::POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN)->first();
     }
 
     protected function addPoolEntity(string $poolKey, EntityInterface $entity): void
@@ -192,7 +208,7 @@ class AppFixtures extends Fixture
         return $tag;
     }
 
-    protected function isPublic(EntityInterface $entity): bool
+    protected function isTrue(EntityInterface $entity): bool
     {
         return (int)filter_var($entity->getRawId(), FILTER_SANITIZE_NUMBER_INT) % 2 === 0;
     }
@@ -237,13 +253,6 @@ class AppFixtures extends Fixture
         if ($userGroup->getUserGroupRelations()->count() >= (int)($users->count() / 1.4)
             || $userGroup->getUserGroupRelations()->count() > mt_rand(20, 100)
         ) {
-//            $this->io->text(
-//                sprintf(
-//                    'Filled group %s. Go to the next.'
-//                    , $userGroup->getRawId()
-//                )
-//            );
-
             $userGroups->next();
             return;
         }
@@ -251,26 +260,14 @@ class AppFixtures extends Fixture
         /** @var \App\Entity\User|false $member */
         $member = $users->current();
         if (false === $member) {
-//            $this->io->text('Filled members. Start from the beginning.');
             /** @var \App\Entity\User $member */
             $member = $users->first();
         }
-
-//        $this->io->newLine();
-//        $this->io->text(
-//            sprintf(
-//                'Attempt for group %s add member %s.'
-//                , $userGroup->getRawId()
-//                , $member->getRawId()
-//            )
-//        );
-
         $users->next();
 
         $owner = $userGroup->getOwner();
 
         if ($member === $owner) {
-//            $this->io->text('Group owner found. Do not add.');
             return;
         }
 
@@ -296,6 +293,7 @@ class AppFixtures extends Fixture
         if (!$owner) {
             $owner = $users->first();
         }
+        $users->next();
 
         $list = $this->achievementListBuilder->baseAchievementList(
             $this->faker->realTextBetween(13, 125),
@@ -303,12 +301,10 @@ class AppFixtures extends Fixture
             $owner
         );
 
-        $list->setIsPublic($this->isPublic($list));
+        $list->setIsPublic($this->isTrue($list));
 
         $this->manager->persist($list);
         $this->addPoolEntity(self::POOL_KEY_ACHIEVEMENT_LIST, $list);
-
-        $users->next();
     }
 
     public function fixtureAddAchievementListToUserGroup(): void
@@ -319,8 +315,8 @@ class AppFixtures extends Fixture
         if (!$list) {
             return;
         }
-
         $lists->next();
+
         if ($list->isPublic()) {
             return;
         }
@@ -356,6 +352,7 @@ class AppFixtures extends Fixture
         if (!$list) {
             $list = $lists->first();
         }
+        $lists->next();
 
         $owner = $list->getOwner();
         if (mt_rand(0,144) > 89) {
@@ -402,7 +399,7 @@ class AppFixtures extends Fixture
         }
 
         $achievement = $this->achievementBuilder->baseAchievement($title, $description, $owner, $list, $tags, $doneAt);
-        $achievement->setIsPublic($this->isPublic($achievement));
+        $achievement->setIsPublic($this->isTrue($achievement));
 
         foreach ($achievement->getTags() as $tag) {
             $this->addPoolEntity(self::POOL_KEY_TAG, $tag);
@@ -421,9 +418,6 @@ class AppFixtures extends Fixture
         }
 
         $this->manager->persist($achievement);
-//        if (null !== $ownerList) {
-//            $this->manager->persist($ownerList);
-//        }
 
         $this->addPoolEntity(self::POOL_KEY_ACHIEVEMENT, $achievement);
     }
@@ -466,5 +460,56 @@ class AppFixtures extends Fixture
         $this->manager->persist($token);
 
         $this->addPoolEntity(self::POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN, $token);
+    }
+
+    public function fixtureAchievementPrerequisites(): void
+    {
+        $users = $this->getPoolOf(self::POOL_KEY_USER);
+        /** @var \App\Entity\User|bool $user */
+        $user = $users->current();
+        if (!$user) {
+            return;
+        }
+        $users->next();
+
+        $achievements = $user->getAchievements();
+        $keys = $achievements->getKeys();
+        $keysLen = count($keys);
+
+        if ($keysLen > 2) {
+            foreach ($achievements as $key => $achievement) {
+                $prerequisiteAmount = mt_rand(1, (int) ($keysLen/2));
+                if ($prerequisiteAmount > 55) {
+                    $prerequisiteAmount = 55;
+                }
+
+                $priority = 0;
+                $prerequisiteKeys = [];
+
+                for ($i = 0; $i < $prerequisiteAmount; $i++) {
+                    do {
+                        $prerequisiteKey = mt_rand(0, $keysLen - 2);
+                    } while ($prerequisiteKey === $key || in_array($prerequisiteKey, $prerequisiteKeys));
+
+                    $prerequisiteKeys[$priority] = $prerequisiteKey;
+                    $priority++;
+                }
+
+                foreach ($prerequisiteKeys as $priority => $prerequisiteKey) {
+                    $prerequisite = $achievements->get($prerequisiteKey);
+                    $prerequisiteRelation = $this->achievementBuilder->prerequisiteRelation(
+                        $achievement,
+                        $prerequisite,
+                        $priority,
+                        mt_rand(0,144) > 34 ? 'complete' : 'start',
+                        $this->isTrue($prerequisite)
+                    );
+
+                    $this->manager->persist($prerequisiteRelation);
+
+                    $this->addPoolEntity(self::POOL_KEY_ACHIEVEMENT_PREREQUISITE, $prerequisiteRelation);
+                }
+            }
+        }
     }
 }

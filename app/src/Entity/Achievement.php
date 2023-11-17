@@ -45,7 +45,7 @@ class Achievement extends AbstractEntity
     protected ?DateTimeInterface $doneAt;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'achievements')]
-    #[ORM\JoinColumn(name:'user_id', referencedColumnName: 'id', nullable: false)]
+    #[ORM\JoinColumn(name:'owner_id', referencedColumnName: 'id', nullable: false)]
     protected User $owner;
 
     #[ORM\JoinTable(name: 'achievement_tag')]
