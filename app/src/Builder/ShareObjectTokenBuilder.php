@@ -48,13 +48,13 @@ class ShareObjectTokenBuilder implements IEntityBuilder
         }
         $token->setExpireAt($expireAt);
 
-        $link = $this->urlGenerator->generate(
+        $link = 'https:'. $this->urlGenerator->generate(
             'api_achievement_list_achievement_show',
             [
                 'achievementList' => $achievementList->getRawId(),
                 'achievement' => $achievement->getRawId(),
             ],
-            UrlGeneratorInterface::ABSOLUTE_URL
+            UrlGeneratorInterface::NETWORK_PATH
         );
         $token->setLink($link);
 

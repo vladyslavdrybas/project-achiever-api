@@ -12,6 +12,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use function strlen;
 
 #[Route('/auth', name: "api_auth")]
 class ApiAuthController extends AbstractController
@@ -23,14 +24,6 @@ class ApiAuthController extends AbstractController
         UserRepository $repo,
         Security $security
     ): JsonResponse {
-        $exist = $repo->findByEmail($userRegisterJsonTransfer->getEmail());
-
-        if ($exist instanceof User) {
-            return $this->json([
-                'message' => 'such a user already exists.'
-            ], JsonResponse::HTTP_FORBIDDEN);
-        }
-
         $user = $this->getUser();
         if ($user instanceof UserInterface) {
             $security->logout(false);

@@ -239,7 +239,7 @@ class Achievement extends AbstractEntity
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection|\App\Entity\AchievementList[]
      */
     public function getLists(): Collection
     {
