@@ -100,7 +100,7 @@ class ShareObjectToken implements EntityInterface
 
         $salt = $this->getTarget() . $this->getTargetId() . $this->getOwner()->getRawId() . $expireAt;
 
-        return hash('sha256', bin2hex(random_bytes(8)) . $salt);
+        return hash('sha256', bin2hex(random_bytes(13)) . $salt);
     }
 
     /**
@@ -126,7 +126,7 @@ class ShareObjectToken implements EntityInterface
             $expireAt = $this->getExpireAt()->getTimestamp();
         }
 
-        $salt = $this->getTarget() . $this->getTargetId() . $this->getOwner()->getRawId() . $expireAt;
+        $salt = $this->getLink() . $this->getTarget() . $this->getTargetId() . $this->getOwner()->getRawId() . $expireAt;
         $salt .= $this->canEdit ? 'yes' : 'no';
 
         return hash('sha256', $salt);

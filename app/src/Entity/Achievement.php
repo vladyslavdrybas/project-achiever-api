@@ -250,6 +250,7 @@ class Achievement extends AbstractEntity
     {
         if (!$this->lists->contains($achievementList)) {
             $this->lists->add($achievementList);
+            $achievementList->addAchievement($this);
         }
     }
 

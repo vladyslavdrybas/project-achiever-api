@@ -16,7 +16,7 @@ use function array_map;
 class AchievementBuilder
 {
     public function __construct(
-        protected readonly TagRepository $tagRepository
+        protected readonly TagRepository $tagRepository,
     ) {}
 
     public function baseAchievement(

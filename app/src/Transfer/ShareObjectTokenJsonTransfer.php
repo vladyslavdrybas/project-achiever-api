@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Transfer;
 
+use DateTimeInterface;
+
 class ShareObjectTokenJsonTransfer extends AbstractTransfer
 {
     protected ?string $id = null;
     protected ?string $target = null;
     protected ?string $targetId = null;
     protected ?string $ownerId = null;
-    protected ?string $expireAt = null;
+    protected ?DateTimeInterface $expireAt = null;
     protected ?string $achievementListId = null;
     protected bool $canEdit = false;
 
@@ -79,17 +81,17 @@ class ShareObjectTokenJsonTransfer extends AbstractTransfer
     }
 
     /**
-     * @return string|null
+     * @return \DateTimeInterface|null
      */
-    public function getExpireAt(): ?string
+    public function getExpireAt(): ?DateTimeInterface
     {
         return $this->expireAt;
     }
 
     /**
-     * @param string|null $expireAt
+     * @param \DateTimeInterface|null $expireAt
      */
-    public function setExpireAt(?string $expireAt): void
+    public function setExpireAt(?DateTimeInterface $expireAt): void
     {
         $this->expireAt = $expireAt;
     }

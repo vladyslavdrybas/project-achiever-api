@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Entity\Achievement;
 use App\Repository\AchievementListRepository;
 use App\Repository\ShareObjectTokenRepository;
+use App\Security\AchievementSecurityManager;
 use App\Security\Permissions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -24,7 +25,8 @@ final class AchievementVoter extends AbstractVoter
     public function __construct(
         protected readonly RequestStack $requestStack,
         protected readonly ShareObjectTokenRepository $tokenRepository,
-        protected readonly AchievementListRepository $achievementListRepository
+        protected readonly AchievementListRepository $achievementListRepository,
+        protected readonly AchievementSecurityManager $achievementSecurityManager
     ) {
         $this->request = $requestStack->getCurrentRequest();
     }
@@ -57,8 +59,8 @@ final class AchievementVoter extends AbstractVoter
             return false;
         }
 
-        if ($this->isAchievementPublicView($subject, $attribute)
-            || $this->isAchievementListPublicView($this->achievementList, $attribute)
+        if ($this->achievementSecurityManager->isAchievementPublicView($subject, $attribute)
+            || $this->achievementSecurityManager->isAchievementListPublicView($this->achievementList, $attribute)
             || $this->isGrantedByAchievementShareToken($subject, $attribute)
         ) {
             return true;
@@ -70,11 +72,11 @@ final class AchievementVoter extends AbstractVoter
             return false;
         }
 
-        if ($this->isOwner($subject, $user)) {
+        if ($this->achievementSecurityManager->isOwner($subject, $user)) {
             return true;
         }
 
-        return $this->isUserHasPermissionInList($attribute, $user);
+        return $this->achievementSecurityManager->isUserHasPermissionInList($attribute, $user, $this->achievementList);
     }
 
     protected function setAchievementList(Achievement $subject): bool
@@ -101,16 +103,6 @@ final class AchievementVoter extends AbstractVoter
         return null !== $this->achievementList;
     }
 
-    protected function isAchievementPublicView(Achievement $subject, string $attribute): bool
-    {
-        return Permissions::VIEW === $attribute && $subject->isPublic();
-    }
-
-    protected function isAchievementListPublicView(?AchievementList $subject, string $attribute): bool
-    {
-        return Permissions::VIEW === $attribute && $subject?->isPublic();
-    }
-
     protected function isGrantedByAchievementShareToken(Achievement $subject, string $attribute): bool
     {
         $tokenId = $this->request->query->get(ShareObjectToken::QUERY_IDENTIFIER);
@@ -131,13 +123,8 @@ final class AchievementVoter extends AbstractVoter
 
         return match ($attribute) {
             Permissions::VIEW => true,
-            Permissions::EDIT => $token->isCanEdit(),
+//            Permissions::EDIT => $token->isCanEdit(),
             default => false
         };
-    }
-
-    protected function isUserHasPermissionInList(string $attribute, User $user): bool
-    {
-        return $this->achievementListRepository->isUserHasPermission($this->achievementList, $user, $attribute);
     }
 }

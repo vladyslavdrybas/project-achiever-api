@@ -4,10 +4,12 @@ namespace DataFixtures;
 
 use App\Builder\AchievementBuilder;
 use App\Builder\AchievementListBuilder;
+use App\Builder\ShareObjectTokenBuilder;
 use App\Builder\UserBuilder;
 use App\Builder\UserGroupBuilder;
 use App\Entity\EntityInterface;
 use App\Entity\UserGroupRelationType;
+use App\Repository\AchievementListRepository;
 use App\Security\UserGroupManager;
 use App\Security\UserGroupSecurityManager;
 use DateTimeImmutable;
@@ -22,8 +24,9 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use function array_merge;
 use function filter_var;
-use function rand;
+use function mt_rand;
 use function sleep;
 use function sprintf;
 use function substr;
@@ -37,12 +40,14 @@ class AppFixtures extends Fixture
     protected const POOL_KEY_ACHIEVEMENT_LIST = 'achievementList';
     protected const POOL_KEY_ACHIEVEMENT = 'achievement';
     protected const POOL_KEY_TAG = 'tag';
+    protected const POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN = 'achievementSareObjectToken';
 
     protected const AMOUNT = [
         self::POOL_KEY_USER => 2,
         self::POOL_KEY_USER_GROUP => 3,
         self::POOL_KEY_ACHIEVEMENT_LIST => 13,
         self::POOL_KEY_ACHIEVEMENT => 71,
+        self::POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN => 71,
     ];
 
     protected ArrayCollection $pool;
@@ -58,7 +63,9 @@ class AppFixtures extends Fixture
         protected readonly UserGroupManager $groupManager,
         protected readonly UserGroupSecurityManager $userGroupSecurityManager,
         protected readonly AchievementListBuilder $achievementListBuilder,
-        protected readonly AchievementBuilder $achievementBuilder
+        protected readonly AchievementBuilder $achievementBuilder,
+        protected readonly ShareObjectTokenBuilder $shareObjectTokenBuilder,
+        protected readonly AchievementListRepository $achievementListRepository
     ) {
         $this->faker = Factory::create();
         $this->output = new BufferedOutput();
@@ -104,6 +111,11 @@ class AppFixtures extends Fixture
         $this->loadFixturesWithProgress(
             [$this, 'fixtureAchievement'],
             self::AMOUNT[self::POOL_KEY_ACHIEVEMENT]
+        );
+
+        $this->loadFixturesWithProgress(
+            [$this, 'fixtureAchievementShareToken'],
+            self::AMOUNT[self::POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN]
         );
     }
 
@@ -162,7 +174,7 @@ class AppFixtures extends Fixture
         }
 
         $keys = $pool->getKeys();
-        $elemKey = $keys[rand(0, count($keys) - 1)];
+        $elemKey = $keys[mt_rand(0, count($keys) - 1)];
 
         return $pool->get($elemKey);
     }
@@ -210,7 +222,7 @@ class AppFixtures extends Fixture
     public function fixtureAddUserGroupMember(): void
     {
         $roles = UserGroupRelationType::cases();
-        $role = $roles[rand(0, count($roles) - 1)];
+        $role = $roles[mt_rand(0, count($roles) - 1)];
 
         $userGroups = $this->getPoolOf(self::POOL_KEY_USER_GROUP);
         $users = $this->getPoolOf(self::POOL_KEY_USER);
@@ -223,7 +235,7 @@ class AppFixtures extends Fixture
         }
 
         if ($userGroup->getUserGroupRelations()->count() >= (int)($users->count() / 1.4)
-            || $userGroup->getUserGroupRelations()->count() > rand(20, 100)
+            || $userGroup->getUserGroupRelations()->count() > mt_rand(20, 100)
         ) {
 //            $this->io->text(
 //                sprintf(
@@ -346,7 +358,7 @@ class AppFixtures extends Fixture
         }
 
         $owner = $list->getOwner();
-        if (rand(0,144) > 89) {
+        if (mt_rand(0,144) > 89) {
             foreach ($list->getListGroupRelations() as $listGroupRelation) {
                 foreach($listGroupRelation as $userGroup) {
                     /** @var \App\Entity\UserGroup $userGroup*/
@@ -363,17 +375,17 @@ class AppFixtures extends Fixture
         $description = $this->faker->realTextBetween(30, 255);
 
         $doneAt = null;
-        if (rand(0,144) > 89) {
+        if (mt_rand(0,144) > 34) {
             // 1 year = 525600 minutes
-            $minutes = (int) (525600 / rand(1, 100000));
+            $minutes = (int) (525600 / mt_rand(1, 10000));
             $doneAt = (new DateTimeImmutable('-' . $minutes . ' minutes' ));
         }
 
         $tags = [];
-        $tagsLen = rand(1,10);
+        $tagsLen = mt_rand(1,10);
         for ($i = 0; $i < $tagsLen; $i++)
         {
-            $fakeIndex = rand(0,13);
+            $fakeIndex = mt_rand(0,13);
             $tag = match($fakeIndex) {
                 0 => $this->faker->companyEmail(),
                 1 => $this->faker->buildingNumber(),
@@ -396,7 +408,63 @@ class AppFixtures extends Fixture
             $this->addPoolEntity(self::POOL_KEY_TAG, $tag);
         }
 
+        if (mt_rand(0,144) > 34) {
+            $ownedLists = $this->achievementListRepository->findOwnedLists($owner, 0, 15);
+            $shareLists = $this->achievementListRepository->findShareLists($owner, 0, 15);
+            $ownerLists = array_merge($ownedLists, $shareLists);
+            foreach ($ownerLists as $ownerList) {
+                if ($ownerList !== $list) {
+                    $achievement->addList($ownerList);
+                    break;
+                }
+            }
+        }
+
         $this->manager->persist($achievement);
+//        if (null !== $ownerList) {
+//            $this->manager->persist($ownerList);
+//        }
+
         $this->addPoolEntity(self::POOL_KEY_ACHIEVEMENT, $achievement);
+    }
+
+    public function fixtureAchievementShareToken(): void
+    {
+        $achievements = $this->getPoolOf(self::POOL_KEY_ACHIEVEMENT);
+        /** @var \App\Entity\Achievement|bool $achievement */
+        $achievement = $achievements->current();
+        if (!$achievement) {
+            return;
+        }
+        $achievements->next();
+
+        $owner = $achievement->getOwner();
+        /** @var \App\Entity\AchievementList|bool $achievementList */
+        $achievementLists = $achievement->getLists();
+        $keys = $achievementLists->getKeys();
+        $key = $keys[mt_rand(0, count($keys) - 1)];
+        $achievementList = $achievementLists->get($key);
+
+        if (!$achievementList) {
+            return;
+        }
+
+        $expireAt = null;
+        if (mt_rand(0,144) > 89) {
+            // 1 year = 525600 minutes
+            $minutes = (int) (5256000 / mt_rand(1, 100));
+            $expireAt = (new DateTimeImmutable('+' . $minutes . ' minutes' ));
+        }
+
+        $token = $this->shareObjectTokenBuilder->achievementShareObjectToken(
+            $achievement,
+            $achievementList,
+            $owner,
+            $expireAt
+        );
+
+        $this->manager->persist($token);
+
+        $this->addPoolEntity(self::POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN, $token);
     }
 }

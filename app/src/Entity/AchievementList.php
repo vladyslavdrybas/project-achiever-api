@@ -35,7 +35,7 @@ class AchievementList extends AbstractEntity
     #[ORM\JoinTable(name: 'achievement_list_relation')]
     #[ORM\JoinColumn(name: 'list_id', referencedColumnName: 'id')]
     #[ORM\InverseJoinColumn(name: 'achievement_id', referencedColumnName: 'id')]
-    #[ORM\ManyToMany(targetEntity: Achievement::class, inversedBy: 'lists')]
+    #[ORM\ManyToMany(targetEntity: Achievement::class, inversedBy: 'lists', cascade: ['persist'])]
     protected Collection $achievements;
 
     #[ORM\JoinTable(name: 'achievement_list_group_relation')]
