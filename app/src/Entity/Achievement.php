@@ -107,6 +107,7 @@ class Achievement extends AbstractEntity
     {
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
+            $this->tags= new ArrayCollection($this->tags->getValues());
         }
     }
 
@@ -258,6 +259,7 @@ class Achievement extends AbstractEntity
     {
         if ($this->lists->contains($achievementList)) {
             $this->lists->removeElement($achievementList);
+            $this->lists= new ArrayCollection($this->lists->getValues());
             $achievementList->removeAchievement($this);
         }
     }

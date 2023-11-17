@@ -135,6 +135,7 @@ class AchievementList extends AbstractEntity
     {
         if ($this->achievements->contains($achievement)) {
             $this->achievements->removeElement($achievement);
+            $this->achievements= new ArrayCollection($this->achievements->getValues());
             $achievement->removeList($this);
         }
     }
