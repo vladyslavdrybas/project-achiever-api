@@ -4,7 +4,9 @@ controllers:
         namespace: App\Controller
     type: attribute
     prefix: '/api/v1'
+    trailing_slash_on_root: false
 
 api_auth_login:
     path: /api/v1/auth/login
     methods: ["POST"]
+    trailing_slash_on_root: false
