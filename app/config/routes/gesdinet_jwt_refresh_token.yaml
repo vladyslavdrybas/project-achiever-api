@@ -1,4 +1,4 @@
 gesdinet_jwt_refresh_token:
     path: /api/v1/auth/token/refresh
     controller: gesdinet.jwtrefreshtoken::refresh
-    trailing_slash_on_root: false
+#     trailing_slash_on_root: false

@@ -39,6 +39,8 @@ class UserNormalizer extends AbstractEntityNormalizer
                     'ownedUserGroups',
                     'userGroupRelations',
                     'memberOfUserGroups',
+                    'createdAt',
+                    'updatedAt',
                 ],
             ]
         );

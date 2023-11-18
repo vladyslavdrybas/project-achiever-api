@@ -45,12 +45,12 @@ class AppFixtures extends Fixture
     protected const POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN = 'achievementSareObjectToken';
 
     protected const AMOUNT = [
-        self::POOL_KEY_USER => 89,
-        self::POOL_KEY_ACHIEVEMENT_PREREQUISITE => 34,
-        self::POOL_KEY_USER_GROUP => 55,
-        self::POOL_KEY_ACHIEVEMENT_LIST => 144,
-        self::POOL_KEY_ACHIEVEMENT => 610,
-        self::POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN => 377,
+        self::POOL_KEY_USER => 8,
+        self::POOL_KEY_ACHIEVEMENT_PREREQUISITE => 8,
+        self::POOL_KEY_USER_GROUP => 13,
+        self::POOL_KEY_ACHIEVEMENT_LIST => 21,
+        self::POOL_KEY_ACHIEVEMENT => 55,
+        self::POOL_KEY_ACHIEVEMENT_SHARE_OBJECT_TOKEN => 55,
     ];
 
     protected ArrayCollection $pool;
