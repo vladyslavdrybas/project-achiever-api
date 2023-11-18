@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/user', name: "api_user")]
-class ProfileController extends AbstractController
+class UserController extends AbstractController
 {
     #[Route("/{user}", name: "_show", methods: ["GET"])]
     public function profile(
