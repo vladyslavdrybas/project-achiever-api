@@ -1,0 +1,4701 @@
+{
+	"info": {
+		"_postman_id": "71c9b0dd-1681-4976-81b5-592a0b187315",
+		"name": "Achiever Notifier",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "133025"
+	},
+	"item": [
+		{
+			"name": "Firebase",
+			"item": [
+				{
+					"name": "Register Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/firebase/store/token/ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcB==/postman",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"firebase",
+								"store",
+								"token",
+								"ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcB==",
+								"postman"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/firebase/store/token/ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcB==/postman",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"firebase",
+										"store",
+										"token",
+										"ZVNPX3k4aUd3b1ZCZ1o0QS1zUFN6ZjpBUEE5MWJGYTRmM2Rwcmw0UW5yX1hLNE9pa1pWMXdZeFFDb1VtZ0ZfMEYxRWdZOU5IVGhWbVY5Y1NvYzhwQl91T3dicHVuZWJyLXJuWWJVcEVjYUMyZzVtRGswZ3hSRklscGNJbEJ0bUt6cUFYeWN2V0xIOGkzRnNHbVRYQlM3aGxnM0dYeTM1SDJFcB==",
+										"postman"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 31 Oct 2023 13:43:11 GMT"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "098007"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://localhost:8000/_profiler/098007"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.24"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Content-Length",
+									"value": "93"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"deviceType\": \"postman\",\n    \"user\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"expireAt\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Prolong Register Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/firebase/prolong/token/postman",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"firebase",
+								"prolong",
+								"token",
+								"postman"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/firebase/prolong/token/postman",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"firebase",
+										"prolong",
+										"token",
+										"postman"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 31 Oct 2023 14:25:37 GMT"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "49a662"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://localhost:8000/_profiler/49a662"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.24"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Content-Length",
+									"value": "116"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"deviceType\": \"postman\",\n    \"user\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"expireAt\": \"2023-10-31T14:30:37+00:00\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User Group",
+			"item": [
+				{
+					"name": "User Group Create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestBodyRaw(",
+									"  pm,",
+									"  {",
+									"    title: utils.faker.fakeTextBetween(10, 125),",
+									"    description: utils.faker.fakeTextBetween(10, 255),",
+									"  }",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (utils.test.success(pm)) {",
+									"  utils.test.isResponseVariablesSet(",
+									"    pm,",
+									"    project.addUserGroup(pm, responseBody)",
+									"  );",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/group",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"group"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/user/group/create",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"group",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 Nov 2023 10:50:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "96874d"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/96874d"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"45 BC, making it over 2000 yea\",\n    \"description\": \"ayout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as oppose\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"object\": \"UserGroup\",\n    \"id\": \"334271e6-b65a-4257-a53b-1e5750c72b4e\",\n    \"createdAt\": \"2023-11-12T10:50:15+00:00\",\n    \"updatedAt\": \"2023-11-12T10:50:15+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User Group Edit",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestBodyRaw(",
+									"  pm,",
+									"  {",
+									"    title: utils.faker.fakeTextBetween(10, 125),",
+									"    description: utils.faker.fakeTextBetween(10, 255),",
+									"  }",
+									");",
+									"",
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndOwnedGroupId': project.getRandomOwnedGroupId(pm),",
+									"  }",
+									");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/group/[rndOwnedGroupId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"group",
+								"[rndOwnedGroupId]"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/user/group/create",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"group",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 Nov 2023 10:50:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "96874d"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/96874d"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"45 BC, making it over 2000 yea\",\n    \"description\": \"ayout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as oppose\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"object\": \"UserGroup\",\n    \"id\": \"334271e6-b65a-4257-a53b-1e5750c72b4e\",\n    \"createdAt\": \"2023-11-12T10:50:15+00:00\",\n    \"updatedAt\": \"2023-11-12T10:50:15+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User Group Add Member",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndOwnedGroupId': project.getRandomOwnedGroupId(pm),",
+									"    'rndGroupMemberId': project.getRandomGroupMemberId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/group/[rndOwnedGroupId]/[rndGroupMemberId]/editor",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"group",
+								"[rndOwnedGroupId]",
+								"[rndGroupMemberId]",
+								"editor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Group Remove Member",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndOwnedGroupId': project.getRandomOwnedGroupId(pm),",
+									"    'rndGroupMemberId': project.getRandomGroupMemberId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/group/[rndOwnedGroupId]/[rndGroupMemberId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"group",
+								"[rndOwnedGroupId]",
+								"[rndGroupMemberId]"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Group Remove",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndOwnedGroupId': project.getRandomOwnedGroupId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/group/[rndOwnedGroupId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"group",
+								"[rndOwnedGroupId]"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/user/group/{{user_group_last_created_id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"group",
+										"{{user_group_last_created_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 01:26:56 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "441a23"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/441a23"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User Group Show",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndOwnedGroupId': project.getRandomOwnedGroupId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/group/[rndOwnedGroupId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"group",
+								"[rndOwnedGroupId]"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/user/group/create",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"group",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 Nov 2023 10:50:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "96874d"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/96874d"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"45 BC, making it over 2000 yea\",\n    \"description\": \"ayout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as oppose\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"object\": \"UserGroup\",\n    \"id\": \"334271e6-b65a-4257-a53b-1e5750c72b4e\",\n    \"createdAt\": \"2023-11-12T10:50:15+00:00\",\n    \"updatedAt\": \"2023-11-12T10:50:15+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User Group Members Show",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndOwnedGroupId': project.getRandomOwnedGroupId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/group/[rndOwnedGroupId]/members/0/5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"group",
+								"[rndOwnedGroupId]",
+								"members",
+								"0",
+								"5"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/user/group/create",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"group",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 Nov 2023 10:50:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "96874d"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/96874d"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"45 BC, making it over 2000 yea\",\n    \"description\": \"ayout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as oppose\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"object\": \"UserGroup\",\n    \"id\": \"334271e6-b65a-4257-a53b-1e5750c72b4e\",\n    \"createdAt\": \"2023-11-12T10:50:15+00:00\",\n    \"updatedAt\": \"2023-11-12T10:50:15+00:00\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/user/group/{{user_group_last_created_id}}/members/0/5",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"group",
+										"{{user_group_last_created_id}}",
+										"members",
+										"0",
+										"5"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 Nov 2023 18:32:24 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "6f4165"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/6f4165"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"member\": {\n            \"id\": \"18db239d-30ba-4a29-9062-4243d9f7c965\",\n            \"email\": \"example2@dot.com\",\n            \"isActive\": true,\n            \"isBanned\": false,\n            \"isDeleted\": false\n        },\n        \"userGroup\": {\n            \"id\": \"23d88651-8ea6-4b60-bc69-4acf4619a8a6\"\n        },\n        \"title\": \"editor\",\n        \"object\": \"UserGroupRelation\",\n        \"id\": \"0c262b0d-8080-4ac7-b039-a4de412dbe2b\"\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "JWT Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"{{jwt_refresh_token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/logout/post",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"logout",
+								"post"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refresh_token\": \"{{jwt_refresh_token}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/auth/logout/postman",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"logout",
+										"postman"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 31 Oct 2023 16:26:35 GMT"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "7cc550"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://localhost:8000/_profiler/7cc550"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.24"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": \"The supplied refresh_token has been invalidated.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Register Json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code == 200) {",
+									"  let fakedEmails = JSON.parse(pm.environment.get('fakedEmails'));",
+									"  ",
+									"  fakedEmails.pop();",
+									"",
+									"  pm.environment.set('fakedEmails', JSON.stringify(fakedEmails));",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"let body = JSON.parse(pm.request.body.raw);",
+									"let fakedEmails = JSON.parse(pm.environment.get('fakedEmails'));",
+									"",
+									"let email = fakedEmails.pop();",
+									"console.log(email);",
+									"",
+									"body.email = email;",
+									"",
+									"pm.request.body.raw = body;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"\",\n    \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/auth/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 Oct 2023 00:22:18 GMT"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "7e447b"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://localhost:8000/_profiler/7e447b"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.24"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Content-Length",
+									"value": "21"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\"\n}"
+						},
+						{
+							"name": "User already exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/auth/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 Oct 2023 00:35:01 GMT"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "de9598"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://localhost:8000/_profiler/de9598"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.24"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"such a user already exists.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "JWT Authentication",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code == 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    postman.setEnvironmentVariable(\"jwt_token\", jsonData.token);",
+									"    postman.setEnvironmentVariable(\"jwt_refresh_token\", jsonData.refresh_token);",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{userIdentifier}}\",\n    \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Oct 2023 23:43:40 GMT"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "d745c0"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://localhost:8000/_profiler/d745c0"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.24"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Content-Length",
+									"value": "651"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2OTgzNjM4MjAsImV4cCI6MTY5ODM2NzQyMCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoiZXhhbXBsZTdAZG90LmNvbSJ9.iad6E1DNUfLXYwRAEOhdrAkt6M23jxA-26yPPhZYkUSRkWRGf5NMU91W5aAuHgtbDh_fIScA4LQv34tShhQ7EVYkNc9hiaveI7czdGwHBgnQcbnGdL37spObr-zPxMz6psw0KsrWzgzFvIdBD7h26vjd4jcy2dRBxyeFtXmks38eWbBxGcp6p3HrkOIz7Sl8zb8I4HPMEWOcgpn_xgJ6jE08HepcmiC3gKD1Mvx_pln7OC6iZdgm7Up6S_thp7My8Nyx2BjZxyn0Snyr7GRUa894NTMbZYJCGTTXcDFaByJ-5c58ZGEZ31rQTvYEoyHPPJcjgOTFwI-tZH6CK3ejaA\",\n    \"refresh_token\": \"212b7c184c4a97550aa72bc9e6acbac2f74a28e5f7f9cda49ae01cbeff9d729620fe09f373855f25ef2f8bd07c85be2714346c62714ce9d75fe2ced6e960c7b6\"\n}"
+						}
+					]
+				},
+				{
+					"name": "JWT Refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code == 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    postman.setEnvironmentVariable(\"jwt_token\", jsonData.token);",
+									"    postman.setEnvironmentVariable(\"jwt_refresh_token\", jsonData.refresh_token);",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"{{jwt_refresh_token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/token/refresh",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"token",
+								"refresh"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refresh_token\": \"{{jwt_refresh_token}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/auth/token/refresh",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"token",
+										"refresh"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Oct 2023 23:45:48 GMT"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "fb973a"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://localhost:8000/_profiler/fb973a"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.24"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Content-Length",
+									"value": "651"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2OTgzNjM5NDgsImV4cCI6MTY5ODM2NzU0OCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoiZXhhbXBsZTdAZG90LmNvbSJ9.JBj5E7o9qcsWxS2-iy7-6YYa32ATRFt-d8yaTSqowhA1ZK6TFluqxj2m6If7YhjF6VOxHjZjW7hkeQge5HkXVXsUA8gwu6Ck6xPRG2cRjIP7T3cW44eFxvRKONL9Q_JY1J6YgfzpiVKN7GLc8qCy5QTFKevHy3ed66Pvd0yi_tGpnNRsp1hKJMti2myBgIHK_mYkjmuK_pjNc3ZXUY3b4TmmFGVT8SJrGzEf2SCQ7NbeFiSa7_RMJla64EwKBmLKUu79GqY2RL3D1sA1IA6zsrl82JUMmim3Mub1Mg9bSE_oxMLTxuSQQ-DfHRT6tOzSFQnYZ1380XfIynrdBxZ8ww\",\n    \"refresh_token\": \"8c6da8daaabfd3f0c71de05b2e657b5e85679d4be0a2ee86646c31a8a9bae8cdb49f35d2aa24e9d9f8b9f371ef698caf0711675a263f237b39e42e6782ab3dcb\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Achievement List",
+			"item": [
+				{
+					"name": "Achievement List Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestBodyRaw(",
+									"  pm,",
+									"  {",
+									"    title: utils.faker.fakeTextBetween(10, 125),",
+									"    description: utils.faker.fakeTextBetween(10, 255),",
+									"  }",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/achievement/list",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 04:01:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "749cab"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/749cab"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\",\n    \"description\": \"rum\\\" (The Extremes of Good and Evil) by Cicero, written in 45\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"public\": false,\n    \"object\": \"AchievementList\",\n    \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n    \"createdAt\": \"2023-11-13T04:01:27+00:00\",\n    \"updatedAt\": \"2023-11-13T04:01:27+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement List Show",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': project.getRandomAchievementListId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/achievement/list/{{achievement_list_last_created_id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list",
+										"{{achievement_list_last_created_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 04:01:01 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "0666af"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/0666af"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"n unknown print\",\n    \"description\": \"he printing and typesetting industry. Lorem Ipsum has been the industry's s\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"public\": false,\n    \"object\": \"AchievementList\",\n    \"id\": \"4b3ce118-274f-41c8-8055-e8718f2c7ca4\",\n    \"createdAt\": \"2023-11-13T03:38:32+00:00\",\n    \"updatedAt\": \"2023-11-13T03:38:32+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement List My Owned",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/my/owned/{{offset}}/{{limit}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"my",
+								"owned",
+								"{{offset}}",
+								"{{limit}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/achievement/list/my/owned/{{offset}}/{{limit}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list",
+										"my",
+										"owned",
+										"{{offset}}",
+										"{{limit}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 17:48:10 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "4dfa18"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/4dfa18"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"title\": \"a page when looking at its layout. The point of using Lorem Ipsum is\",\n        \"description\": \"by Cicero, written in 45 BC. This book is a treatise on the th\",\n        \"owner\": {\n            \"id\": \"18db239d-30ba-4a29-9062-4243d9f7c965\"\n        },\n        \"public\": false,\n        \"object\": \"AchievementList\",\n        \"id\": \"f840fc5a-d519-4839-a706-a9ab213c3ce7\",\n        \"createdAt\": \"2023-11-13T03:34:23+00:00\",\n        \"updatedAt\": \"2023-11-13T03:34:23+00:00\",\n        \"achievementsAmount\": 1\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Achievement List My Share",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/my/share/{{offset}}/{{limit}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"my",
+								"share",
+								"{{offset}}",
+								"{{limit}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/achievement/list/my/share/{{offset}}/{{limit}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list",
+										"my",
+										"share",
+										"{{offset}}",
+										"{{limit}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 17:55:51 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "031985"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/031985"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\",\n        \"description\": \"rum\\\" (The Extremes of Good and Evil) by Cicero, written in 45\",\n        \"owner\": {\n            \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n        },\n        \"public\": false,\n        \"object\": \"AchievementList\",\n        \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n        \"createdAt\": \"2023-11-13T04:01:27+00:00\",\n        \"updatedAt\": \"2023-11-13T15:53:00+00:00\",\n        \"achievementsAmount\": 5\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Achievement List Members",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': project.getRandomAchievementListId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/members/{{offset}}/{{limit}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"members",
+								"{{offset}}",
+								"{{limit}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/achievement/list/my/share/{{offset}}/{{limit}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list",
+										"my",
+										"share",
+										"{{offset}}",
+										"{{limit}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 17:55:51 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "031985"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/031985"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\",\n        \"description\": \"rum\\\" (The Extremes of Good and Evil) by Cicero, written in 45\",\n        \"owner\": {\n            \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n        },\n        \"public\": false,\n        \"object\": \"AchievementList\",\n        \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n        \"createdAt\": \"2023-11-13T04:01:27+00:00\",\n        \"updatedAt\": \"2023-11-13T15:53:00+00:00\",\n        \"achievementsAmount\": 5\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Achievement List Add Achievement",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': project.getRandomAchievementListId(pm),",
+									"    'rndAchievementId': project.getRandomAchievementId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/a/[rndAchievementId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"a",
+								"[rndAchievementId]"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/achievement/list",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 04:01:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "749cab"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/749cab"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\",\n    \"description\": \"rum\\\" (The Extremes of Good and Evil) by Cicero, written in 45\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"public\": false,\n    \"object\": \"AchievementList\",\n    \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n    \"createdAt\": \"2023-11-13T04:01:27+00:00\",\n    \"updatedAt\": \"2023-11-13T04:01:27+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement List Show Achievement",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const achievementListIds = project.getRandomAchievementListIds(pm);",
+									"",
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': achievementListIds.l,",
+									"    'rndAchievementId': achievementListIds.a,",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/a/[rndAchievementId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"a",
+								"[rndAchievementId]"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/achievement/list",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 04:01:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "749cab"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/749cab"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\",\n    \"description\": \"rum\\\" (The Extremes of Good and Evil) by Cicero, written in 45\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"public\": false,\n    \"object\": \"AchievementList\",\n    \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n    \"createdAt\": \"2023-11-13T04:01:27+00:00\",\n    \"updatedAt\": \"2023-11-13T04:01:27+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement List Show Achievements Batch",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': project.getRandomAchievementListId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/a/l/{{offset}}/{{limit}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"a",
+								"l",
+								"{{offset}}",
+								"{{limit}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/achievement/list",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 04:01:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "749cab"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/749cab"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\",\n    \"description\": \"rum\\\" (The Extremes of Good and Evil) by Cicero, written in 45\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"public\": false,\n    \"object\": \"AchievementList\",\n    \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n    \"createdAt\": \"2023-11-13T04:01:27+00:00\",\n    \"updatedAt\": \"2023-11-13T04:01:27+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement List Add Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': project.getRandomAchievementListId(pm),",
+									"    'rndOwnedGroupId': project.getRandomOwnedGroupId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/g/[rndOwnedGroupId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"g",
+								"[rndOwnedGroupId]"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/achievement/list",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 04:01:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "749cab"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/749cab"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\",\n    \"description\": \"rum\\\" (The Extremes of Good and Evil) by Cicero, written in 45\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"public\": false,\n    \"object\": \"AchievementList\",\n    \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n    \"createdAt\": \"2023-11-13T04:01:27+00:00\",\n    \"updatedAt\": \"2023-11-13T04:01:27+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement List Group All Show",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': project.getRandomAchievementListId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/g",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"g"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/achievement/list",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 04:01:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "749cab"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/749cab"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\",\n    \"description\": \"rum\\\" (The Extremes of Good and Evil) by Cicero, written in 45\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"public\": false,\n    \"object\": \"AchievementList\",\n    \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n    \"createdAt\": \"2023-11-13T04:01:27+00:00\",\n    \"updatedAt\": \"2023-11-13T04:01:27+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement Create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestBodyRaw(",
+									"  pm,",
+									"  {",
+									"    title: utils.faker.fakeTextBetween(10, 125),",
+									"    description: utils.faker.fakeTextBetween(10, 255),",
+									"    doneAt: utils.faker.fakeDoneDateOrNull(),",
+									"    tags: [utils.faker.fakeTag(), utils.faker.fakeTagWithRestricted()],",
+									"    isPublic: utils.faker.fakeTrueOrFalse(),",
+									"  }",
+									");",
+									"",
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': project.getRandomAchievementListId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (utils.test.success(pm)) {",
+									"  utils.test.isResponseVariablesSet(",
+									"    pm,",
+									"    project.addAchievement(pm, responseBody)",
+									"  );",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"first achievement\",\n    \"description\": \"description of the first achievement\",\n    \"isPublic\": false,\n    \"doneAt\": null,\n    \"tags\": [\n        \"en\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/a",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"a"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"first achievement\",\n    \"description\": \"description of the first achievement\",\n    \"isPublic\": false,\n    \"doneAt\": null,\n    \"tags\": [\n        \"en\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/achievement/list/{{achievement_list_last_created_id}}/a",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list",
+										"{{achievement_list_last_created_id}}",
+										"a"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 15:00:30 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "ae0cb0"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/ae0cb0"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tags\": [\n        \"en\",\n        \"consect\",\n        \"restrictedCharActers\"\n    ],\n    \"title\": \"rary to pop\",\n    \"description\": \"years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going throug\",\n    \"doneAt\": null,\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"notified\": false,\n    \"contentImageLink\": null,\n    \"lists\": [\n        {\n            \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n            \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n        }\n    ],\n    \"object\": \"Achievement\",\n    \"id\": \"b107991a-63c0-4630-9769-27f628489fb5\",\n    \"createdAt\": \"2023-11-13T15:00:29+00:00\",\n    \"updatedAt\": \"2023-11-13T15:00:29+00:00\",\n    \"isPublic\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (utils.test.success(pm)) {",
+									"  utils.test.isResponseVariablesSet(",
+									"    pm,",
+									"    project.removeAchievementFromList(pm, responseBody)",
+									"  );",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const achievementListIds = project.getRandomAchievementListIds(pm);",
+									"",
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': achievementListIds.l,",
+									"    'rndAchievementId': achievementListIds.a,",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/a/[rndAchievementId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"a",
+								"[rndAchievementId]"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/achievement/{{achievement_last_created_id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"achievement",
+										"{{achievement_last_created_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, must-revalidate, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Oct 2023 13:12:58 GMT"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 26 Oct 2023 13:12:58 GMT"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "6ea646"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://localhost:8000/_profiler/6ea646"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.24"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Content-Length",
+									"value": "21"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement Edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestBodyRaw(",
+									"  pm,",
+									"  {",
+									"    title: utils.faker.fakeTextBetween(10, 125),",
+									"    description: utils.faker.fakeTextBetween(10, 255),",
+									"    doneAt: utils.faker.fakeDoneDateOrNull(),",
+									"    isPublic: utils.faker.fakeTrueOrFalse(),",
+									"  }",
+									");",
+									"",
+									"const achievementListIds = project.getRandomAchievementListIds(pm);",
+									"",
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': achievementListIds.l,",
+									"    'rndAchievementId': achievementListIds.a,",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"isPublic\": true,\n    \"doneAt\": \"2023-11-18T17:00:54+0300\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/a/[rndAchievementId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"a",
+								"[rndAchievementId]"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"isPublic\": true,\n    \"doneAt\": \"2023-11-18T17:00:54+0300\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/achievement/list/{{achievement_list_last_created_id}}/a/{{achievement_last_created_id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list",
+										"{{achievement_list_last_created_id}}",
+										"a",
+										"{{achievement_last_created_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 15:05:43 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "fc0567"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/fc0567"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tags\": [\n        \"en\",\n        \"hasroot\",\n        \"restrictedCharActers\"\n    ],\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"notifiedAt\": null,\n    \"notified\": false,\n    \"contentImageLink\": null,\n    \"lists\": [\n        {\n            \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n            \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n        }\n    ],\n    \"object\": \"Achievement\",\n    \"id\": \"5468d19b-a423-4ad6-8e8a-9d8806ddcb23\",\n    \"createdAt\": \"2023-11-13T15:04:38+00:00\",\n    \"updatedAt\": \"2023-11-13T15:05:43+00:00\",\n    \"isPublic\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement Tag Attach",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestBodyRaw(",
+									"  pm,",
+									"  {",
+									"    tags: [utils.faker.fakeTag(), utils.faker.fakeTagWithRestricted()],",
+									"  }",
+									");",
+									"",
+									"const achievementListIds = project.getRandomAchievementListIds(pm);",
+									"",
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': achievementListIds.l,",
+									"    'rndAchievementId': achievementListIds.a,",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tags\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/a/[rndAchievementId]/tag/attach",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"a",
+								"[rndAchievementId]",
+								"tag",
+								"attach"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tags\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/achievement/list/{{achievement_list_last_created_id}}/a/{{achievement_last_created_id}}/tag/attach",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list",
+										"{{achievement_list_last_created_id}}",
+										"a",
+										"{{achievement_last_created_id}}",
+										"tag",
+										"attach"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 15:09:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "b2c4f2"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/b2c4f2"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tags\": [\n        \"en\",\n        \"hasroot\",\n        \"restrictedCharActers\",\n        \"ll\",\n        \"re\",\n        \"ent\",\n        \"ustr\"\n    ],\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"notifiedAt\": null,\n    \"notified\": false,\n    \"contentImageLink\": null,\n    \"lists\": [\n        {\n            \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n            \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n        }\n    ],\n    \"object\": \"Achievement\",\n    \"id\": \"5468d19b-a423-4ad6-8e8a-9d8806ddcb23\",\n    \"createdAt\": \"2023-11-13T15:04:38+00:00\",\n    \"updatedAt\": \"2023-11-13T15:09:41+00:00\",\n    \"isPublic\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement Tag Detach",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestBodyRaw(",
+									"  pm,",
+									"  {",
+									"    tags: [utils.faker.fakeTag(), utils.faker.fakeTagWithRestricted()],",
+									"  }",
+									");",
+									"",
+									"const achievementListIds = project.getRandomAchievementListIds(pm);",
+									"",
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': achievementListIds.l,",
+									"    'rndAchievementId': achievementListIds.a,",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"hustle\",\n        \"ceof\",\n        \"sina\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/a/[rndAchievementId]/tag/detach",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"a",
+								"[rndAchievementId]",
+								"tag",
+								"detach"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"hustle\",\n        \"ceof\",\n        \"sina\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/achievement/list/{{achievement_list_last_created_id}}/a/{{achievement_last_created_id}}/tag/detach",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list",
+										"{{achievement_list_last_created_id}}",
+										"a",
+										"{{achievement_last_created_id}}",
+										"tag",
+										"detach"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 15:10:19 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "e32ef7"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/e32ef7"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tags\": [\n        \"en\",\n        \"hasroot\",\n        \"restrictedCharActers\",\n        \"ll\",\n        \"re\",\n        \"ent\",\n        \"ustr\"\n    ],\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"notifiedAt\": null,\n    \"notified\": false,\n    \"contentImageLink\": null,\n    \"lists\": [\n        {\n            \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n            \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n        }\n    ],\n    \"object\": \"Achievement\",\n    \"id\": \"5468d19b-a423-4ad6-8e8a-9d8806ddcb23\",\n    \"createdAt\": \"2023-11-13T15:04:38+00:00\",\n    \"updatedAt\": \"2023-11-13T15:09:41+00:00\",\n    \"isPublic\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement Tag Replace",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestBodyRaw(",
+									"  pm,",
+									"  {",
+									"    tags: [utils.faker.fakeTag(), utils.faker.fakeTagWithRestricted()],",
+									"  }",
+									");",
+									"",
+									"const achievementListIds = project.getRandomAchievementListIds(pm);",
+									"",
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': achievementListIds.l,",
+									"    'rndAchievementId': achievementListIds.a,",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"hustle\",\n        \"blabla\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/a/[rndAchievementId]/tag/replace",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"a",
+								"[rndAchievementId]",
+								"tag",
+								"replace"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"hustle\",\n        \"blabla\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/achievement/list/{{achievement_list_last_created_id}}/a/{{achievement_last_created_id}}/tag/replace",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list",
+										"{{achievement_list_last_created_id}}",
+										"a",
+										"{{achievement_last_created_id}}",
+										"tag",
+										"replace"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 15:11:22 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "57b39c"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/57b39c"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tags\": {\n        \"7\": \"UA\",\n        \"8\": \"work\",\n        \"9\": \"hustle\",\n        \"10\": \"blabla\"\n    },\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"notifiedAt\": null,\n    \"notified\": false,\n    \"contentImageLink\": null,\n    \"lists\": [\n        {\n            \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n            \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n        }\n    ],\n    \"object\": \"Achievement\",\n    \"id\": \"5468d19b-a423-4ad6-8e8a-9d8806ddcb23\",\n    \"createdAt\": \"2023-11-13T15:04:38+00:00\",\n    \"updatedAt\": \"2023-11-13T15:11:22+00:00\",\n    \"isPublic\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "Achievement List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': project.getRandomAchievementListId(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/achievement/list/[rndAchievementListId]/a/l/0/5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"list",
+								"[rndAchievementListId]",
+								"a",
+								"l",
+								"0",
+								"5"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/achievement/list/{{achievement_list_last_created_id}}/a/l/0/5",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"achievement",
+										"list",
+										"{{achievement_list_last_created_id}}",
+										"a",
+										"l",
+										"0",
+										"5"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Nov 2023 15:54:53 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "881dff"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/881dff"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tags\": [\n            \"UA\",\n            \"work\",\n            \"hustle\",\n            \"blabla\"\n        ],\n        \"title\": \"edited achievement\",\n        \"description\": \"description of the edited achievement\",\n        \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n        \"owner\": {\n            \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n        },\n        \"notifiedAt\": null,\n        \"notified\": false,\n        \"contentImageLink\": null,\n        \"lists\": [\n            {\n                \"id\": \"4b3ce118-274f-41c8-8055-e8718f2c7ca4\",\n                \"title\": \"n unknown print\"\n            },\n            {\n                \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n                \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n            }\n        ],\n        \"object\": \"Achievement\",\n        \"id\": \"5468d19b-a423-4ad6-8e8a-9d8806ddcb23\",\n        \"createdAt\": \"2023-11-13T15:04:38+00:00\",\n        \"updatedAt\": \"2023-11-13T15:11:22+00:00\",\n        \"isPublic\": true\n    },\n    {\n        \"tags\": [\n            \"en\",\n            \"development\",\n            \"motivator\",\n            \"extension\"\n        ],\n        \"title\": \"motivator extension notifications\",\n        \"description\": \"to fix security issues I use extension that works with logged in users only\",\n        \"doneAt\": null,\n        \"owner\": {\n            \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n        },\n        \"notifiedAt\": \"2023-11-01T10:23:16+00:00\",\n        \"notified\": true,\n        \"contentImageLink\": null,\n        \"lists\": [\n            {\n                \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n                \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n            }\n        ],\n        \"object\": \"Achievement\",\n        \"id\": \"8982e515-42a6-4c5f-a7bf-934127ea56ab\",\n        \"createdAt\": \"2023-10-30T15:35:28+00:00\",\n        \"updatedAt\": \"2023-11-01T10:23:16+00:00\",\n        \"isPublic\": false\n    },\n    {\n        \"tags\": [\n            \"en\",\n            \"development\",\n            \"motivator\"\n        ],\n        \"title\": \"add fcm device types\",\n        \"description\": \"added validation for fcm device types blablabla\",\n        \"doneAt\": \"2023-10-29T16:45:00+00:00\",\n        \"owner\": {\n            \"id\": \"18db239d-30ba-4a29-9062-4243d9f7c965\"\n        },\n        \"notifiedAt\": \"2023-11-05T02:54:19+00:00\",\n        \"notified\": false,\n        \"contentImageLink\": null,\n        \"lists\": [\n            {\n                \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n                \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n            }\n        ],\n        \"object\": \"Achievement\",\n        \"id\": \"b3ec5b9a-513c-4bf9-a516-6d9ce44b9ede\",\n        \"createdAt\": \"2023-10-29T16:44:17+00:00\",\n        \"updatedAt\": \"2023-11-07T20:37:45+00:00\",\n        \"isPublic\": false\n    },\n    {\n        \"tags\": [\n            \"en\",\n            \"development\",\n            \"motivator\"\n        ],\n        \"title\": \"send unique achievements as web push notifications\",\n        \"description\": \"takes a random achievement of the user and sends it on the registered web browser of the user. show it as a background push notification.\",\n        \"doneAt\": \"2023-10-29T10:40:00+00:00\",\n        \"owner\": {\n            \"id\": \"18db239d-30ba-4a29-9062-4243d9f7c965\"\n        },\n        \"notifiedAt\": \"2023-11-05T03:14:13+00:00\",\n        \"notified\": false,\n        \"contentImageLink\": null,\n        \"lists\": [\n            {\n                \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n                \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n            }\n        ],\n        \"object\": \"Achievement\",\n        \"id\": \"7304efe6-9fc7-430a-b2e0-e93116043f94\",\n        \"createdAt\": \"2023-10-29T11:12:37+00:00\",\n        \"updatedAt\": \"2023-11-05T03:59:18+00:00\",\n        \"isPublic\": false\n    },\n    {\n        \"tags\": [\n            \"en\",\n            \"development\",\n            \"motivator\"\n        ],\n        \"title\": \"created firebase project for web push notifications\",\n        \"description\": \"user can subscribe and receive push notifications of stubs\",\n        \"doneAt\": \"2023-10-29T05:45:00+00:00\",\n        \"owner\": {\n            \"id\": \"18db239d-30ba-4a29-9062-4243d9f7c965\"\n        },\n        \"notifiedAt\": \"2023-11-05T03:59:20+00:00\",\n        \"notified\": true,\n        \"contentImageLink\": null,\n        \"lists\": [\n            {\n                \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n                \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n            }\n        ],\n        \"object\": \"Achievement\",\n        \"id\": \"83026f51-85bf-4801-b5b3-9c729d86748d\",\n        \"createdAt\": \"2023-10-29T11:11:07+00:00\",\n        \"updatedAt\": \"2023-11-05T03:59:20+00:00\",\n        \"isPublic\": false\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Share Object Token",
+			"item": [
+				{
+					"name": "Achievement Share Token Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (utils.test.success(pm)) {",
+									"  utils.test.isResponseVariablesSet(",
+									"    pm,",
+									"    project.addAchievementShareObjectToken(pm, responseBody)",
+									"  );",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const achievementListIds = project.getRandomAchievementListIds(pm);",
+									"",
+									"utils.mods.updateRequestBodyRaw(",
+									"  pm,",
+									"  {",
+									"    targetId: achievementListIds.a,",
+									"    achievementListId: achievementListIds.l,",
+									"  }",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"achievement\",\n    \"targetId\": \"\",\n    \"achievementListId\": \"\",\n    \"expireAt\": \"2100-01-01\",\n    \"canEdit\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/share/object/token",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"share",
+								"object",
+								"token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"target\": \"achievement\",\n    \"targetId\": \"{{achievement_last_created_id}}\",\n    \"achievementListId\": \"{{achievement_list_last_created_id}}\",\n    \"expireAt\": \"2100-01-01\",\n    \"canEdit\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/share/object/token",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"share",
+										"object",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Nov 2023 23:59:29 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "3b7a97"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/3b7a97"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"f1d3a884f79468de6af52f9759b6f7e36f825c7aa408f50ddb69a40f790953a6\",\n    \"link\": \"https://dev.achievernotifier.localhost/api/v1/achievement/list/59d54a5a-b3fe-4ce9-9566-338c9149d8d4/a/83026f51-85bf-4801-b5b3-9c729d86748d?st=f1d3a884f79468de6af52f9759b6f7e36f825c7aa408f50ddb69a40f790953a6\"\n}"
+						}
+					]
+				},
+				{
+					"name": "View Shared Object",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndShareObjectLink': project.getRandomAchievementShareObjectTokenLink(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "[rndShareObjectLink]",
+							"host": [
+								"[rndShareObjectLink]"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{share_achievement_link}}",
+									"host": [
+										"{{share_achievement_link}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 04:23:02 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "5c71ed"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/5c71ed"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tags\": [\n        \"en\",\n        \"development\",\n        \"motivator\"\n    ],\n    \"title\": \"edited achievement\",\n    \"description\": \"description of the edited achievement\",\n    \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"notifiedAt\": \"2023-11-05T03:59:20+00:00\",\n    \"notified\": true,\n    \"contentImageLink\": null,\n    \"lists\": [\n        {\n            \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n            \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n        }\n    ],\n    \"object\": \"Achievement\",\n    \"id\": \"83026f51-85bf-4801-b5b3-9c729d86748d\",\n    \"createdAt\": \"2023-10-29T11:11:07+00:00\",\n    \"updatedAt\": \"2023-11-13T16:23:31+00:00\",\n    \"isPublic\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "Edit Shared Object Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndShareObjectLink': project.getRandomAchievementShareObjectTokenLink(pm),",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"edited achievement 2\",\n    \"description\": \"description of the edited achievement\",\n    \"isPublic\": true,\n    \"doneAt\": \"2023-11-18T17:00:54+0300\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "[rndShareObjectLink]",
+							"host": [
+								"[rndShareObjectLink]"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"edited achievement 2\",\n    \"description\": \"description of the edited achievement\",\n    \"isPublic\": true,\n    \"doneAt\": \"2023-11-18T17:00:54+0300\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{share_achievement_link}}",
+									"host": [
+										"{{share_achievement_link}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 04:29:35 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.22.1"
+								},
+								{
+									"key": "X-Debug-Token",
+									"value": "40e488"
+								},
+								{
+									"key": "X-Debug-Token-Link",
+									"value": "https://dev.achievernotifier.localhost/_profiler/40e488"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.25"
+								},
+								{
+									"key": "X-Robots-Tag",
+									"value": "noindex"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tags\": [\n        \"en\",\n        \"development\",\n        \"motivator\"\n    ],\n    \"title\": \"edited achievement 2\",\n    \"description\": \"description of the edited achievement\",\n    \"doneAt\": \"2023-11-18T14:00:54+00:00\",\n    \"owner\": {\n        \"id\": \"5440a081-1e50-41e8-8d62-4e06fc51a69c\"\n    },\n    \"notifiedAt\": \"2023-11-05T03:59:20+00:00\",\n    \"notified\": true,\n    \"contentImageLink\": null,\n    \"lists\": [\n        {\n            \"id\": \"59d54a5a-b3fe-4ce9-9566-338c9149d8d4\",\n            \"title\": \"s survived not only five centuries, but also the leap into electronic typesetting, re\"\n        }\n    ],\n    \"object\": \"Achievement\",\n    \"id\": \"83026f51-85bf-4801-b5b3-9c729d86748d\",\n    \"createdAt\": \"2023-10-29T11:11:07+00:00\",\n    \"updatedAt\": \"2023-11-15T04:29:35+00:00\",\n    \"isPublic\": true\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Achievement Prerequisite",
+			"item": [
+				{
+					"name": "Create Prerequisite for achievement",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const a = project.getRandomAchievementListIds(pm);",
+									"const p = project.getRandomAchievementListIds(pm);",
+									"",
+									"utils.mods.updateRequestBodyRaw(",
+									"  pm,",
+									"  {",
+									"    achievement: a.a,",
+									"    achievementList: a.l,",
+									"    prerequisite: p.a,",
+									"    prerequisiteList: p.l,",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"achievement\": \"\",\n  \"achievementList\": \"\",\n  \"prerequisite\": \"\",\n  \"prerequisiteList\": \"\",\n  \"condition\": \"complete\",\n  \"priority\": 0,\n  \"isRequired\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/prerequisite",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"prerequisite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prerequisite tree",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const achievementListIds = project.getRandomAchievementListIds(pm);",
+									"",
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': achievementListIds.l,",
+									"    'rndAchievementId': achievementListIds.a,",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"achievement\": \"{{achievement_last_created_id}}\",\n  \"achievementList\": \"{{achievement_list_last_created_id}}\",\n  \"prerequisite\": \"{{achievement_second_id}}\",\n  \"prerequisiteList\": \"{{achievement_list_last_created_id}}\",\n  \"condition\": \"complete\",\n  \"priority\": 0,\n  \"isRequired\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/prerequisite/tree/prerequisites/l/[rndAchievementListId]/a/[rndAchievementId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"prerequisite",
+								"tree",
+								"prerequisites",
+								"l",
+								"[rndAchievementListId]",
+								"a",
+								"[rndAchievementId]"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Achievement tre",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const achievementListIds = project.getRandomAchievementListIds(pm);",
+									"",
+									"utils.mods.updateRequestPath(",
+									"  pm,",
+									"  {",
+									"    'rndAchievementListId': achievementListIds.l,",
+									"    'rndAchievementId': achievementListIds.a,",
+									"  }",
+									");",
+									"",
+									"console.log(pm.request);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.test.success(pm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"achievement\": \"{{achievement_last_created_id}}\",\n  \"achievementList\": \"{{achievement_list_last_created_id}}\",\n  \"prerequisite\": \"{{achievement_second_id}}\",\n  \"prerequisiteList\": \"{{achievement_list_last_created_id}}\",\n  \"condition\": \"complete\",\n  \"priority\": 0,\n  \"isRequired\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/prerequisite/tree/prerequisites/l/[rndAchievementListId]/a/[rndAchievementId]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"prerequisite",
+								"tree",
+								"prerequisites",
+								"l",
+								"[rndAchievementListId]",
+								"a",
+								"[rndAchievementId]"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"utils.test.success(pm);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/profile",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 27 Oct 2023 00:21:02 GMT"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "sf_redirect=deleted; expires=Thu, 27 Oct 2022 00:21:01 GMT; Max-Age=0; path=/; httponly"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "77ab95"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/77ab95"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "257"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"email\": \"example7@dot.com\",\n    \"locale\": \"en\",\n    \"object\": \"User\",\n    \"id\": \"df491463-d75d-4c2f-958d-d172045cf59c\",\n    \"createdAt\": \"2023-10-26T23:12:57+00:00\",\n    \"updatedAt\": \"2023-10-26T23:12:57+00:00\",\n    \"isActive\": true,\n    \"isEmailVerified\": false,\n    \"isBanned\": false,\n    \"isDeleted\": false\n}"
+				},
+				{
+					"name": "Token expired",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 27 Oct 2023 00:36:13 GMT"
+						},
+						{
+							"key": "Www-Authenticate",
+							"value": "Bearer"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "fb7cf4"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/fb7cf4"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "42"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 401,\n    \"message\": \"Expired JWT Token\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Analytics Track Notification",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"utils.test.success(pm);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"first achievement\",\n    \"description\": \"description of the first achievement\",\n    \"isPublic\": false,\n    \"doneAt\": null,\n    \"tags\": [\n        \"en\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/analytics/track/notification",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"analytics",
+						"track",
+						"notification"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"first achievement\",\n    \"description\": \"description of the first achievement\",\n    \"isPublic\": false,\n    \"doneAt\": \"2023-10-18T17:00:54+0300\",\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"pet-project\",\n        \"hustle\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/achievement/create",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, must-revalidate, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 19 Oct 2023 20:17:30 GMT"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Oct 2023 20:17:30 GMT"
+						},
+						{
+							"key": "X-Debug-Token",
+							"value": "0dcdb0"
+						},
+						{
+							"key": "X-Debug-Token-Link",
+							"value": "https://localhost:8000/_profiler/0dcdb0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.24"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "noindex"
+						},
+						{
+							"key": "Content-Length",
+							"value": "485"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tags\": [\n        \"UA\",\n        \"work\",\n        \"pet-project\",\n        \"hustle\",\n        \"ytext\",\n        \"restrictedCharActers\"\n    ],\n    \"title\": \"PageMaker including versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is not simply random te\",\n    \"description\": \"pecimen book. It ha\",\n    \"doneAt\": \"2023-10-21T11:29:00+00:00\",\n    \"user\": {\n        \"id\": \"69c59f67-6974-4cde-8386-a6d344143eea\"\n    },\n    \"object\": \"Achievement\",\n    \"id\": \"6aa249b8-feba-439c-90ca-e2f141e420ea\",\n    \"createdAt\": \"2023-10-19T20:17:30+00:00\",\n    \"updatedAt\": \"2023-10-19T20:17:30+00:00\",\n    \"isPublic\": false\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"Array.prototype.random = function () {",
+					"  const key = Math.floor((Math.random()*this.length));",
+					"",
+					"  return this[key];",
+					"}",
+					"",
+					"Date.prototype.toW3CString = function () {",
+					"\tvar year = this.getFullYear();",
+					"\tvar month = this.getMonth();",
+					"\tmonth ++;",
+					"\tif (month < 10) {",
+					"\t\tmonth = '0' + month;",
+					"\t}",
+					"\tvar day = this.getDate();",
+					"\tif (day < 10) {",
+					"\t\tday = '0' + day;",
+					"\t}",
+					"\tvar hours = this.getHours();",
+					"\tif (hours < 10) {",
+					"\t\thours = '0' + hours;",
+					"\t}",
+					"\tvar minutes = this.getMinutes();",
+					"\tif (minutes < 10) {",
+					"\t\tminutes = '0' + minutes;",
+					"\t}",
+					"\tvar seconds = this.getSeconds();",
+					"\tif (seconds < 10) {",
+					"\t\tseconds = '0' + seconds;",
+					"\t}",
+					"\tvar offset = -this.getTimezoneOffset();",
+					"\tvar offsetHours = Math.abs(Math.floor(offset / 60));",
+					"\tvar offsetMinutes = Math.abs(offset) - offsetHours * 60;",
+					"\tif (offsetHours < 10) {",
+					"\t\toffsetHours = '0' + offsetHours;",
+					"\t}",
+					"\tif (offsetMinutes < 10) {",
+					"\t\toffsetMinutes = '0' + offsetMinutes;",
+					"\t}",
+					"\tvar offsetSign = '+';",
+					"\tif (offset < 0) {",
+					"\t\toffsetSign = '-';",
+					"\t}",
+					"\treturn year + '-' + month + '-' + day +",
+					"\t\t'T' + hours + ':' + minutes + ':' + seconds +",
+					"\t\toffsetSign + offsetHours + ':' + offsetMinutes;",
+					"}",
+					"",
+					"utils = {",
+					"  faker: {",
+					"    fakeTextBetween: function (min, max) {",
+					"      const fakedText = String(pm.environment.get('fakedText'));",
+					"      const start = Math.floor(Math.random() * (fakedText.length - max));",
+					"      const end = start + Math.floor(Math.random() * (max - min) + min);",
+					"",
+					"      const txt = fakedText.substring(start, end).trim();",
+					"",
+					"      return txt[0].toUpperCase() + txt.slice(1);",
+					"    },",
+					"    fakeDoneDate: function () {",
+					"      return new Date(",
+					"        (new Date).getFullYear() - 1,",
+					"        Math.floor(Math.random() * 11 + 1),",
+					"        Math.floor(Math.random() * 27 + 1),",
+					"        Math.floor(Math.random() * 23),",
+					"        Math.floor(Math.random() * 59),",
+					"      );",
+					"    },",
+					"    fakeDoneDateOrNull: function () {",
+					"      return Math.floor(Math.random() * 10) < 7 ? this.fakeDoneDate().toW3CString() : null;",
+					"    },",
+					"    fakeTag: function () {",
+					"      return this.fakeTextBetween(2,30);",
+					"    },",
+					"    fakeTagWithRestricted: function () {",
+					"      return 'restricted,.CharActers;+*()\\\\[]{} ;\"\\'$%#';",
+					"    },",
+					"    fakeTrueOrFalse: function () {",
+					"      return Math.floor(Math.random() * 100) < 34;",
+					"    }",
+					"  },",
+					"",
+					"  mods: {",
+					"    retryOnTokenExpire: function() {",
+					"      // TODO",
+					"      ",
+					"    },",
+					"    updateRequestBodyRaw: function (pm, params) {",
+					"      let body = JSON.parse(pm.request.body.raw);",
+					"",
+					"      Object.keys(params).forEach(key => body[key] = params[key]);",
+					"",
+					"      pm.request.body.raw = body;",
+					"    },",
+					"    setResponseVariables: function(pm, params) {",
+					"        Object.keys(params).forEach(key => {",
+					"          pm.environment.set(key, params[key]);",
+					"        });",
+					"    },",
+					"    updateRequestPath: function(pm, params) {",
+					"      Object.keys(params).forEach(key => {",
+					"        if (pm.request.url.path === undefined) {",
+					"          var i = pm.request.url.host.indexOf(`[${key}]`);",
+					"          if (i > -1) {",
+					"            pm.request.url.host[i] = params[key];",
+					"          }",
+					"        } else {",
+					"          var i = pm.request.url.path.indexOf(`[${key}]`);",
+					"          if (i > -1) {",
+					"            pm.request.url.path[i] = params[key];",
+					"          }",
+					"        }",
+					"      });",
+					"    }",
+					"  },",
+					"",
+					"  test: {",
+					"    success: function (pm) {",
+					"      pm.test(\"Response is OK\", function () {",
+					"          pm.response.to.have.status(200);",
+					"      });",
+					"      ",
+					"      return pm.response.code == 200;",
+					"    },",
+					"    isResponseVariablesSet: function (pm, value) {",
+					"      pm.test(\"Response variables set\", function () {",
+					"          pm.expect(value).to.be.true;",
+					"      });",
+					"    },",
+					"  },",
+					"}",
+					"",
+					"project = {",
+					"  getRandomGroupMemberId: function(pm) {",
+					"    return JSON.parse(pm.environment.get('userGroupsMembers')).random().m;",
+					"  },",
+					"  getRandomOwnedGroupId: function(pm) {",
+					"    return JSON.parse(pm.environment.get('ownedGroups')).random();",
+					"  },",
+					"  getRandomAchievementListId: function(pm) {",
+					"    return JSON.parse(pm.environment.get('userOwnedLists')).random();",
+					"  },",
+					"  getRandomAchievementId: function(pm) {",
+					"    return JSON.parse(pm.environment.get('userOwnedAchievements')).random().a;",
+					"  },",
+					"  getRandomAchievementListIds: function(pm) {",
+					"    return JSON.parse(pm.environment.get('userOwnedAchievements')).random();",
+					"  },",
+					"  getRandomAchievementShareObjectTokenLink: function(pm) {",
+					"    return JSON.parse(pm.environment.get('achievementShareTokens')).random();",
+					"  },",
+					"  addUserGroup: function(pm, body) {",
+					"    if (pm.response.code !== 200) {",
+					"      return false;",
+					"    }",
+					"",
+					"    var jsonData = JSON.parse(body);",
+					"    var userGroups = JSON.parse(pm.environment.get('ownedGroups'));",
+					"",
+					"    userGroups.push(jsonData.id);",
+					"",
+					"    utils.mods.setResponseVariables(",
+					"      pm,",
+					"      {",
+					"        \"userGroups\": JSON.stringify(userGroups)",
+					"      }",
+					"    );",
+					"",
+					"    return true;",
+					"  },",
+					"  addAchievement: function(pm, body) {",
+					"    if (pm.response.code !== 200) {",
+					"      return false;",
+					"    }",
+					"",
+					"    var jsonData = JSON.parse(body);",
+					"    var userOwnedAchievements = JSON.parse(pm.environment.get('userOwnedAchievements'));",
+					"",
+					"    const a = {",
+					"      a: jsonData.id,",
+					"      l: pm.request.url.path[4]",
+					"    };",
+					"",
+					"    userOwnedAchievements.push(a);",
+					"",
+					"    utils.mods.setResponseVariables(",
+					"      pm,",
+					"      {",
+					"        \"userOwnedAchievements\": JSON.stringify(userOwnedAchievements)",
+					"      }",
+					"    );",
+					"",
+					"    return true;",
+					"  },",
+					"  removeAchievementFromList: function(pm, body) {",
+					"    if (pm.response.code !== 200) {",
+					"      return false;",
+					"    }",
+					"",
+					"    let userOwnedAchievements = JSON.parse(pm.environment.get('userOwnedAchievements'));",
+					"",
+					"    const a = {",
+					"      a: pm.request.url.path[6],",
+					"      l: pm.request.url.path[4]",
+					"    };",
+					"",
+					"    for (const i in userOwnedAchievements) {",
+					"      if (userOwnedAchievements[i].a === a.a",
+					"        && userOwnedAchievements[i].l === a.l",
+					"      ) {",
+					"        userOwnedAchievements[i] = null;",
+					"      }",
+					"    }",
+					"",
+					"    userOwnedAchievements = userOwnedAchievements.filter(elem => null !== elem);",
+					"",
+					"    utils.mods.setResponseVariables(",
+					"      pm,",
+					"      {",
+					"        \"userOwnedAchievements\": JSON.stringify(userOwnedAchievements)",
+					"      }",
+					"    );",
+					"",
+					"    return true;",
+					"  },",
+					"  addAchievementShareObjectToken: function(pm, body) {",
+					"    if (pm.response.code !== 200) {",
+					"      return false;",
+					"    }",
+					"",
+					"    let jsonData = JSON.parse(body);",
+					"    let achievementShareTokens = JSON.parse(pm.environment.get('achievementShareTokens'));",
+					"",
+					"    achievementShareTokens.push(jsonData.link);",
+					"",
+					"    utils.mods.setResponseVariables(",
+					"      pm,",
+					"      {",
+					"        \"achievementShareTokens\": JSON.stringify(achievementShareTokens)",
+					"      }",
+					"    );",
+					"",
+					"    return true;",
+					"  }",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
