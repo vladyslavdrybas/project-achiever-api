@@ -68,8 +68,8 @@ class Achievement extends AbstractEntity
         parent::__construct();
         $this->tags = new ArrayCollection();
         $this->lists = new ArrayCollection();
-        $this->prerequisites = new ArrayCollection();
-        $this->achievements = new ArrayCollection();
+        $this->meAchievementIn = new ArrayCollection();
+        $this->mePrerequisiteIn = new ArrayCollection();
     }
 
     /**
