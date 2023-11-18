@@ -6,11 +6,9 @@ namespace App\Controller;
 
 use App\Builder\AchievementBuilder;
 use App\Entity\Achievement;
-use App\Entity\AchievementPrerequisiteRelation;
 use App\Repository\AchievementPrerequisiteRelationRepository;
 use App\Security\Permissions;
 use App\Transfer\AchievementPrerequisiteRelationTransfer;
-use InvalidArgumentException;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -67,6 +65,7 @@ class AchievementPrerequisiteController extends AbstractController
         ];
 
         $meAchievementIn = $achievement->getMeAchievementIn();
+
         if ($meAchievementIn->isEmpty()) {
             return $tree;
         }
@@ -75,7 +74,12 @@ class AchievementPrerequisiteController extends AbstractController
 
         foreach ($meAchievementIn as $relation) {
             if ($relation->getAchievement() === $achievement) {
-                $tree['prerequisites'][] = $this->buildPrerequisiteTree($relation->getPrerequisite());
+                // TODO trying to build full tree in one request could overload server
+//                $tree['prerequisites'][] = $this->buildPrerequisiteTree($relation->getPrerequisite());
+                $tree['prerequisites'][] = [
+                    'id' => $relation->getPrerequisite()->getRawId(),
+                    'title' => $relation->getPrerequisite()->getTitle(),
+                ];
             }
         }
 
@@ -108,7 +112,12 @@ class AchievementPrerequisiteController extends AbstractController
 
         foreach ($mePrerequisiteIn as $relation) {
             if ($relation->getPrerequisite() === $achievement) {
-                $tree['achievements'][] = $this->buildAchievementTree($relation->getAchievement());
+                // TODO trying to build full tree in one request could overload server
+//                $tree['achievements'][] = $this->buildAchievementTree($relation->getAchievement());
+                $tree['achievements'][] = [
+                    'id' => $relation->getAchievement()->getRawId(),
+                    'title' => $relation->getAchievement()->getTitle(),
+                ];
             }
         }
 
