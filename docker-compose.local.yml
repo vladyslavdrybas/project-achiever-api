@@ -10,7 +10,7 @@ services:
   reverse-proxy:
     container_name: ${APP_NAME:-an}-reverse-proxy-${APP_ENV:-dev}
     labels:
-      - "traefik.http.routers.api.rule=Host(`traefik.docker.dev.localhosthost`)"
+      - "traefik.http.routers.api.rule=Host(`traefik.docker.dev.localhost`)"
       - "traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$05$$A9hvJPnfOr3r7BsKdjwPn.SGKElp6L13ZlWumcXgO47NADt78sfZi"
     volumes:
       - ./docker/traefik/dev/letsencrypt:/letsencrypt
@@ -30,8 +30,8 @@ services:
   web:
     container_name: ${APP_NAME:-an}-server-${APP_ENV:-dev}
     labels:
-      - "traefik.http.routers.webapi-http.rule=Host(`dev.achievernotifier.localhost`) && PathPrefix(`/api/v1`,`/.well-known`, `/ishealthy`)"
-      - "traefik.http.routers.webapi.rule=Host(`dev.achievernotifier.localhost`) && PathPrefix(`/api/v1`,`/.well-known`, `/ishealthy`)"
+      - "traefik.http.routers.webapi-http.rule=Host(`dev.achievernotifier.localhost`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`, `/_profiler`)"
+      - "traefik.http.routers.webapi.rule=Host(`dev.achievernotifier.localhost`) && PathPrefix(`/api/v1`, `/.well-known`, `/ishealthy`, `/_profiler`)"
       - "traefik.http.routers.webapi.tls.domains[0].main=achievernotifier.localhost"
       - "traefik.http.routers.webapi.tls.domains[0].sans=dev.achievernotifier.localhost"
       
