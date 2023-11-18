@@ -29,7 +29,6 @@ class UserNormalizer extends AbstractEntityNormalizer
                     'rawId',
                     'achievements',
                     'roles',
-                    'username',
                     'password',
                     'userIdentifier',
                     'emailVerified',
