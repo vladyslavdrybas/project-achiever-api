@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Builder\AchievementBuilder;
 use App\Entity\Achievement;
+use App\Entity\AchievementList;
 use App\Repository\AchievementPrerequisiteRelationRepository;
 use App\Security\Permissions;
 use App\Transfer\AchievementPrerequisiteRelationTransfer;
@@ -79,6 +80,14 @@ class AchievementPrerequisiteController extends AbstractController
                 $tree['prerequisites'][] = [
                     'id' => $relation->getPrerequisite()->getRawId(),
                     'title' => $relation->getPrerequisite()->getTitle(),
+                    'priority' => $relation->getPriority(),
+                    'isRequired' => $relation->isRequired() ? 'yes' : 'no',
+                    'lists' => $relation->getAchievement()->getLists()->map(function (AchievementList $list) {
+                        return [
+                            'id' => $list->getRawId(),
+                            'title' => $list->getTitle(),
+                        ];
+                    }),
                 ];
             }
         }
@@ -117,6 +126,14 @@ class AchievementPrerequisiteController extends AbstractController
                 $tree['achievements'][] = [
                     'id' => $relation->getAchievement()->getRawId(),
                     'title' => $relation->getAchievement()->getTitle(),
+                    'priority' => $relation->getPriority(),
+                    'isRequired' => $relation->isRequired() ? 'yes' : 'no',
+                    'lists' => $relation->getAchievement()->getLists()->map(function (AchievementList $list) {
+                        return [
+                            'id' => $list->getRawId(),
+                            'title' => $list->getTitle(),
+                        ];
+                    }),
                 ];
             }
         }
