@@ -14,11 +14,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 use function array_unique;
 use function bin2hex;
-use function hash;
-use function hex2bin;
-use function microtime;
 use function random_bytes;
-use function time;
 use function uniqid;
 
 // TODO add user password reset
@@ -43,9 +39,14 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\Column( name: "email", type: Types::STRING, length: 180, unique: true, nullable: false )]
     protected string $email;
 
-    // TODO remove nullable, make it mandatory
-    #[ORM\Column( name: "username", type: Types::STRING, length: 100, unique: true, nullable: true)]
+    #[ORM\Column( name: "username", type: Types::STRING, length: 100, unique: true, nullable: false)]
     protected string $username;
+
+    #[ORM\Column( name: "firstname", type: Types::STRING, length: 100, nullable: true)]
+    protected string $firstname;
+
+    #[ORM\Column( name: "lastname", type: Types::STRING, length: 100, nullable: true)]
+    protected string $lastname;
 
     #[ORM\Column(name: "password", type: Types::STRING, length: 100, unique: false, nullable: false)]
     protected string $password;
@@ -365,5 +366,37 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
 
             $this->addMembership($groupRelation);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstname(): string
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param string $firstname
+     */
+    public function setFirstname(string $firstname): void
+    {
+        $this->firstname = $firstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastname(): string
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param string $lastname
+     */
+    public function setLastname(string $lastname): void
+    {
+        $this->lastname = $lastname;
     }
 }
