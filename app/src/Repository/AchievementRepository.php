@@ -22,7 +22,7 @@ class AchievementRepository extends AbstractRepository
         return $this->createQueryBuilder('t')
             ->where(':list MEMBER OF t.lists')
             ->setParameter(':list', $achievementList)
-            ->orderBy('t.createdAt', 'DESC')
+            ->orderBy('t.doneAt', 'DESC')
             ->setFirstResult($offset)
             ->setMaxResults($limit)
             ->getQuery()
