@@ -11,26 +11,68 @@ use App\Transfer\UserPasswordChangeTransfer;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use function var_dump;
 
 #[Route('/user', name: "api_user")]
 class UserController extends AbstractController
 {
-    #[Route("/{user}", name: "_view", methods: ["GET"])]
+    #[Route("/{user}", name: "_profile", methods: ["GET"])]
     public function profile(
         User $user
     ): JsonResponse {
         /** @var \App\Entity\User $user */
         $owner = $this->getUser();
         if ($user === $owner) {
-            $data = $this->serializer->normalize($user);
+            $data = $this->serializer->normalize($user, User::class, [
+                'custom_attributes' => [
+                    'achievementsAmount'
+                ],
+            ]);
         } else {
             $data = $this->serializer->normalize($user, User::class, [
                 AbstractNormalizer::IGNORED_ATTRIBUTES => [
                     'isEmailVerified',
                     'email',
+                ],
+                'custom_attributes' => [
+                    'achievementsAmount'
+                ],
+            ]);
+        }
+
+        return $this->json($data);
+    }
+
+    #[Route("/{username}/info", name: "_info", methods: ["GET"])]
+    public function info(
+        string $username,
+        UserRepository $userRepository
+    ): JsonResponse {
+        /** @var \App\Entity\User $user */
+        $owner = $this->getUser();
+        $user = $userRepository->loadUserByUsername($username);
+        if (null === $user) {
+            throw new NotFoundHttpException('User not found.');
+        }
+
+        if ($user === $owner) {
+            $data = $this->serializer->normalize($user, User::class, [
+                'custom_attributes' => [
+                    'achievementsAmount'
+                ],
+            ]);
+        } else {
+            $data = $this->serializer->normalize($user, User::class, [
+                AbstractNormalizer::IGNORED_ATTRIBUTES => [
+                    'isEmailVerified',
+                    'email',
+                ],
+                'custom_attributes' => [
+                    'achievementsAmount'
                 ],
             ]);
         }

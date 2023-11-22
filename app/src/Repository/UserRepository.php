@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use function var_dump;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -53,6 +54,7 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
 
     public function loadUserByUsername(string $identifier): ?UserInterface
     {
-        return $this->loadUserByIdentifier($identifier);
+//        return $this->findByEmail($identifier);
+        return $this->findOneBy(['username' => $identifier]);
     }
 }
