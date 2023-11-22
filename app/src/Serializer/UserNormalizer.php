@@ -6,6 +6,9 @@ namespace App\Serializer;
 
 use App\Entity\User;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use function array_key_exists;
+use function in_array;
+use function var_dump;
 
 class UserNormalizer extends AbstractEntityNormalizer
 {
@@ -19,36 +22,53 @@ class UserNormalizer extends AbstractEntityNormalizer
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
+        $ignoredAttributes = array_merge(
+            $context[AbstractNormalizer::IGNORED_ATTRIBUTES] ?? [],
+            [
+                'rawId',
+                'achievements',
+                'roles',
+                'password',
+                'userIdentifier',
+                'emailVerified',
+                'active',
+                'banned',
+                'deleted',
+                'firebaseCloudMessagingTokens',
+                'ownedUserGroups',
+                'userGroupRelations',
+                'memberOfUserGroups',
+                'createdAt',
+                'updatedAt',
+            ]
+        );
+        $context = [
+            AbstractNormalizer::CALLBACKS => [
+            ],
+            AbstractNormalizer::IGNORED_ATTRIBUTES => $ignoredAttributes,
+        ];
+
         $data = $this->normalizer->normalize(
             $object,
             $format,
-            [
-                AbstractNormalizer::CALLBACKS => [
-                ],
-                AbstractNormalizer::IGNORED_ATTRIBUTES => [
-                    'rawId',
-                    'achievements',
-                    'roles',
-                    'password',
-                    'userIdentifier',
-                    'emailVerified',
-                    'active',
-                    'banned',
-                    'deleted',
-                    'firebaseCloudMessagingTokens',
-                    'ownedUserGroups',
-                    'userGroupRelations',
-                    'memberOfUserGroups',
-                    'createdAt',
-                    'updatedAt',
-                ],
-            ]
+            $context
         );
 
-        $data['isActive'] = $object->isActive();
-        $data['isEmailVerified'] = $object->isEmailVerified();
-        $data['isBanned'] = $object->isBanned();
-        $data['isDeleted'] = $object->isDeleted();
+        if (!in_array('isActive', $ignoredAttributes)) {
+            $data['isActive'] = $object->isActive();
+        }
+
+        if (!in_array('isEmailVerified', $ignoredAttributes)) {
+            $data['isEmailVerified'] = $object->isEmailVerified();
+        }
+
+        if (!in_array('isBanned', $ignoredAttributes)) {
+            $data['isBanned'] = $object->isBanned();
+        }
+
+        if (!in_array('isDeleted', $ignoredAttributes)) {
+            $data['isDeleted'] = $object->isDeleted();
+        }
 
         return $data;
     }

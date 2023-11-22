@@ -17,7 +17,6 @@ use function str_replace;
 /**
  * @method EntityInterface|null find($id, $lockMode = null, $lockVersion = null)
  * @method EntityInterface|null findOneBy(array $criteria, array $orderBy = null)
- * @method EntityInterface[]    findAll()
  * @method EntityInterface[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 abstract class AbstractRepository extends ServiceEntityRepository implements Selectable
@@ -72,5 +71,29 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Sel
         $matched = parent::matching($criteria);
 
         return $matched->isEmpty() ? null : $matched->first();
+    }
+
+
+    /**
+     * @param array $orderBy
+     * @param int $offset
+     * @param int $limit
+     * @return EntityInterface[]
+     */
+    public function findAll(array $orderBy = [], int $offset = 0, int $limit = 0): array
+    {
+        $query = $this->createQueryBuilder('t')
+            ->setFirstResult($offset)
+        ;
+
+        if (!empty($orderBy)) {
+            $query->orderBy('t.' . $orderBy[0], $orderBy[1]);
+        }
+
+        if ($limit !== 0) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query->getQuery()->getResult();
     }
 }

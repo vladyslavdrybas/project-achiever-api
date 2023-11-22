@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use function var_dump;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 #[Route('/user', name: "api_user")]
 class UserController extends AbstractController
@@ -27,18 +27,12 @@ class UserController extends AbstractController
         if ($user === $owner) {
             $data = $this->serializer->normalize($user);
         } else {
-            $cleanedUser = new User();
-            $cleanedUser->setId($user->getId());
-            $cleanedUser->setEmail('');
-            $cleanedUser->setPassword('');
-            $cleanedUser->setLocale($user->getLocale());
-            $cleanedUser->setUsername($user->getUsername());
-            $cleanedUser->setIsActive($user->isActive());
-            $cleanedUser->setIsBanned($user->isBanned());
-            $cleanedUser->setIsDeleted($user->isDeleted());
-            $cleanedUser->setIsEmailVerified($user->isEmailVerified());
-
-            $data = $this->serializer->normalize($cleanedUser);
+            $data = $this->serializer->normalize($user, User::class, [
+                AbstractNormalizer::IGNORED_ATTRIBUTES => [
+                    'isEmailVerified',
+                    'email',
+                ],
+            ]);
         }
 
         return $this->json($data);
@@ -118,6 +112,33 @@ class UserController extends AbstractController
         $userRepository->save();
 
         $data = $this->serializer->normalize($user);
+
+        return $this->json($data);
+    }
+
+    #[Route("/list/public/{offset}/{limit}",
+        name: "_list",
+        requirements: ['offset' => '\d+', 'limit' => '1|2|3|4|5|10|20|50'],
+        defaults: ['offset' => 0, 'limit' => 5],
+        methods: ["GET"]
+    )]
+    public function list(
+        int $offset,
+        int $limit,
+        UserRepository $userRepository
+    ): JsonResponse {
+        $users = $userRepository->findAll(['createdAt', 'DESC'], $offset, $limit);
+
+        $data = $this->serializer->normalize($users, null, [
+            AbstractNormalizer::IGNORED_ATTRIBUTES => [
+                'object',
+                'isEmailVerified',
+                'isBanned',
+                'isDeleted',
+                'locale',
+                'email',
+            ],
+        ]);
 
         return $this->json($data);
     }

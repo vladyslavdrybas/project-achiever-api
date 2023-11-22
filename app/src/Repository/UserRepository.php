@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[]    findAll()
+ * @method User[]    findAll(array $orderBy = ['createdAt', 'DESC'], int $offset = 0, int $limit = 0)
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method \Doctrine\Common\Collections\Collection<User>    matching(\Doctrine\Common\Collections\Criteria $criteria)
  * @method User|null    matchingOneOrNull(\Doctrine\Common\Collections\Criteria $criteria)
