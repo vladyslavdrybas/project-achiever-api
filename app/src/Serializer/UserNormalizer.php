@@ -42,6 +42,9 @@ class UserNormalizer extends AbstractEntityNormalizer
                 'updatedAt',
             ]
         );
+
+        $customAttributes = $context['custom_attributes'] ?? [];
+
         $context = [
             AbstractNormalizer::CALLBACKS => [
             ],
@@ -68,6 +71,10 @@ class UserNormalizer extends AbstractEntityNormalizer
 
         if (!in_array('isDeleted', $ignoredAttributes)) {
             $data['isDeleted'] = $object->isDeleted();
+        }
+
+        if (in_array('achievementsAmount', $customAttributes)) {
+            $data['achievementsAmount'] = $object->getAchievements()->count();
         }
 
         return $data;

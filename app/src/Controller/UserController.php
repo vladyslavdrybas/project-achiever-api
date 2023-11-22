@@ -138,6 +138,9 @@ class UserController extends AbstractController
                 'locale',
                 'email',
             ],
+            'custom_attributes' => [
+                'achievementsAmount'
+            ],
         ]);
 
         return $this->json($data);
