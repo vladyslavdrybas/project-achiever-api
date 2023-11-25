@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Achievement;
 use App\Entity\AchievementList;
+use App\Entity\User;
 
 /**
  * @method Achievement|null find($id, $lockMode = null, $lockVersion = null)
@@ -27,5 +28,18 @@ class AchievementRepository extends AbstractRepository
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findByUser(User $user, User $owner, $offset, $limit): array
+    {
+        $query = $this->createQueryBuilder('t')
+            ->where(':list MEMBER OF t.lists')
+            ->setParameter(':list', $user)
+            ->orderBy('t.doneAt', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+        ;
+
+        return $query->getQuery()->getResult();
     }
 }

@@ -30,10 +30,11 @@ abstract class AbstractEntityNormalizer implements NormalizerInterface
         /** @var \App\Entity\User $innerObject */
         return [
             'id' => $innerObject->getRawId(),
-            'email' => $innerObject->getEmail(),
+            'username' => $innerObject->getUsername(),
+            'firstname' => $innerObject->getFirstname(),
+            'lastname' => $innerObject->getLastname(),
+            'avatar' => $innerObject->getUsername(),
             'isActive' => $innerObject->isActive(),
-            'isBanned' => $innerObject->isBanned(),
-            'isDeleted' => $innerObject->isDeleted(),
         ];
     }
 

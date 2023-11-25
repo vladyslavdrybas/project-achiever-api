@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Transfer\UserEditTransfer;
 use App\Transfer\UserPasswordChangeTransfer;
+use App\ValueResolver\UserValueResolver;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -15,13 +16,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use function var_dump;
+use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 
 #[Route('/user', name: "api_user")]
 class UserController extends AbstractController
 {
     #[Route("/{user}", name: "_profile", methods: ["GET"])]
     public function profile(
+        #[ValueResolver(UserValueResolver::class)]
         User $user
     ): JsonResponse {
         /** @var \App\Entity\User $user */
