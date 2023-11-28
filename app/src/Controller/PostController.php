@@ -27,7 +27,7 @@ class PostController extends AbstractController
         int $offset,
         int $limit
     ): JsonResponse {
-        $achievements = $this->entityManager->getRepository(Achievement::class)->findAll([], $offset, $limit);
+        $achievements = $this->entityManager->getRepository(Achievement::class)->findAll(['createdAt', 'DESC'], $offset, $limit);
         $faker = Factory::create();
 
         $data = [];
@@ -42,6 +42,8 @@ class PostController extends AbstractController
             $data[$key]['thumbnail'] = null;
             $data[$key]['owner'] = $normalized['owner'];
             $data[$key]['data'] = $normalized;
+            $data[$key]['createdAt'] = $normalized['createdAt'];
+            $data[$key]['updatedAt'] = $normalized['updatedAt'];
         }
 
 //        $data = [
