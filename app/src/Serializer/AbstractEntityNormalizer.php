@@ -33,7 +33,7 @@ abstract class AbstractEntityNormalizer implements NormalizerInterface
             'username' => $innerObject->getUsername(),
             'firstname' => $innerObject->getFirstname(),
             'lastname' => $innerObject->getLastname(),
-            'avatar' => $innerObject->getUsername(),
+            'avatar' => $innerObject->getAvatar(),
             'isActive' => $innerObject->isActive(),
         ];
     }

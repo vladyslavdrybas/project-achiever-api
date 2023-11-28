@@ -6,9 +6,7 @@ namespace App\Serializer;
 
 use App\Entity\User;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use function array_key_exists;
 use function in_array;
-use function var_dump;
 
 class UserNormalizer extends AbstractEntityNormalizer
 {

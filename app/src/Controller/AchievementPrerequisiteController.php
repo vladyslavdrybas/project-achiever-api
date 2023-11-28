@@ -62,7 +62,7 @@ class AchievementPrerequisiteController extends AbstractController
                     "id" => "d2d96c54-00fb-4746-9b25-27bc7adecc1e",
                     "title" => "The table was a general chorus of voices asked. 'Why, SHE, of course,' said the Caterpillar. 'Well, I've tried banks, and.",
                     "priority" => 0,
-                    "isRequired" => "yes",
+                    "isRequired" => true,
                     "lists" => [
                         [
                             "id" => "0c3edbb1-2a20-46ed-9557-6a9dee727eb7",
@@ -78,7 +78,7 @@ class AchievementPrerequisiteController extends AbstractController
                     "id" => "aeff5afa-3a43-43cd-ae67-5eabe6d55265",
                     "title" => "The moment Alice appeared, she was as much as she spoke. Alice did not like to be a grin, and she felt certain it must be.",
                     "priority" => 1,
-                    "isRequired" => "no",
+                    "isRequired" => false,
                     "lists" => [
                         [
                             "id" => "0c3edbb1-2a20-46ed-9557-6a9dee727eb7",

@@ -43,10 +43,13 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     protected string $username;
 
     #[ORM\Column( name: "firstname", type: Types::STRING, length: 100, nullable: true)]
-    protected string $firstname;
+    protected ?string $firstname = null;
 
     #[ORM\Column( name: "lastname", type: Types::STRING, length: 100, nullable: true)]
-    protected string $lastname;
+    protected ?string $lastname = null;
+
+    #[ORM\Column( name: "avatar", type: Types::STRING, length: 255, nullable: true)]
+    protected ?string $avatar = null;
 
     #[ORM\Column(name: "password", type: Types::STRING, length: 100, unique: false, nullable: false)]
     protected string $password;
@@ -369,34 +372,50 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFirstname(): string
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
 
     /**
-     * @param string $firstname
+     * @param string|null $firstname
      */
-    public function setFirstname(string $firstname): void
+    public function setFirstname(?string $firstname): void
     {
         $this->firstname = $firstname;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLastname(): string
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
 
     /**
-     * @param string $lastname
+     * @param string|null $lastname
      */
-    public function setLastname(string $lastname): void
+    public function setLastname(?string $lastname): void
     {
         $this->lastname = $lastname;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param string|null $avatar
+     */
+    public function setAvatar(?string $avatar): void
+    {
+        $this->avatar = $avatar;
     }
 }
