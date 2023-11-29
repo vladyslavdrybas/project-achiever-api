@@ -6,7 +6,9 @@ namespace App\Repository;
 
 use App\Entity\Achievement;
 use App\Entity\AchievementList;
+use App\Entity\EntityInterface;
 use App\Entity\User;
+use DateTimeImmutable;
 
 /**
  * @method Achievement|null find($id, $lockMode = null, $lockVersion = null)
@@ -27,6 +29,35 @@ class AchievementRepository extends AbstractRepository
             ->setFirstResult($offset)
             ->setMaxResults($limit)
             ->getQuery()
+            ->getResult();
+    }
+
+    public function findForUserByTimestamp(
+        User $user,
+        int $timestamp,
+        int $offset,
+        int $limit,
+        int $timeRange = EntityInterface::TIME_RANGE_OLDER
+    ): array {
+        $createdAt = (new DateTimeImmutable())->setTimestamp($timestamp);
+
+        $query = $this->createQueryBuilder('t')
+            ->where('t.owner = :owner')
+            ->andWhere('t.createdAt < :createdAt')
+            ->setParameter('owner', $user)
+            ->setParameter('createdAt', $createdAt)
+            ->orderBy('t.createdAt', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+        ;
+
+        if ($timeRange === EntityInterface::TIME_RANGE_OLDER) {
+            $query->andWhere('t.createdAt < :createdAt');
+        } else {
+            $query->andWhere('t.createdAt > :createdAt');
+        }
+
+        return $query->getQuery()
             ->getResult();
     }
 

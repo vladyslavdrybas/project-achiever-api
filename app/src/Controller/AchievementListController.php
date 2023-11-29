@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Constants\RouteConstants;
+use App\Entity\Achievement;
 use App\Entity\AchievementList;
+use App\Entity\EntityInterface;
+use App\Entity\User;
 use App\Repository\AchievementListRepository;
 use App\Security\Permissions;
 use App\Transfer\AchievementListCreateJsonTransfer;
+use App\ValueResolver\UserValueResolver;
+use Faker\Factory;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -40,39 +47,109 @@ class AchievementListController extends AbstractController
     }
 
     #[Route(
-        "/my/owned/{offset}/{limit}",
-        name: "_my_owned_lists",
-        requirements: ['offset' => '\d+', 'limit' => '5|10|20|50'],
-        defaults: ['offset' => 0, 'limit' => 5],
+        "/{user}/own/{timestamp}/{offset}/{limit}/{timeRange}",
+        name: "_user_own_lists",
+        requirements: [
+            'offset' => '\d+',
+            'limit' => RouteConstants::REQUIREMENT_LIST_LIMIT,
+            'timestamp' => '\d+',
+            'timeRange' => 'newer|older',
+        ],
+        defaults: [
+            'offset' => 0,
+            'limit' => 5,
+            'timestamp' => RouteConstants::PARAM_TIMESTAMP_DEFAULT,
+            'timeRange' => 'older',
+        ],
         methods: ["GET"]
     )]
     public function listOwned(
+        #[ValueResolver(UserValueResolver::class)]
+        User $user,
+        int $timestamp,
         int $offset,
         int $limit,
+        string $timeRange,
         AchievementListRepository $achievementListRepository
     ): JsonResponse {
-        $lists = $achievementListRepository->findOwnedLists($this->getUser(), $offset, $limit);
+        $lists = $achievementListRepository->findOwnedLists(
+            $user,
+            $timestamp,
+            $offset,
+            $limit,
+            $timeRange === 'older' ? EntityInterface::TIME_RANGE_OLDER : EntityInterface::TIME_RANGE_NEWER
+        );
+        $faker = Factory::create();
 
-        $data = $this->serializer->normalize($lists);
+        $data= [];
+        foreach ($lists as $key => $list)
+        {
+            $normalized = $this->serializer->normalize($list, Achievement::class);
+
+            $data[$key]['id'] = $faker->uuid();
+            $data[$key]['object'] = 'Post';
+            $data[$key]['type'] = 'list';
+            $data[$key]['thumbnail'] = null;
+            $data[$key]['owner'] = $normalized['owner'];
+            $data[$key]['data'] = $normalized;
+            $data[$key]['data']['achievementsAmount'] = $list->getAchievements()->count();
+            $data[$key]['createdAt'] = $normalized['createdAt'];
+            $data[$key]['updatedAt'] = $normalized['updatedAt'];
+
+        }
 
         return $this->json($data);
     }
 
     #[Route(
-        "/my/share/{offset}/{limit}",
-        name: "_list_of_share",
-        requirements: ['offset' => '\d+', 'limit' => '5|10|20|50'],
-        defaults: ['offset' => 0, 'limit' => 5],
+        "/{user}/share/{timestamp}/{offset}/{limit}/{timeRange}",
+        name: "_user_share_lists",
+        requirements: [
+            'offset' => '\d+',
+            'limit' => RouteConstants::REQUIREMENT_LIST_LIMIT,
+            'timestamp' => '\d+',
+            'timeRange' => 'newer|older',
+        ],
+        defaults: [
+            'offset' => 0,
+            'limit' => 5,
+            'timestamp' => RouteConstants::PARAM_TIMESTAMP_DEFAULT,
+            'timeRange' => 'older',
+        ],
         methods: ["GET"]
     )]
     public function listShare(
+        #[ValueResolver(UserValueResolver::class)]
+        User $user,
+        int $timestamp,
         int $offset,
         int $limit,
+        string $timeRange,
         AchievementListRepository $achievementListRepository
     ): JsonResponse {
-        $lists = $achievementListRepository->findShareLists($this->getUser(), $offset, $limit);
+        $lists = $achievementListRepository->findShareLists(
+            $user,
+            $timestamp,
+            $offset,
+            $limit,
+            $timeRange === 'older' ? EntityInterface::TIME_RANGE_OLDER : EntityInterface::TIME_RANGE_NEWER
+        );
+        $faker = Factory::create();
 
-        $data = $this->serializer->normalize($lists);
+        $data= [];
+        foreach ($lists as $key => $list)
+        {
+            $normalized = $this->serializer->normalize($list, Achievement::class);
+
+            $data[$key]['id'] = $faker->uuid();
+            $data[$key]['object'] = 'Post';
+            $data[$key]['type'] = 'list';
+            $data[$key]['thumbnail'] = null;
+            $data[$key]['owner'] = $normalized['owner'];
+            $data[$key]['data'] = $normalized;
+            $data[$key]['createdAt'] = $normalized['createdAt'];
+            $data[$key]['updatedAt'] = $normalized['updatedAt'];
+        }
 
         return $this->json($data);
     }

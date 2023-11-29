@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\AchievementList;
+use App\Entity\EntityInterface;
 use App\Entity\User;
 use App\Security\Permissions;
+use DateTimeImmutable;
 use Doctrine\ORM\Query\Expr\Join;
-use function var_dump;
 
 /**
  * @method AchievementList|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,44 +21,63 @@ use function var_dump;
  */
 class AchievementListRepository extends AbstractRepository
 {
-    /**
-     * @param \App\Entity\User $user
-     * @param int $offset
-     * @param int $limit
-     * @return AchievementList[]
-     */
-    public function findOwnedLists(User $user, int $offset, int $limit): array
-    {
-        return $this->createQueryBuilder('t')
+
+    public function findOwnedLists(
+        User $user,
+        int $timestamp,
+        int $offset,
+        int $limit,
+        int $timeRange = EntityInterface::TIME_RANGE_OLDER
+    ): array {
+        $createdAt = (new DateTimeImmutable())->setTimestamp($timestamp);
+
+         $query = $this->createQueryBuilder('t')
             ->where('t.owner = :owner')
             ->setParameter('owner', $user)
+            ->setParameter('createdAt', $createdAt)
             ->setFirstResult($offset)
             ->setMaxResults($limit)
             ->orderBy('t.createdAt', 'DESC')
-            ->getQuery()
-            ->getResult()
         ;
+
+         if ($timeRange === EntityInterface::TIME_RANGE_OLDER) {
+             $query->andWhere('t.createdAt < :createdAt');
+         } else {
+             $query->andWhere('t.createdAt > :createdAt');
+         }
+
+        return $query->getQuery()
+            ->getResult();
     }
 
-    /**
-     * @param \App\Entity\User $user
-     * @param int $offset
-     * @param int $limit
-     * @return AchievementList[]
-     */
-    public function findShareLists(User $user, int $offset, int $limit): array
-    {
-        return $this->createQueryBuilder('t')
+    public function findShareLists(
+        User $user,
+        int $timestamp,
+        int $offset,
+        int $limit,
+        int $timeRange = EntityInterface::TIME_RANGE_OLDER
+    ): array {
+        $createdAt = (new DateTimeImmutable())->setTimestamp($timestamp);
+
+        $query =  $this->createQueryBuilder('t')
             ->join('t.listGroupRelations', 'tug')
             ->join('tug.userGroupRelations', 'tugr')
             ->where('tugr.member = :member')
             ->setParameter('member', $user)
+            ->setParameter('createdAt', $createdAt)
             ->setFirstResult($offset)
             ->setMaxResults($limit)
             ->orderBy('t.createdAt', 'DESC')
-            ->getQuery()
-            ->getResult()
         ;
+
+        if ($timeRange === EntityInterface::TIME_RANGE_OLDER) {
+            $query->andWhere('t.createdAt < :createdAt');
+        } else {
+            $query->andWhere('t.createdAt > :createdAt');
+        }
+
+        return $query->getQuery()
+            ->getResult();
     }
 
     /**
