@@ -43,7 +43,3 @@ ubuntu-docker-compose-install:
 	curl -SL https://github.com/docker/compose/releases/download/v2.23.0/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
 	chmod +x ~/.docker/cli-plugins/docker-compose
 	docker compose version
-
-grep-logs-from-server:
-	scp -r root@194.33.180.50:/var/www/api/tmp/log ./tmp/log/server
-	scp -r root@194.33.180.50:/var/www/api/app/var/log ./tmp/log/server/symfony
